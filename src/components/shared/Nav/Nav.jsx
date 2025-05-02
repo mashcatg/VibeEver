@@ -93,24 +93,25 @@ const Nav = () => {
       </ul>
 
       <div className="flex items-center gap-4">
-        <ExpandedIconButton
-          text="DASHBOARD"
-          icon={
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M14.8571 0H1.14286C0.839753 0 0.549062 0.120408 0.334735 0.334735C0.120408 0.549062 0 0.839749 0 1.14285V14.8571C0 15.1602 0.120408 15.4509 0.334735 15.6653C0.549062 15.8796 0.839753 16 1.14286 16H14.8571C15.1602 16 15.4509 15.8796 15.6653 15.6653C15.8796 15.4509 16 15.1602 16 14.8571V1.14285C16 0.839749 15.8796 0.549062 15.6653 0.334735C15.4509 0.120408 15.1602 0 14.8571 0ZM13.7143 2.28571V6.85714H9.14286V2.28571H13.7143ZM6.85714 2.28571V6.85714H2.28571V2.28571H6.85714ZM2.28571 13.7143V9.14283H6.85714V13.7143H2.28571ZM9.14286 13.7143V9.14283H13.7143V13.7143H9.14286Z"
-                fill="#372F46"
-              />
-            </svg>
-          }
-          size="3rem"
-          buttonBgColor="white"
-          buttonHoverBgColor="primary"
-          buttonTextColor="text-body"
-          buttonTextHoverColor="white"
-          onClick={() => (window.location.href = "/dashboard")}
-          className="hidden md:flex"
-        />
+        <div className="hidden md:block">
+          <ExpandedIconButton
+            text="DASHBOARD"
+            icon={
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M14.8571 0H1.14286C0.839753 0 0.549062 0.120408 0.334735 0.334735C0.120408 0.549062 0 0.839749 0 1.14285V14.8571C0 15.1602 0.120408 15.4509 0.334735 15.6653C0.549062 15.8796 0.839753 16 1.14286 16H14.8571C15.1602 16 15.4509 15.8796 15.6653 15.6653C15.8796 15.4509 16 15.1602 16 14.8571V1.14285C16 0.839749 15.8796 0.549062 15.6653 0.334735C15.4509 0.120408 15.1602 0 14.8571 0ZM13.7143 2.28571V6.85714H9.14286V2.28571H13.7143ZM6.85714 2.28571V6.85714H2.28571V2.28571H6.85714ZM2.28571 13.7143V9.14283H6.85714V13.7143H2.28571ZM9.14286 13.7143V9.14283H13.7143V13.7143H9.14286Z"
+                  fill="#372F46"
+                />
+              </svg>
+            }
+            size="3rem"
+            buttonBgColor="white"
+            buttonHoverBgColor="primary"
+            buttonTextColor="text-body"
+            buttonTextHoverColor="white"
+            onClick={() => (window.location.href = "/dashboard")}
+          />
+        </div>
 
         {/* Cart Button */}
         <CircularButton

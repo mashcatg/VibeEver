@@ -12,19 +12,22 @@ const CircularButton = ({ children, onClick, indicator = "", size = "", bg_color
   // Function to handle special cases like "white"
   const getBgColorClass = (color) => {
     if (color === "white") return "bg-white";
+    if (color === "neutral-default") return "bg-neutral-default";
+    if (color === "primary") return "bg-primary";
     return `bg-${color}`;
   };
 
   // Function to handle hover background color
   const getHoverBgColorClass = (color) => {
     if (color === "white") return "after:bg-white";
+    if (color === "neutral-default") return "after:bg-neutral-default";
+    if (color === "primary") return "after:bg-primary";
     return `after:bg-${color}`;
   };
 
   // Function to handle text colors
   const getTextColorClass = (color) => {
     if (color === "white") return "text-white";
-    if (color === "red") return "text-red-500";
     return `text-${color}`;
   };
 
