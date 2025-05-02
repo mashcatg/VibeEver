@@ -9,6 +9,13 @@
 
   /* Colors */
   --primary-color: #5d17ea;
+  --primary-color-dark: #370d8c;
+  --text-body: #372f46;
+  --neutral-default: #e7e4ec;
+  --neutral-border: #a398b9;
+
+  /* font size */
+  --font-size-footnote: 0.625rem; /* 10px */
 }
 
 /* Tailwind CSS Configs */
@@ -26,6 +33,13 @@
 
   /* Colors */
   --color-primary: var(--primary-color);
+  --color-primary-dark: var(--primary-color-dark);
+  --color-text-body: var(--text-body);
+  --color-neutral-default: var(--neutral-default);
+  --color-neutral-border: var(--neutral-border);
+
+  /* font size */
+  --text-footnote: var(--font-size-footnote);
 }
 
 /* Others */
@@ -35,6 +49,10 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+p {
+  color: var(--color-text-body);
 }
 
 /* media queries */
@@ -49,4 +67,39 @@ html {
   html {
     font-size: 1.11vw;
   }
+}
+
+/* effects */
+
+/* Vertical text swap effect */
+.vertical-text-swap {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  text-decoration: none;
+  padding: 0.3125rem;
+}
+
+.vertical-text-swap span {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.3s ease-out;
+}
+
+.vertical-text-swap span:nth-child(1) {
+  transform: translateY(0);
+}
+
+.vertical-text-swap span:nth-child(2) {
+  position: absolute;
+  left: 0.3125rem;
+  transform: translateY(100%);
+}
+
+.vertical-text-swap:hover span:nth-child(1) {
+  transform: translateY(-100%);
+}
+
+.vertical-text-swap:hover span:nth-child(2) {
+  transform: translateY(0);
 }
