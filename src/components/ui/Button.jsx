@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import VerticalTextSwap from "./VerticalTextSwap";
 
-const CircularButton = ({ children, onClick, indicator = "", size = "", bg_color, hover_bg_color, text_color, text_hover_color, isGroupHover = false }) => {
+const CircularButton = ({ children, onClick, indicator = "", size = "", bg_color, hover_bg_color, text_color, text_hover_color, isGroupHover = false, className = "" }) => {
   const [isHovered, setIsHovered] = useState(isGroupHover);
 
   // Update internal hover state when isGroupHover prop changes
@@ -21,6 +21,7 @@ const CircularButton = ({ children, onClick, indicator = "", size = "", bg_color
   const getHoverBgColorClass = (color) => {
     if (color === "white") return "after:bg-white";
     if (color === "neutral-default") return "after:bg-neutral-default";
+    if (color === "neutral-border") return "after:bg-neutral-border";
     if (color === "primary") return "after:bg-primary";
     return `after:bg-${color}`;
   };
@@ -38,7 +39,7 @@ const CircularButton = ({ children, onClick, indicator = "", size = "", bg_color
         isHovered ? getTextColorClass(text_hover_color) : getTextColorClass(text_color)
       } transition-all duration-300 ease-in-out p-4 after:content-[''] after:absolute after:top-0 after:left-0 after:w-full after:h-full ${getHoverBgColorClass(
         hover_bg_color
-      )} after:rounded-full after:transition-all after:duration-300 after:ease-in-out ${isHovered ? `after:scale-100` : `after:scale-0`}`}
+      )} after:rounded-full after:transition-all after:duration-300 after:ease-in-out ${isHovered ? `after:scale-100` : `after:scale-0`} ${className}`}
       style={{ width: size, height: size }}
       onMouseEnter={() => !isGroupHover && setIsHovered(true)}
       onMouseLeave={() => !isGroupHover && setIsHovered(false)}
