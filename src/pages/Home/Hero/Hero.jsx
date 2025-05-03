@@ -43,7 +43,7 @@ const Hero = () => {
                 />
               </svg>
 
-              <p className={`${is_search_focused ? "text-text-body" : "text-neutral-caption"} font-semibold transition-all duration-300 ease-in-out`}>
+              <p className={`${is_search_focused ? "text-text-body" : "text-neutral-caption"} font-semibold transition-all duration-300 ease-in-out hidden sm:block`}>
                 GRAPHICS
               </p>
             </div>
