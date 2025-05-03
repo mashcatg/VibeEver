@@ -14,6 +14,7 @@
   --neutral-default: #e7e4ec;
   --neutral-border: #a398b9;
   --neutral-caption: #8A7CA6;
+  --neutral-subtitle: #6E5F8C;
 
   /* font size */
   --font-size-h1: 3.8125rem; /* 61px */
@@ -72,6 +73,7 @@
   --color-neutral-default: var(--neutral-default);
   --color-neutral-border: var(--neutral-border);
   --color-neutral-caption: var(--neutral-caption);
+  --color-neutral-subtitle: var(--neutral-subtitle);
 
   /* font size */
   --text-h1: var(--font-size-h1);

@@ -6,7 +6,7 @@ const Hero = () => {
   const [is_search_hovered, set_is_search_hovered] = useState(false);
   const [is_search_focused, set_is_search_focused] = useState(false);
   return (
-    <section className="bg-primary rounded-4xl">
+    <section className="bg-primary rounded-4xl overflow-hidden">
       <div
         className="flex flex-col items-center justify-center pt-20 sm:pt-[10rem] pb-20 sm:pb-[7.6875rem] text-center text-white"
         style={{
