@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import "tailwindcss";
+@tailwind utilities;
 
 /* custom css variables */
 :root {
@@ -13,8 +14,9 @@
   --text-body: #372f46;
   --neutral-default: #e7e4ec;
   --neutral-border: #a398b9;
-  --neutral-caption: #8A7CA6;
-  --neutral-subtitle: #6E5F8C;
+  --neutral-caption: #8a7ca6;
+  --neutral-subtitle: #6e5f8c;
+  --neutral-subtle: #f4f3f7;
 
   /* font size */
   --font-size-h1: 3.8125rem; /* 61px */
@@ -23,6 +25,7 @@
   --font-size-h4: 1.9375rem; /* 31px */
   --font-size-footnote: 0.625rem; /* 10px */
   --font-size-caption: 0.8125rem; /* 13px */
+  --font-size-headline: 1.5625rem; /* 25px */
 
   /* line height */
   --line-height-h1: 4.575rem; /* 73.2px */
@@ -31,6 +34,24 @@
   --line-height-h4: 2.325rem; /* 37.2px */
   --line-height-footnote: 0.9375rem; /* 15px */
   --line-height-caption: 1.25rem; /* 20px */
+  --line-height-headline: 2.375rem; /* 38px */
+
+  /* border radius */
+  --border-radius-20: 1.25rem; /* 20px */
+  --border-radius-5xl: 2.5rem; /* 40px */
+
+  /* letter spacing */
+  --tracking-125: 0.0781rem; /* 1.25px */
+}
+
+@layer utilities {
+  .rounded-20 {
+    border-radius: var(--border-radius-20);
+  }
+
+  .rounded-5xl {
+    border-radius: var(--border-radius-5xl);
+  }
 }
 
 /* Tailwind CSS Configs */
@@ -74,6 +95,7 @@
   --color-neutral-border: var(--neutral-border);
   --color-neutral-caption: var(--neutral-caption);
   --color-neutral-subtitle: var(--neutral-subtitle);
+  --color-neutral-subtle: var(--neutral-subtle);
 
   /* font size */
   --text-h1: var(--font-size-h1);
@@ -82,6 +104,7 @@
   --text-h4: var(--font-size-h4);
   --text-footnote: var(--font-size-footnote);
   --text-caption: var(--font-size-caption);
+  --text-headline: var(--font-size-headline);
 
   /* line height */
   --leading-h1: var(--line-height-h1);
@@ -90,6 +113,10 @@
   --leading-h4: var(--line-height-h4);
   --leading-footnote: var(--line-height-footnote);
   --leading-caption: var(--line-height-caption);
+  --leading-headline: var(--line-height-headline);
+
+  /* letter spacing */
+  --tracking-125: var(--tracking-125);
 }
 
 /* Others */
