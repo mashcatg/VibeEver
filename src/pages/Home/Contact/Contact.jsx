@@ -32,6 +32,13 @@ const ContactInfo = ({ icon, text, label }) => {
 };
 
 const Contact = () => {
+  // form submit handler
+  const submit_handler = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    console.log(data);
+  };
   return (
     <div className="pt-10 pb-20">
       <SectionHead
@@ -51,7 +58,7 @@ const Contact = () => {
 
       <div className="max-w-[69rem] mx-auto md:px-10 flex flex-col md:flex-row gap-16">
         {/* contact form */}
-        <form className="w-full md:w-lg flex flex-col gap-5">
+        <form onSubmit={submit_handler} className="w-full md:w-lg flex flex-col gap-5">
           {/* name */}
           <Input name="contact_name" id="contact_name" type="text" label="Your Name" placeholder="Anisur R." is_required />
 
