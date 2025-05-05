@@ -46,7 +46,7 @@ const Tooltip = ({ text, bg_color, text_color, arrow_position, className }) => {
     >
       <div className="px-1.5 relative">
         <div className={`absolute ${getArrowPositionClass(arrow_position)}`}>
-          <svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-2 h-2">
             <path
               d="M2.8006 0.500002C3.1855 -0.166665 4.14775 -0.166666 4.53265 0.500001L7.13073 5C7.51563 5.66667 7.0345 6.5 6.2647 6.5L1.06855 6.5C0.298749 6.5 -0.182377 5.66667 0.202523 5L2.8006 0.500002Z"
               //   fill="currentColor"

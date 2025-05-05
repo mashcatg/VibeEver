@@ -88,7 +88,7 @@ const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_h
               text_hover_color={is_search_focused ? "" : "neutral-caption"}
               className="border-2 border-neutral-default transition-colors duration-300"
             >
-              <svg width={22} height={16} viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[1.375rem] h-4">
                 <path
                   d="M2.46875 0C1.38184 0 0.5 0.895833 0.5 2C0.5 2.62917 0.791211 3.22083 1.2875 3.6L10.2125 10.4C10.6801 10.7542 11.3199 10.7542 11.7875 10.4L20.7125 3.6C21.2088 3.22083 21.5 2.62917 21.5 2C21.5 0.895833 20.6182 0 19.5312 0H2.46875ZM0.5 4.66667V13.3333C0.5 14.8042 1.67715 16 3.125 16H18.875C20.3229 16 21.5 14.8042 21.5 13.3333V4.66667L12.575 11.4667C11.6398 12.1792 10.3602 12.1792 9.425 11.4667L0.5 4.66667Z"
                   fill="#372F46"
@@ -146,7 +146,7 @@ const StatsWithFilter = ({ stats, filter_handler }) => {
       <ExpandedIconButton
         text="filter"
         icon={
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4">
             <path
               fill-rule="evenodd"
               clip-rule="evenodd"
@@ -183,7 +183,7 @@ const Card = ({ title, description }) => {
         className="border-2 border-neutral-default transition-colors duration-300"
         isGroupHover={isHovered}
       >
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4">
           <path
             fill-rule="evenodd"
             clip-rule="evenodd"
