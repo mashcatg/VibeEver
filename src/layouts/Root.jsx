@@ -8,7 +8,7 @@ const Root = () => {
 
   return (
     <>
-      {pathname === "/" && <GridOverlay />}
+      {(pathname === "/" || pathname === "/products") && <GridOverlay />}
 
       <div className="relative max-w-primary w-primary mx-auto z-10">
         <Nav />

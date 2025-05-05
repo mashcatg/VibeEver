@@ -42,7 +42,7 @@ const Nav = () => {
 
   const nav_links = [
     { name: "Home", path: "/" },
-    { name: "Products", path: "/" },
+    { name: "Products", path: "/products" },
     { name: "Assets", path: "/" },
     { name: "Templates", path: "/" },
   ];
