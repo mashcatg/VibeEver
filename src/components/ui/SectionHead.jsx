@@ -41,7 +41,7 @@ const DecorativeElements = () => {
   );
 };
 
-const Head = ({ title, description, circle_btn_text, on_circuler_btn_click, submit_handler }) => {
+const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_handler, submit_handler }) => {
   const [is_search_focused, set_is_search_focused] = useState(false);
   return (
     <div className="flex flex-col md:flex-row justify-between">
@@ -110,7 +110,7 @@ const Head = ({ title, description, circle_btn_text, on_circuler_btn_click, subm
           hover_bg_color="black"
           text_color="text-body"
           text_hover_color="white"
-          onClick={on_circuler_btn_click}
+          onClick={circuler_btn_handler}
           className="transition-colors duration-300 mx-auto"
         >
           <VerticalTextSwap>
@@ -202,9 +202,9 @@ const Card = ({ title, description }) => {
   );
 };
 
-const SectionHead = ({ title, description, circle_btn_text, on_circuler_btn_click, submit_handler, filter_handler, stats, cards }) => {
+const SectionHead = ({ title, description, circle_btn_text, circuler_btn_handler, submit_handler, filter_handler, stats, cards, extra_section }) => {
   return (
-    <section className="relative">
+    <section className="relative my-10">
       {/* Decorative UI elements - these create abstract shapes for visual interest */}
       <DecorativeElements></DecorativeElements>
 
@@ -216,13 +216,13 @@ const SectionHead = ({ title, description, circle_btn_text, on_circuler_btn_clic
         }}
       >
         {/* Head */}
-        <Head
+        <SectionHeadHeader
           title={title}
           description={description}
           circle_btn_text={circle_btn_text}
-          on_circuler_btn_click={on_circuler_btn_click}
+          circuler_btn_handler={circuler_btn_handler}
           submit_handler={submit_handler}
-        ></Head>
+        ></SectionHeadHeader>
 
         {/* Stats with filter */}
         {stats && <StatsWithFilter stats={stats} filter_handler={filter_handler}></StatsWithFilter>}
@@ -235,9 +235,13 @@ const SectionHead = ({ title, description, circle_btn_text, on_circuler_btn_clic
             ))}
           </div>
         )}
+
+        {/* Extra section for additional content */}
+        {extra_section && <>{extra_section}</>}
       </div>
     </section>
   );
 };
 
+export { SectionHeadHeader, DecorativeElements, StatsWithFilter, Card };
 export default SectionHead;

@@ -1,6 +1,8 @@
+import productImage from "../../assets/images/product.jpeg";
 import Hero from "./Hero/Hero";
 import TrustSection from "./TrustSection/TrustSection";
 import SectionHead from "../../components/ui/SectionHead";
+import FeaturedProducts from "../../components/shared/FeaturedProducts/FeaturedProducts";
 
 const Home = () => {
   return (
@@ -40,6 +42,58 @@ const Home = () => {
           },
         ]}
       ></SectionHead>
+      <FeaturedProducts
+        products={[
+          {
+            id: 1,
+            image: productImage,
+            title: "Landing page React & Tailwind CSS code Snippets",
+            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
+            price: 22.5,
+            regular_price: 37.5,
+          },
+          {
+            id: 2,
+            image: productImage,
+            title: "Landing page React & Tailwind CSS code Snippets",
+            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
+            price: 22.5,
+            regular_price: 37.5,
+          },
+          {
+            id: 3,
+            image: productImage,
+            title: "Landing page React & Tailwind CSS code Snippets",
+            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
+            price: 22.5,
+            regular_price: 37.5,
+          },
+          {
+            id: 4,
+            image: productImage,
+            title: "Landing page React & Tailwind CSS code Snippets",
+            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
+            price: 22.5,
+            regular_price: 37.5,
+          },
+          {
+            id: 5,
+            image: productImage,
+            title: "Landing page React & Tailwind CSS code Snippets",
+            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
+            price: 22.5,
+            regular_price: 37.5,
+          },
+          {
+            id: 6,
+            image: productImage,
+            title: "Landing page React & Tailwind CSS code Snippets",
+            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
+            price: 22.5,
+            regular_price: 37.5,
+          },
+        ]}
+      ></FeaturedProducts>
     </div>
   );
 };

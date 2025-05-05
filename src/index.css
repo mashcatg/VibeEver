@@ -7,16 +7,31 @@
   /* General */
   --primary-max-width: 1360px;
   --primary-width: 94.44%;
+  --product-image-height: 18.75rem; /* 300px */
 
   /* Colors */
   --primary-color: #5d17ea;
   --primary-color-dark: #370d8c;
   --text-body: #372f46;
+  --main-price: #8651ef;
   --neutral-default: #e7e4ec;
   --neutral-border: #a398b9;
   --neutral-caption: #8a7ca6;
   --neutral-subtitle: #6e5f8c;
   --neutral-subtle: #f4f3f7;
+  --neutral-200: #d1cbdc;
+  --blue-50: #e8f9fd;
+  --blue-100: #d0f4fb;
+  --blue-200: #a1e9f7;
+  --blue-400: #43d2ef;
+  --blue-500: #17c7eb;
+  --blue-700: #0c778d;
+  --blue-900: #04282f;
+  --purple-50: #efe8fd;
+  --purple-200: #bea1f7;
+  --purple-400: #7d44ee;
+  --purple-700: #370d8c;
+  --purple-900: #12042f;
 
   /* font size */
   --font-size-h1: 3.8125rem; /* 61px */
@@ -42,6 +57,9 @@
 
   /* letter spacing */
   --tracking-125: 0.0781rem; /* 1.25px */
+
+  /* spacing */
+  --spacing-1: 0.0625rem; /* 1px */
 }
 
 @layer utilities {
@@ -86,16 +104,35 @@
   /* General */
   --max-width-primary: var(--primary-max-width);
   --width-primary: var(--primary-width);
+  --height-product-image: var(--product-image-height);
 
   /* Colors */
   --color-primary: var(--primary-color);
   --color-primary-dark: var(--primary-color-dark);
   --color-text-body: var(--text-body);
+  --color-main-price: var(--main-price);
   --color-neutral-default: var(--neutral-default);
   --color-neutral-border: var(--neutral-border);
   --color-neutral-caption: var(--neutral-caption);
   --color-neutral-subtitle: var(--neutral-subtitle);
   --color-neutral-subtle: var(--neutral-subtle);
+  --color-neutral-50: var(--neutral-subtle);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-400: var(--color-neutral-caption);
+  --color-neutral-700: var(--color-neutral-subtitle);
+  --color-neutral-900: var(--color-text-body);
+  --color-blue-50: var(--blue-50);
+  --color-blue-100: var(--blue-100);
+  --color-blue-200: var(--blue-200);
+  --color-blue-400: var(--blue-400);
+  --color-blue-500: var(--blue-500);
+  --color-blue-700: var(--blue-700);
+  --color-blue-900: var(--blue-900);
+  --color-purple-50: var(--purple-50);
+  --color-purple-200: var(--purple-200);
+  --color-purple-400: var(--purple-400);
+  --color-purple-700: var(--purple-700);
+  --color-purple-900: var(--purple-900);
 
   /* font size */
   --text-h1: var(--font-size-h1);
@@ -117,6 +154,9 @@
 
   /* letter spacing */
   --tracking-125: var(--tracking-125);
+
+  /* spacing */
+  --gap-xxs: var(--spacing-1);
 }
 
 /* Others */
@@ -124,8 +164,10 @@
   font-family: "Poppins", sans-serif;
 }
 
-html {
+html,
+body {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /* media queries */

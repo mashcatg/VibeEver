@@ -25,6 +25,9 @@ const CircularButton = ({
     if (color === "white") return "bg-white";
     if (color === "neutral-default") return "bg-neutral-default";
     if (color === "primary") return "bg-primary";
+    if (color === "blue-50") return "bg-blue-50";
+    if (color === "purple-50") return "bg-purple-50";
+    if (color === "neutral-50") return "bg-neutral-50";
     return `bg-${color}`;
   };
 
@@ -35,12 +38,21 @@ const CircularButton = ({
     if (color === "neutral-default") return "after:bg-neutral-default";
     if (color === "neutral-border") return "after:bg-neutral-border";
     if (color === "primary") return "after:bg-primary";
+    if (color === "blue-200") return "after:bg-blue-200";
+    if (color === "purple-200") return "after:bg-purple-200";
+    if (color === "neutral-200") return "after:bg-neutral-200";
     return `after:bg-${color}`;
   };
 
   // Function to handle text colors
   const getTextColorClass = (color) => {
     if (color === "white") return "text-white";
+    if (color === "blue-700") return "text-blue-700";
+    if (color === "blue-900") return "text-blue-900";
+    if (color === "purple-700") return "text-purple-700";
+    if (color === "purple-900") return "text-purple-900";
+    if (color === "neutral-700") return "text-neutral-700";
+    if (color === "neutral-900") return "text-neutral-900";
     return `text-${color}`;
   };
 
