@@ -28,6 +28,7 @@ const CircularButton = ({
     if (color === "blue-50") return "bg-blue-50";
     if (color === "purple-50") return "bg-purple-50";
     if (color === "neutral-50") return "bg-neutral-50";
+    if (color === "social-linkedin") return "bg-social-linkedin";
     return `bg-${color}`;
   };
 

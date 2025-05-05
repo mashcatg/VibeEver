@@ -101,7 +101,7 @@ const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_h
 
       {/* Right side with description and CTA button */}
       <div className="relative pt-10 sm:pt-[5.125rem] flex flex-col sm:flex-row gap-14">
-        {description && <h4 className="tracking-[-0.0938rem] max-w-[21.9375rem]">{description}</h4>}
+        {description && <h4 className="-tracking-150 max-w-[21.9375rem]">{description}</h4>}
 
         {/* Call-to-action circular button with text swap animation */}
         <CircularButton
@@ -129,8 +129,8 @@ const StatsWithFilter = ({ stats, filter_handler }) => {
       <div className="flex flex-wrap md:flex-nowrap items-center justify-center md:justify-between gap-6 sm:gap-8 md:gap-14">
         {stats.map((stat, i) => (
           <div key={i} className="flex items-center gap-2.5">
-            <h3 className="font-semibold text-[3.375rem] tracking-[-0.1875rem]">{stat.count}+</h3>
-            <h4 className="text-2xl leading-6 tracking-[-0.0938rem] uppercase font-medium">
+            <h3 className="font-semibold text-[3.375rem] -tracking-300">{stat.count}+</h3>
+            <h4 className="text-2xl leading-6 -tracking-150 uppercase font-medium">
               {stat?.text?.split(" ")?.map((word, index) => (
                 <span key={index}>
                   {word}

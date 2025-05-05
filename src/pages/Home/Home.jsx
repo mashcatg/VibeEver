@@ -3,12 +3,15 @@ import Hero from "./Hero/Hero";
 import TrustSection from "./TrustSection/TrustSection";
 import SectionHead from "../../components/ui/SectionHead";
 import FeaturedProducts from "../../components/shared/FeaturedProducts/FeaturedProducts";
+import FAQs from "../../components/shared/FAQs/FAQs";
 
 const Home = () => {
   return (
     <div>
       <Hero></Hero>
+
       <TrustSection></TrustSection>
+
       <SectionHead
         title={
           <>
@@ -42,6 +45,7 @@ const Home = () => {
           },
         ]}
       ></SectionHead>
+
       <FeaturedProducts
         products={[
           {
@@ -94,6 +98,36 @@ const Home = () => {
           },
         ]}
       ></FeaturedProducts>
+
+      <FAQs
+        faqs={[
+          {
+            question: "Here is a demo question to ask by us?",
+            answer:
+              "Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question.",
+          },
+          {
+            question: "Here is a demo question to ask by us?",
+            answer:
+              "Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question.",
+          },
+          {
+            question: "Here is a demo question to ask by us?",
+            answer:
+              "Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question.",
+          },
+          {
+            question: "Here is a demo question to ask by us?",
+            answer:
+              "Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question.",
+          },
+          {
+            question: "Here is a demo question to ask by us?",
+            answer:
+              "Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question.",
+          },
+        ]}
+      ></FAQs>
     </div>
   );
 };

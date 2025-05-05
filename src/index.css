@@ -32,6 +32,7 @@
   --purple-400: #7d44ee;
   --purple-700: #370d8c;
   --purple-900: #12042f;
+  --social-linkedin: #006699;
 
   /* font size */
   --font-size-h1: 3.8125rem; /* 61px */
@@ -43,6 +44,7 @@
   --font-size-headline: 1.5625rem; /* 25px */
 
   /* line height */
+  --line-height-body: 1.875rem; /* 30px */
   --line-height-h1: 4.575rem; /* 73.2px */
   --line-height-h2: 3.675rem; /* 58.8px */
   --line-height-h3: 2.925rem; /* 46.8px */
@@ -57,6 +59,8 @@
 
   /* letter spacing */
   --tracking-125: 0.0781rem; /* 1.25px */
+  --tracking-150: 0.0938rem; /* 1.5px */
+  --tracking-300: 0.1875rem; /* 3px */
 
   /* spacing */
   --spacing-1: 0.0625rem; /* 1px */
@@ -133,6 +137,7 @@
   --color-purple-400: var(--purple-400);
   --color-purple-700: var(--purple-700);
   --color-purple-900: var(--purple-900);
+  --color-social-linkedin: var(--social-linkedin);
 
   /* font size */
   --text-h1: var(--font-size-h1);
@@ -144,6 +149,7 @@
   --text-headline: var(--font-size-headline);
 
   /* line height */
+  --leading-body: var(--line-height-body);
   --leading-h1: var(--line-height-h1);
   --leading-h2: var(--line-height-h2);
   --leading-h3: var(--line-height-h3);
@@ -154,6 +160,8 @@
 
   /* letter spacing */
   --tracking-125: var(--tracking-125);
+  --tracking-150: var(--tracking-150);
+  --tracking-300: var(--tracking-300);
 
   /* spacing */
   --gap-xxs: var(--spacing-1);
