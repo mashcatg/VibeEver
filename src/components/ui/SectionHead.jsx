@@ -46,7 +46,7 @@ const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_h
   return (
     <div className="flex flex-col md:flex-row justify-between">
       <div className="grow">
-        <h2 className="text-7xl sm:text-[5.75rem] font-bold leading-[5.175rem] tracking-[-0.125rem] uppercase pt-20 md:pt-0">{title}</h2>
+        <h2 className="text-6xl sm:text-[5.75rem] font-bold leading-16 sm:leading-[5.175rem] tracking-[-0.125rem] uppercase pt-20 md:pt-0">{title}</h2>
 
         {/* Email input with floating label animation */}
         {submit_handler && (
