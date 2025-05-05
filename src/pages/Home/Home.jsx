@@ -5,8 +5,10 @@ import SectionHead from "../../components/ui/SectionHead";
 import FeaturedProducts from "../../components/shared/FeaturedProducts/FeaturedProducts";
 import FAQs from "../../components/shared/FAQs/FAQs";
 import Contact from "./Contact/Contact";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <Hero></Hero>
@@ -48,6 +50,19 @@ const Home = () => {
       ></SectionHead>
 
       <FeaturedProducts
+        section_head_title={
+          <>
+            FEATURED <br /> PRODUCTS
+          </>
+        }
+        section_head_stats={[
+          {
+            count: 1250,
+            text: "Ready Templates",
+          },
+        ]}
+        section_head_circle_btn_text="View All"
+        section_head_circuler_btn_handler={() => navigate("/products")}
         products={[
           {
             id: 1,

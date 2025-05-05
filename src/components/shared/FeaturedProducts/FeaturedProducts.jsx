@@ -1,27 +1,26 @@
 import SectionHead from "../../ui/SectionHead";
 import ProductCard from "../../ui/ProductCard";
 import { CircularButton } from "../../ui/Button";
-import { useNavigate } from "react-router-dom";
 
-const FeaturedProducts = ({ products }) => {
-  const navigate = useNavigate();
+const FeaturedProducts = ({
+  section_head_title,
+  section_head_stats,
+  section_head_circle_btn_text,
+  section_head_circuler_btn_handler,
+  section_head_filter_handler,
+  products,
+  children,
+}) => {
   return (
     <div>
       {/* section header */}
       <SectionHead
-        title={
-          <>
-            FEATURED <br /> PRODUCTS
-          </>
-        }
-        circle_btn_text="View All"
-        circuler_btn_handler={() => navigate("/products")}
-        stats={[
-          {
-            count: 1250,
-            text: "Ready Templates",
-          },
-        ]}
+        title={section_head_title}
+        circle_btn_text={section_head_circle_btn_text}
+        circuler_btn_handler={section_head_circuler_btn_handler}
+        stats={section_head_stats}
+        filter_handler={section_head_filter_handler}
+        extra_section={children}
       ></SectionHead>
 
       {/* products */}
