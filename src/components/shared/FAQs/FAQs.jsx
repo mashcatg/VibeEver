@@ -38,7 +38,7 @@ const FaqCard = ({ question, answer }) => {
 
 const FAQs = ({ faqs }) => {
   return (
-    <div>
+    <div className="mb-20">
       {/* section header */}
       <SectionHead
         title={

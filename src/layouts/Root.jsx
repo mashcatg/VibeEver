@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Nav from "../components/shared/Nav/Nav";
+import Footer from "../components/shared/Footer/Footer";
 import GridOverlay from "../components/ui/GridOverlay";
 
 const Root = () => {
@@ -13,6 +14,7 @@ const Root = () => {
         <Nav />
         <Outlet></Outlet>
       </div>
+      <Footer />
     </>
   );
 };

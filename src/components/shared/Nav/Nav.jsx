@@ -1,4 +1,4 @@
-import logo from "../../../assets/images/logo.png";
+import logo from "../../../assets/images/logo.svg";
 import { Link, NavLink } from "react-router-dom";
 import VerticalTextSwap from "../../ui/VerticalTextSwap";
 import { CircularButton, ExpandedIconButton } from "../../ui/Button";
