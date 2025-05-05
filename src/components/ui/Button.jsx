@@ -97,6 +97,7 @@ if (typeof document !== "undefined") {
 
 const ExpandedIconButton = ({
   text,
+  textColor = "text-body",
   icon,
   size = "3rem",
   bgColor = "neutral-default",
@@ -106,18 +107,26 @@ const ExpandedIconButton = ({
   buttonTextHoverColor = "white",
   onClick = () => {},
   className = "",
+  circleBtnClassName = "",
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  // Function to handle text colors
+  const getTextColorClass = (color) => {
+    if (color === "text-body") return "text-text-body";
+    if (color === "neutral-subtle") return "text-neutral-subtle";
+    return `text-${color}`;
+  };
 
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-3 pl-5 pr-1 py-1 bg-${bgColor} rounded-full ${className}`}
+      className={`flex items-center justify-between gap-3 pl-5 pr-1 py-1 bg-${bgColor} rounded-full ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <VerticalTextSwap>
-        <p className="font-semibold uppercase">{text}</p>
+        <p className={`font-semibold uppercase ${getTextColorClass(textColor)}`}>{text}</p>
       </VerticalTextSwap>
 
       <CircularButton
@@ -127,6 +136,7 @@ const ExpandedIconButton = ({
         text_color={buttonTextColor}
         text_hover_color={buttonTextHoverColor}
         isGroupHover={isHovered}
+        className={circleBtnClassName}
       >
         {icon}
       </CircularButton>

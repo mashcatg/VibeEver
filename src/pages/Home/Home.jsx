@@ -4,6 +4,7 @@ import TrustSection from "./TrustSection/TrustSection";
 import SectionHead from "../../components/ui/SectionHead";
 import FeaturedProducts from "../../components/shared/FeaturedProducts/FeaturedProducts";
 import FAQs from "../../components/shared/FAQs/FAQs";
+import Contact from "./Contact/Contact";
 
 const Home = () => {
   return (
@@ -128,6 +129,8 @@ const Home = () => {
           },
         ]}
       ></FAQs>
+
+      <Contact></Contact>
     </div>
   );
 };

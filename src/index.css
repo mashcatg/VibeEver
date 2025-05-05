@@ -9,6 +9,9 @@
   --primary-width: 94.44%;
   --product-image-height: 18.75rem; /* 300px */
 
+  /* width */
+  --max-width-26: 1.625rem; /* 26px */
+
   /* Colors */
   --primary-color: #5d17ea;
   --primary-color-dark: #370d8c;
@@ -115,6 +118,9 @@
   --max-width-primary: var(--primary-max-width);
   --width-primary: var(--primary-width);
   --height-product-image: var(--product-image-height);
+
+  /* width */
+  --max-width-26: var(--max-width-26);
 
   /* Colors */
   --color-primary: var(--primary-color);
