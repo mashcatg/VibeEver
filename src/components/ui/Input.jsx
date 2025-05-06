@@ -19,7 +19,7 @@ const Input = ({ label = "Enter", placeholder = "Type...", type = "text", id = "
       }}
     >
       <label
-        className={`text-xl absolute left-7 transform px-2.5 transition-all duration-400 ease-in-out ${
+        className={`text-xl absolute left-5 transform px-2.5 transition-all duration-400 ease-in-out ${
           is_search_focused
             ? "bg-white text-neutral-subtitle top-0 translate-y-[-50%] ml-4"
             : `bg-transparent text-neutral-caption ml-0 ${type === "textarea" ? "top-11" : "top-1/2"} translate-y-[-50%]`

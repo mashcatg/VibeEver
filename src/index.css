@@ -191,6 +191,10 @@ body {
   overflow-x: hidden;
 }
 
+#nav .active {
+  color: var(--color-primary-dark);
+}
+
 /* media queries */
 
 @media screen and (max-width: 640px) {

@@ -43,8 +43,8 @@ const Nav = () => {
   const nav_links = [
     { name: "Home", path: "/" },
     { name: "Products", path: "/products" },
-    { name: "Assets", path: "/" },
-    { name: "Templates", path: "/" },
+    { name: "Assets", path: "/assets" },
+    { name: "Templates", path: "/templates" },
   ];
 
   // Animation variants for the mobile sidebar
@@ -74,7 +74,7 @@ const Nav = () => {
   };
 
   return (
-    <div className="flex justify-between items-center py-6 relative">
+    <div id="nav" className="flex justify-between items-center py-6 relative">
       <div className="flex items-center">
         <Link to="/" className="flex items-center">
           <img src={logo} alt="VibeEver" className="h-8" />
