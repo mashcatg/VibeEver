@@ -2,12 +2,21 @@ const Tooltip = ({ text, bg_color, text_color, arrow_position, className }) => {
   // Function to handle arrow position
   const getArrowPositionClass = (position) => {
     switch (position) {
+      // top
       case "top":
         return "-top-1.5 left-1/2 transform -translate-x-1/2 rotate-0";
+      case "top-left":
+        return "-top-1.5 left-3 transform -translate-x-1/2 rotate-0";
+
+      // bottom
       case "bottom":
         return "-bottom-1.5 left-1/2 transform -translate-x-1/2 rotate-180";
+
+      // left
       case "left":
         return "-left-1.5 top-1/2 transform -translate-y-1/2 rotate-30";
+
+      // right
       case "right":
         return "-right-1.5 top-1/2 transform -translate-y-1/2 rotate-90";
       default:

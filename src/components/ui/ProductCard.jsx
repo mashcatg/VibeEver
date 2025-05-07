@@ -33,7 +33,17 @@ const ProductImage = ({ product_image, save_handler = () => {} }) => {
       >
         {/* save btn */}
         <button className="absolute top-1.5 left-1.5 size-6 group" onClick={save_handler}>
-          <img src={heartIcon} alt="Heart Icon" className="group-hover:scale-110 transition-all duration-300" />
+          <div className="relative">
+            <Tooltip
+              text="Save"
+              bg_color="purple-50"
+              text_color="purple-400"
+              arrow_position="top-left"
+              className="text-purple-50 bottom-0 left-0 group-hover:-bottom-8"
+            />
+
+            <img src={heartIcon} alt="Heart Icon" className="group-hover:scale-110 transition-all duration-300" />
+          </div>
         </button>
 
         {/* image */}
