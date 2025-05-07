@@ -103,19 +103,21 @@ const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_h
         {description && <h4 className="-tracking-150 max-w-[21.9375rem]">{description}</h4>}
 
         {/* Call-to-action circular button with text swap animation */}
-        <CircularButton
-          size="10.375rem"
-          bg_color="white"
-          hover_bg_color="black"
-          text_color="text-body"
-          text_hover_color="white"
-          onClick={circuler_btn_handler}
-          className="transition-colors duration-300 mx-auto"
-        >
-          <VerticalTextSwap>
-            <p className="text-headline leading-headline font-bold group-hover:text-white uppercase">{circle_btn_text}</p>
-          </VerticalTextSwap>
-        </CircularButton>
+        {circle_btn_text && (
+          <CircularButton
+            size="10.375rem"
+            bg_color="white"
+            hover_bg_color="black"
+            text_color="text-body"
+            text_hover_color="white"
+            onClick={circuler_btn_handler}
+            className="transition-colors duration-300 mx-auto"
+          >
+            <VerticalTextSwap>
+              <p className="text-headline leading-headline font-bold group-hover:text-white uppercase">{circle_btn_text}</p>
+            </VerticalTextSwap>
+          </CircularButton>
+        )}
       </div>
     </div>
   );

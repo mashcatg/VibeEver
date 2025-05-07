@@ -2,6 +2,7 @@ import heartIcon from "../../assets/icons/heart.svg";
 import { CircularButton } from "../ui/Button";
 import Tooltip from "../ui/Tooltip";
 import LeftRightIconSwap from "../ui/LeftRightIconSwap";
+import { useNavigate } from "react-router-dom";
 
 const ProductImage = ({ product_image, save_handler = () => {} }) => {
   return (
@@ -111,6 +112,7 @@ const ProductCardActionButton = ({
 };
 
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
   const { id, image, title, tags, price, regular_price } = product;
   return (
     <div>
@@ -191,7 +193,7 @@ const ProductCard = ({ product }) => {
           {/* View Details */}
           <ProductCardActionButton
             tooltip_text="View Details"
-            on_click_handler={() => console.log("View Details " + id)}
+            on_click_handler={() => navigate(`/products/${id}`)}
             bg_color="neutral-50"
             hover_bg_color="neutral-200"
             tooltip_text_color="neutral-400"
