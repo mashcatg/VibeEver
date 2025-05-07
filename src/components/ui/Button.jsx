@@ -121,7 +121,7 @@ const ExpandedIconButton = ({
   return (
     <button
       onClick={onClick}
-      className={`flex items-center justify-between gap-3 pl-5 pr-1 py-1 bg-${bgColor} rounded-full ${className}`}
+      className={`vertical-text-swap-container flex items-center justify-between gap-3 pl-5 pr-1 py-1 bg-${bgColor} rounded-full ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

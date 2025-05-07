@@ -243,3 +243,11 @@ body {
 .vertical-text-swap:hover span:nth-child(2) {
   transform: translateY(0);
 }
+
+.vertical-text-swap-container:hover .vertical-text-swap span:nth-child(1) {
+  transform: translateY(-100%);
+}
+
+.vertical-text-swap-container:hover .vertical-text-swap span:nth-child(2) {
+  transform: translateY(0);
+}
