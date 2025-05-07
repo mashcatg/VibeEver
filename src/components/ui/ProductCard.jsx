@@ -1,6 +1,7 @@
 import heartIcon from "../../assets/icons/heart.svg";
 import { CircularButton } from "../ui/Button";
 import Tooltip from "../ui/Tooltip";
+import LeftRightIconSwap from "../ui/LeftRightIconSwap";
 
 const ProductImage = ({ product_image, save_handler = () => {} }) => {
   return (
@@ -100,7 +101,7 @@ const ProductCardActionButton = ({
         hover_bg_color={hover_bg_color}
         text_color={icon_color}
         text_hover_color={icon_hover_color}
-        className={`border-2 ${getBorderColorClass(bg_color)}`}
+        className={`left-right-icon-swap-container border-2 ${getBorderColorClass(bg_color)}`}
         onClick={on_click_handler}
       >
         {icon}
@@ -198,12 +199,14 @@ const ProductCard = ({ product }) => {
             icon_color="neutral-900"
             icon_hover_color="neutral-700"
             icon={
-              <svg viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-2 h-3">
-                <path
-                  d="M7.3833 5.29402C7.79529 5.6845 7.79529 6.31863 7.3833 6.7091L2.10975 11.7071C1.69775 12.0976 1.02867 12.0976 0.616675 11.7071C0.204679 11.3167 0.204679 10.6825 0.616675 10.2921L5.14533 6L0.619971 1.70793C0.207975 1.31745 0.207975 0.683327 0.619971 0.292854C1.03197 -0.0976181 1.70105 -0.0976181 2.11304 0.292854L7.38659 5.2909L7.3833 5.29402Z"
-                  fill="#372F46"
-                />
-              </svg>
+              <LeftRightIconSwap direction="right">
+                <svg viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-2 h-3">
+                  <path
+                    d="M7.3833 5.29402C7.79529 5.6845 7.79529 6.31863 7.3833 6.7091L2.10975 11.7071C1.69775 12.0976 1.02867 12.0976 0.616675 11.7071C0.204679 11.3167 0.204679 10.6825 0.616675 10.2921L5.14533 6L0.619971 1.70793C0.207975 1.31745 0.207975 0.683327 0.619971 0.292854C1.03197 -0.0976181 1.70105 -0.0976181 2.11304 0.292854L7.38659 5.2909L7.3833 5.29402Z"
+                    fill="#372F46"
+                  />
+                </svg>
+              </LeftRightIconSwap>
             }
           ></ProductCardActionButton>
         </div>
