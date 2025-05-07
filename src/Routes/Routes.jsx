@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "../layouts/Root";
 import Home from "../pages/Home/Home";
 import Products from "../pages/Products/Products";
-import Components from "../pages/Components/Components";
+import ComponentsPage from "../pages/ComponentsPage/ComponentsPage";
 
 export const router = createBrowserRouter([
   {
@@ -19,8 +19,8 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "/components",
-    element: <Components></Components>,
-  },
+  // {
+  //   path: "/components",
+  //   element: <ComponentsPage></ComponentsPage>,
+  // },
 ]);

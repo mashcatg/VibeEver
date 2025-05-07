@@ -3,7 +3,7 @@ import GridOverlay from "../../components/ui/GridOverlay";
 import Input from "../../components/ui/Input";
 import LeftRightIconSwap from "../../components/ui/LeftRightIconSwap";
 
-const Components = () => {
+const ComponentsPage = () => {
   return (
     <div className="max-w-primary w-primary mx-auto">
       <GridOverlay />
@@ -87,4 +87,4 @@ const Components = () => {
   );
 };
 
-export default Components;
+export default ComponentsPage;
