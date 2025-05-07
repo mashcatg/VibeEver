@@ -35,7 +35,7 @@ const Input = ({ label = "Enter", placeholder = "Type...", type = "text", id = "
           required={is_required}
           placeholder={placeholder}
           onChange={(e) => set_input_value(e.target.value)}
-          className={`w-full outline-0 text-text-body placeholder:text-neutral-caption transition-all duration-400 ease-in-out resize-none ${
+          className={`w-full min-h-[8.4375rem] outline-0 text-text-body placeholder:text-neutral-caption transition-all duration-400 ease-in-out resize-none ${
             is_search_focused ? "opacity-100" : "opacity-0"
           }`}
         />
