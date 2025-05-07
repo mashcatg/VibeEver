@@ -215,4 +215,5 @@ const ProductCard = ({ product }) => {
   );
 };
 
+export { ProductImage, Tags, ProductCardActionButton };
 export default ProductCard;
