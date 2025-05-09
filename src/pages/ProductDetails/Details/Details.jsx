@@ -76,6 +76,8 @@ const ProductImageSlider = () => {
           justify-content: center;
         }
         .thumbnail-slider .swiper-slide {
+          width: 8.75rem !important;
+          height: 6rem !important;
           opacity: 0.6;
           transition: opacity 0.3s;
         }
@@ -99,7 +101,7 @@ const StatCard = ({ icon, title, value }) => {
       <img src={icon} alt="Version Icon" className="w-full max-w-9" />
 
       <div>
-        <span className="text-neutral-caption text-caption leading-caption font-medium uppercase">{title}</span>
+        <span className="text-neutral-caption text-footnote leading-footnote font-medium tracking-[4%] uppercase">{title}</span>
         <h5 className="font-semibold">{value}</h5>
       </div>
     </div>
@@ -109,7 +111,7 @@ const StatCard = ({ icon, title, value }) => {
 const ActionButton = ({ icon, text, className }) => {
   return (
     <button
-      className={`vertical-text-swap-container relative flex items-center gap-3 py-3 px-5 rounded-full text-caption leading-caption font-semibold uppercase before:content-[''] before:absolute before:top-0 before:left-1/2 hover:before:left-0 before:w-0 hover:before:w-full before:h-full before:rounded-full before:transition-all before:ease-in-out ${className}`}
+      className={`vertical-text-swap-container relative overflow-hidden flex items-center gap-3 py-3 px-5 rounded-full text-caption leading-caption font-semibold uppercase before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-1/2 before:size-0  hover:before:size-[10.625rem] before:rounded-full before:transition-all before:duration-500 before:ease-in-out ${className}`}
     >
       {/* Icon for the button */}
       {icon}
@@ -124,7 +126,7 @@ const PrimaryInfo = () => {
   return (
     <div>
       {/* category */}
-      <div className="w-fit border border-neutral-default rounded-full py-0.5 px-2 text-caption leading-caption text-neutral-caption font-semibold uppercase">
+      <div className="w-fit border border-neutral-border rounded-full py-0.5 px-2 text-caption leading-caption text-neutral-caption font-semibold uppercase">
         Website
       </div>
 
@@ -135,7 +137,25 @@ const PrimaryInfo = () => {
       <div>
         <p className="text-footnote leading-footnote font-medium tracking-[4%]">PRICE:</p>
 
-        <h3 className="text-primary font-bold">$12.80</h3>
+        <div className="relative group w-fit">
+          {/* discounted price */}
+          <h3 className="text-primary font-bold">$12.80</h3>
+
+          {/* regular price */}
+          <div className="bg-neutral-default rounded-sm w-fit opacity-0 group-hover:opacity-100 absolute -right-[5.55rem] group-hover:-right-18.25 top-[50%] translate-y-[-50%] pointer-events-none transition-all duration-600 ease-in-out">
+            <div className="relative px-1.5">
+              <span className="absolute -left-1.5 top-[50%] translate-y-[-50%]">
+                <svg className="w-2 h-2" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M0.500001 4.86603C-0.166666 4.48113 -0.166667 3.51887 0.5 3.13397L5 0.535898C5.66667 0.150998 6.5 0.632122 6.5 1.40192L6.5 6.59807C6.5 7.36788 5.66667 7.849 5 7.4641L0.500001 4.86603Z"
+                    className="fill-neutral-default"
+                  />
+                </svg>
+              </span>
+              <del className="font-semibold text-neutral-caption">$19.99</del>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="pt-10 space-y-8">
@@ -158,7 +178,7 @@ const PrimaryInfo = () => {
             </svg>
           }
           text="Add to Cart"
-          className="bg-neutral-subtle before:bg-neutral-default before:duration-300"
+          className="bg-neutral-subtle before:bg-neutral-default"
         />
 
         <ActionButton
@@ -171,7 +191,7 @@ const PrimaryInfo = () => {
             </svg>
           }
           text="Buy Now"
-          className="text-white bg-primary before:bg-white before:opacity-100 hover:before:opacity-0 before:duration-400"
+          className="text-white bg-primary before:bg-white before:opacity-100 hover:before:opacity-0"
         />
       </div>
 
