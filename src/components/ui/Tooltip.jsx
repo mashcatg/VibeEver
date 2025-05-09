@@ -6,7 +6,7 @@ const Tooltip = ({ text, bg_color, text_color, arrow_position, className }) => {
       case "top":
         return "-top-1.5 left-1/2 transform -translate-x-1/2 rotate-0";
       case "top-left":
-        return "-top-1.5 left-3 transform -translate-x-1/2 rotate-0";
+        return "-top-1.5 left-[0.59rem] transform -translate-x-1/2 rotate-0";
 
       // bottom
       case "bottom":
@@ -51,7 +51,7 @@ const Tooltip = ({ text, bg_color, text_color, arrow_position, className }) => {
     <div
       className={`absolute z-[1] rounded-sm w-max ${getBgColorClass(
         bg_color
-      )} opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out ${className} pointer-events-none`}
+      )} opacity-0 group-hover:opacity-100 transition-all duration-600 ease-in-out ${className} pointer-events-none`}
     >
       <div className="px-1.5 relative">
         <div className={`absolute ${getArrowPositionClass(arrow_position)}`}>

@@ -2,9 +2,9 @@ import heartIcon from "../../assets/icons/heart.svg";
 import { CircularButton } from "../ui/Button";
 import Tooltip from "../ui/Tooltip";
 import LeftRightIconSwap from "../ui/LeftRightIconSwap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const ProductImage = ({ product_image, save_handler = () => {} }) => {
+const ProductImage = ({ id, product_image, save_handler = () => {} }) => {
   return (
     <div className="max-h-product-image rounded-2xl overflow-hidden relative">
       {/* decorative elements */}
@@ -41,7 +41,7 @@ const ProductImage = ({ product_image, save_handler = () => {} }) => {
               bg_color="purple-50"
               text_color="purple-400"
               arrow_position="top-left"
-              className="text-purple-50 bottom-0 left-0 group-hover:-bottom-8"
+              className="text-purple-50 -bottom-10 left-[0.2rem] group-hover:-bottom-[1.7rem]"
             />
 
             <img src={heartIcon} alt="Heart Icon" className="group-hover:scale-110 transition-all duration-300" />
@@ -49,7 +49,9 @@ const ProductImage = ({ product_image, save_handler = () => {} }) => {
         </button>
 
         {/* image */}
-        <img src={product_image} alt="Product Image" className="w-full h-full object-cover" />
+        <Link to={`/products/${id}`} className="w-full h-full block">
+          <img src={product_image} alt="Product Image" className="w-full h-full object-cover" />
+        </Link>
       </div>
     </div>
   );
@@ -94,7 +96,7 @@ const ProductCardActionButton = ({
         bg_color={bg_color}
         text_color={tooltip_text_color}
         arrow_position={tooltip_arrow_position}
-        className="top-0 group-hover:-top-8 left-1/2 translate-x-[-50%]"
+        className="-top-7 group-hover:-top-8 left-1/2 translate-x-[-50%]"
       />
       <CircularButton
         size="2.375rem"
@@ -117,13 +119,15 @@ const ProductCard = ({ product }) => {
   return (
     <div>
       {/* product image */}
-      <ProductImage product_image={image} save_handler={() => console.log("Save " + id)}></ProductImage>
+      <ProductImage id={id} product_image={image} save_handler={() => console.log("Save " + id)}></ProductImage>
 
       {/* tags */}
       <Tags tags={tags}></Tags>
 
       {/* title */}
-      <h5 className="text-headline leading-headline text-black font-bold">{title}</h5>
+      <Link to={`/products/${id}`} className="block">
+        <h5 className="text-headline leading-headline text-black font-bold">{title}</h5>
+      </Link>
 
       {/* card footer */}
       <div className="mt-4 flex items-center justify-between gap-5">
@@ -136,7 +140,7 @@ const ProductCard = ({ product }) => {
           </div>
 
           {/* regular price */}
-          <div className="bg-neutral-default rounded-sm w-fit opacity-0 group-hover:opacity-100 absolute -right-40 group-hover:-right-20 top-[50%] translate-y-[-50%] pointer-events-none transition-all duration-300 ease-in-out">
+          <div className="bg-neutral-default rounded-sm w-fit opacity-0 group-hover:opacity-100 absolute -right-[5.25rem] group-hover:-right-17 top-[50%] translate-y-[-50%] pointer-events-none transition-all duration-600 ease-in-out">
             <div className="relative px-1.5">
               <span className="absolute -left-1.5 top-[50%] translate-y-[-50%]">
                 <svg className="w-2 h-2" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
