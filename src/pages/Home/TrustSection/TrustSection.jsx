@@ -35,7 +35,7 @@ const TrustSection = () => {
         ))}
       </div>
 
-      <div className="relative -bottom-3 md:-bottom-4 w-fit mx-auto px-5 bg-white flex flex-wrap md:flex-nowrap items-center justify-center gap-4 md:gap-8">
+      <div className="relative -bottom-3 md:-bottom-4 w-fit mx-auto px-5 bg-white flex flex-wrap md:flex-nowrap items-center justify-center gap-4 md:gap-6">
         {social_links.map((social, index) => (
           <a
             key={index}
