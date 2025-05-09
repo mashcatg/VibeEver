@@ -8,6 +8,7 @@ const Hero = () => {
   const [is_search_focused, set_is_search_focused] = useState(false);
   const [selected, set_selected] = useState("Graphics");
   const [is_select_open, set_is_select_open] = useState(false);
+  const [is_more_open, set_is_more_open] = useState(false);
   const selectRef = useRef(null);
 
   // Options for the select component
@@ -39,9 +40,9 @@ const Hero = () => {
   }, [is_select_open]);
 
   return (
-    <section className="bg-primary rounded-4xl overflow-hidden">
+    <section className="bg-primary rounded-4xl">
       <div
-        className="flex flex-col items-center justify-center pt-20 sm:pt-[10rem] pb-20 sm:pb-[7.6875rem] text-center text-white"
+        className="flex flex-col items-center justify-center pt-20 sm:pt-[10rem] pb-20 sm:pb-[7.6875rem] text-center text-white rounded-4xl"
         style={{
           backgroundImage: `url(${hero_bg})`,
           backgroundSize: "cover",
@@ -56,15 +57,19 @@ const Hero = () => {
 
         <div
           className={`w-[95%] sm:w-fit mx-auto flex items-center justify-center gap-5 bg-white rounded-full border-4 ${
-            is_search_focused ? "border-[#a398b9]" : "border-neutral-default"
+            is_search_focused ? "border-neutral-border" : is_search_hovered ? "border-neutral-200" : "border-neutral-default"
           } py-1 pr-1 pl-5 transition-all duration-300 ease-in-out mb-10`}
+          onMouseEnter={() => set_is_search_hovered(true)}
+          onMouseLeave={() => set_is_search_hovered(false)}
         >
           <div className="flex items-center justify-center gap-2.5">
             {/* category selector */}
             <div className="relative border-r-2 border-neutral-default" ref={selectRef}>
               <button
                 onClick={() => set_is_select_open(!is_select_open)}
-                className={`flex items-center justify-center gap-2.5 pr-5 ${is_search_focused ? "text-text-body" : "text-neutral-caption"}`}
+                className={`flex items-center justify-center gap-2.5 pr-5 ${
+                  is_search_focused ? "text-text-body" : is_search_hovered ? "text-neutral-border" : "text-neutral-caption"
+                } transition-all duration-300 ease-in-out`}
               >
                 <svg viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-4 hidden sm:block">
                   <path
@@ -75,7 +80,7 @@ const Hero = () => {
 
                 <p
                   className={`${
-                    is_search_focused ? "text-text-body" : "text-neutral-caption"
+                    is_search_focused ? "text-text-body" : is_search_hovered ? "text-neutral-border" : "text-neutral-caption"
                   } font-semibold transition-all duration-300 ease-in-out uppercase`}
                 >
                   {selected}
@@ -112,14 +117,12 @@ const Hero = () => {
               name="hero_search"
               id="hero_search"
               placeholder="Search assets & templates..."
-              className={`placeholder:text-neutral-caption outline-0 text-text-body font-semibold placeholder:font-normal pl-2.5 w-full ${
-                is_search_focused ? "sm:w-[25rem]" : "sm:w-[14.6875rem]"
-              }
+              className={`${
+                is_search_hovered ? "placeholder:text-neutral-border" : "placeholder:text-neutral-caption"
+              } outline-0 text-text-body font-semibold placeholder:font-normal pl-2.5 w-full ${is_search_focused ? "sm:w-[25rem]" : "sm:w-[14.6875rem]"}
               
-              transition-all duration-300 ease-in-out`}
+              transition-all duration-300 ease-in-out placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out`}
               defaultValue={is_search_focused ? "UI Kit" : ""}
-              onMouseEnter={() => set_is_search_hovered(true)}
-              onMouseLeave={() => set_is_search_hovered(false)}
               onFocus={() => set_is_search_focused(true)}
               onBlur={() => set_is_search_focused(false)}
             />
@@ -128,9 +131,9 @@ const Hero = () => {
           <CircularButton
             size="4rem"
             bg_color={is_search_focused ? "primary" : "white"}
-            hover_bg_color={is_search_focused ? "primary" : "neutral-border"}
+            hover_bg_color={is_search_focused ? "primary" : is_search_hovered ? "neutral-200" : "neutral-border"}
             text_color={is_search_focused ? "" : "neutral-caption"}
-            text_hover_color={is_search_focused ? "" : "text-body"}
+            text_hover_color={is_search_focused ? "" : is_search_hovered ? "neutral-subtitle" : "text-body"}
             className="border-2 border-neutral-default"
             isGroupHover={is_search_hovered}
           >
@@ -143,7 +146,7 @@ const Hero = () => {
           </CircularButton>
         </div>
 
-        <div className="max-w-[28.125rem] w-[95%] sm:w-full mx-auto flex items-center justify-center gap-2.5 flex-wrap">
+        <div className="max-w-[28.125rem] w-[94%] sm:w-full mx-auto flex items-center justify-center gap-2.5 flex-wrap">
           {["ui", "template", "theme", "ui kit", "icon pack", "form", "badge", "buttons", "header", "footer"].map((item, index) => (
             <button
               key={index}
@@ -154,6 +157,59 @@ const Hero = () => {
               </span>
             </button>
           ))}
+
+          <div className="relative">
+            <button
+              className="flex w-min items-center justify-center rounded-full border-[0.0625rem] border-white p-1 group hover:bg-white transition-all duration-300 ease-in-out"
+              onClick={() => set_is_more_open(!is_more_open)}
+            >
+              <svg
+                className="w-[1.0625rem] h-4 group-hover:text-text-body transition-all duration-300 ease-in-out"
+                viewBox="0 0 17 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="3.5" cy="8" r="1.5" fill="currentColor" />
+                <circle cx="8.5" cy="8" r="1.5" fill="currentColor" />
+                <circle cx="13.5" cy="8" r="1.5" fill="currentColor" />
+              </svg>
+            </button>
+
+            <div
+              className={`absolute mt-2 left-1/2 -translate-x-1/2 w-fit bg-white border sm:border-0 border-gray-200 rounded-md flex flex-col gap-0.5 z-10 transition-all duration-300 ease-in-out`}
+              style={{
+                maxHeight: is_more_open ? "625rem" : "0rem",
+                opacity: is_more_open ? 1 : 0,
+                transform: `translateY(${is_more_open ? "0" : "-0.5rem"})`,
+              }}
+            >
+              <div className="relative">
+                <svg viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-2 h-2 absolute -top-1.5 left-1/2 -translate-x-1/2">
+                  <path
+                    d="M2.8006 0.500002C3.1855 -0.166665 4.14775 -0.166666 4.53265 0.500001L7.13073 5C7.51563 5.66667 7.0345 6.5 6.2647 6.5L1.06855 6.5C0.298749 6.5 -0.182377 5.66667 0.202523 5L2.8006 0.500002Z"
+                    fill="#fff"
+                  />
+                </svg>
+              </div>
+              <div className="overflow-hidden rounded-md">
+                {selectOptions.map(
+                  (option, index) =>
+                    selected !== option && (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          handleSelectChange(option);
+                          set_is_more_open(false);
+                        }}
+                        className={`uppercase text-caption leading- text-neutral-subtitle font-semibold text-left px-3 py-2 hover:bg-neutral-subtle transition-all duration-300 w-full`}
+                      >
+                        {option}
+                      </button>
+                    )
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
