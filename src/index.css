@@ -253,57 +253,60 @@ body {
 }
 
 /* left right icon swap effect */
-.left-right-icon-swap {
+.left-right-icon-swap-container {
   position: relative;
-  display: inline-flex;
   overflow: hidden;
+}
+
+.left-right-icon-swap {
+  display: inline-flex;
   text-decoration: none;
   padding: 0.3125rem;
 }
 .left-right-icon-swap span {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: inline-block;
-  transition: transform 0.3s ease-out;
+  transition: all 0.4s;
 }
+
 /* left */
 .left-right-icon-swap.left span:nth-child(1) {
-  transform: translateX(0);
+  left: calc(100% + 2.25rem);
 }
 .left-right-icon-swap.left span:nth-child(2) {
-  position: absolute;
-  left: 0.625rem;
-  transform: translateX(100%);
+  left: 50%;
 }
 .left-right-icon-swap.left:hover span:nth-child(1) {
-  transform: translateX(-200%);
+  left: 50%;
 }
 .left-right-icon-swap.left:hover span:nth-child(2) {
-  transform: translateX(-0.3125rem);
+  left: -2.25rem;
 }
 .left-right-icon-swap-container:hover .left-right-icon-swap.left span:nth-child(1) {
-  transform: translateX(-200%);
+  left: 50%;
 }
 .left-right-icon-swap-container:hover .left-right-icon-swap.left span:nth-child(2) {
-  transform: translateX(-0.3125rem);
+  left: -2.25rem;
 }
+
 /* right */
 .left-right-icon-swap.right span:nth-child(1) {
-  transform: translateX(0);
+  left: 50%;
 }
 .left-right-icon-swap.right span:nth-child(2) {
-  position: absolute;
-  right: 0.625rem;
-  transform: translateX(-100%);
+  left: -1.25rem;
 }
 .left-right-icon-swap.right:hover span:nth-child(1) {
-  transform: translateX(200%);
+  left: calc(100% + 1.25rem);
 }
 .left-right-icon-swap.right:hover span:nth-child(2) {
-  transform: translateX(0.3125rem);
+  left: 50%;
 }
 .left-right-icon-swap-container:hover .left-right-icon-swap.right span:nth-child(1) {
-  transform: translateX(200%);
+  left: calc(100% + 1.25rem);
 }
 .left-right-icon-swap-container:hover .left-right-icon-swap.right span:nth-child(2) {
-  transform: translateX(0.3125rem);
+  left: 50%;
 }

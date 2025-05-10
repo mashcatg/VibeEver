@@ -72,6 +72,7 @@ const FeaturedProducts = ({
             hover_bg_color="neutral-default"
             text_color="black"
             text_hover_color="black"
+            is_swap={true}
             className="left-right-icon-swap-container border-2 border-neutral-default"
           >
             <LeftRightIconSwap direction="right">

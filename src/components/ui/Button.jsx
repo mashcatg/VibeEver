@@ -11,6 +11,7 @@ const CircularButton = ({
   text_color,
   text_hover_color,
   isGroupHover = false,
+  is_swap = false,
   className = "",
 }) => {
   const [isHovered, setIsHovered] = useState(isGroupHover);
@@ -34,15 +35,15 @@ const CircularButton = ({
 
   // Function to handle hover background color
   const getHoverBgColorClass = (color) => {
-    if (color === "white") return "after:bg-white";
-    if (color === "black") return "after:bg-black";
-    if (color === "neutral-default") return "after:bg-neutral-default";
-    if (color === "neutral-border") return "after:bg-neutral-border";
-    if (color === "primary") return "after:bg-primary";
-    if (color === "blue-200") return "after:bg-blue-200";
-    if (color === "purple-200") return "after:bg-purple-200";
-    if (color === "neutral-200") return "after:bg-neutral-200";
-    return `after:bg-${color}`;
+    if (color === "white") return "before:bg-white";
+    if (color === "black") return "before:bg-black";
+    if (color === "neutral-default") return "before:bg-neutral-default";
+    if (color === "neutral-border") return "before:bg-neutral-border";
+    if (color === "primary") return "before:bg-primary";
+    if (color === "blue-200") return "before:bg-blue-200";
+    if (color === "purple-200") return "before:bg-purple-200";
+    if (color === "neutral-200") return "before:bg-neutral-200";
+    return `before:bg-${color}`;
   };
 
   // Function to handle text colors
@@ -62,9 +63,9 @@ const CircularButton = ({
       onClick={onClick}
       className={`group relative flex justify-center items-center rounded-full ${getBgColorClass(bg_color)} ${
         isHovered ? getTextColorClass(text_hover_color) : getTextColorClass(text_color)
-      } transition-all duration-300 ease-in-out p-4 after:content-[''] after:absolute after:top-0 after:left-0 after:w-full after:h-full ${getHoverBgColorClass(
+      } transition-all duration-300 ease-in-out p-4 before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full ${getHoverBgColorClass(
         hover_bg_color
-      )} after:rounded-full after:transition-all after:duration-300 after:ease-in-out ${isHovered ? `after:scale-100` : `after:scale-0`} ${className}`}
+      )} before:rounded-full before:transition-all before:duration-300 before:ease-in-out ${isHovered ? `before:scale-100` : `before:scale-0`} ${className}`}
       style={{ width: size, height: size, minWidth: size, minHeight: size }}
       onMouseEnter={() => !isGroupHover && setIsHovered(true)}
       onMouseLeave={() => !isGroupHover && setIsHovered(false)}
@@ -74,7 +75,7 @@ const CircularButton = ({
           {indicator}
         </span>
       )}
-      <span className={`relative z-10 ${isHovered ? getTextColorClass(text_hover_color) : getTextColorClass(text_color)}`}>{children}</span>
+      <span className={`${!is_swap ? "relative z-10" : ""} ${isHovered ? getTextColorClass(text_hover_color) : getTextColorClass(text_color)}`}>{children}</span>
     </button>
   );
 };
@@ -144,4 +145,12 @@ const ExpandedIconButton = ({
   );
 };
 
-export { CircularButton, ExpandedIconButton };
+const RightSwapButton = ({ children, onClick = () => {}, className = "" }) => {
+  return (
+    <button onClick={onClick} className={`flex items-center justify-center gap-2 bg-neutral-default rounded-full p-2 ${className}`}>
+      {children}
+    </button>
+  );
+};
+
+export { CircularButton, ExpandedIconButton, RightSwapButton };
