@@ -8,6 +8,7 @@ import Select from "../../components/ui/Select";
 
 const Products = () => {
   const [is_filter_shown, set_is_filter_shown] = useState(false);
+  const [is_search_hovered, set_is_search_hovered] = useState(false);
   const [selected, set_selected] = useState("Graphics");
 
   // Options for the select component
@@ -165,12 +166,20 @@ const Products = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:items-end mb-6">
             <h4 className="font-bold -tracking-125">Filter Illustrator</h4>
 
-            <form className="flex justify-between w-full max-w-[21.6875rem] bg-white border-2 border-neutral-default pl-3 pr-1.5 py-1.5 rounded-full">
+            <form
+              className={`flex justify-between w-full max-w-[21.6875rem] bg-white border-2 ${
+                is_search_hovered ? "border-neutral-200" : "border-neutral-default"
+              } pl-3 pr-1.5 py-1.5 rounded-full transition-all duration-300`}
+              onMouseEnter={() => set_is_search_hovered(true)}
+              onMouseLeave={() => set_is_search_hovered(false)}
+            >
               <input
                 type="text"
                 name="search"
                 placeholder="Search assets & templates..."
-                className="px-2.5 w-full font-semibold text-text-body placeholder:text-neutral-caption placeholder:font-normal outline-0"
+                className={`px-2.5 w-full font-semibold text-text-body ${
+                  is_search_hovered ? "placeholder:text-neutral-border" : "placeholder:text-neutral-caption"
+                } placeholder:font-normal outline-0 placeholder:transition-all placeholder:duration-300`}
               />
 
               <CircularButton
@@ -180,6 +189,7 @@ const Products = () => {
                 text_color="neutral-caption"
                 text_hover_color="text-body"
                 className="border-2 border-neutral-default"
+                isGroupHover={is_search_hovered}
               >
                 <svg viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4">
                   <path
