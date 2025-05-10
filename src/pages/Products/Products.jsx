@@ -3,16 +3,29 @@ import FeaturedProducts from "../../components/shared/FeaturedProducts/FeaturedP
 import SectionHead from "../../components/ui/SectionHead";
 import { useState } from "react";
 import { CircularButton } from "../../components/ui/Button";
+import LeftRightIconSwap from "../../components/ui/LeftRightIconSwap";
 import Tooltip from "../../components/ui/Tooltip";
 import Select from "../../components/ui/Select";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import required Swiper modules
+import { Navigation } from "swiper/modules";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
 
 const Products = () => {
   const [is_filter_shown, set_is_filter_shown] = useState(false);
   const [is_search_hovered, set_is_search_hovered] = useState(false);
   const [selected, set_selected] = useState("Graphics");
+  // Reference to the swiper instance for tags
+  const [tagSwiper, setTagSwiper] = useState(null);
 
   // Options for the select component
   const selectOptions = ["Graphics", "Color", "Toast", "Logos"];
+
+  // All available tags
+  const tags = ["Illustrator", "WordPress", "Photoshop", "Figma", "Sketch", "Adobe XD", "Webflow", "After Effects", "InDesign", "Canva"];
 
   // Handler for selection change
   const handleSelectChange = (value) => {
@@ -199,31 +212,45 @@ const Products = () => {
                 </svg>
               </CircularButton>
             </form>
-          </div>
-
+          </div>{" "}
           <div className="flex flex-col md:flex-row justify-between items-center gap-5">
-            <div className="flex gap-5 sm:gap-2.5 items-center justify-center flex-wrap">
-              {["Illustrator", "WordPress", "Photoshop"].map((item, index) => (
-                <div key={index} className="bg-neutral-default px-5 py-3 w-fit rounded-full">
-                  <span className="text-xl text-text-body leading-body">{item}</span>
-                </div>
-              ))}
+            <div className="flex gap-5 sm:gap-2.5 items-center justify-center">
+              {/* big tags */}
+              <div className="tag-slider-container w-[21.5%] sm:w-[28.5rem] md:w-[29rem] lg:w-[28.5rem] overflow-hidden">
+                <Swiper
+                  onSwiper={setTagSwiper}
+                  spaceBetween={10}
+                  slidesPerView={3}
+                  navigation={{
+                    nextEl: ".tag-swiper-button-next",
+                  }}
+                  modules={[Navigation]}
+                  className="tag-slider"
+                >
+                  {tags.map((item, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="bg-neutral-default px-5 py-3 w-fit rounded-full">
+                        <span className="text-xl text-text-body leading-body">{item}</span>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
 
-              <div className="rounded-full relative w-fit h-fit group">
-                <Tooltip
-                  text="View Details"
-                  bg_color="neutral-default"
-                  text_color="neutral-caption"
-                  arrow_position="bottom"
-                  className="top-0 group-hover:-top-8 left-1/2 translate-x-[-50%]"
-                />
-                <CircularButton size="2.375rem" bg_color="white" hover_bg_color="neutral-default" text_color="text-body" text_hover_color="text-body">
-                  <svg viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-3 h-3">
-                    <path
-                      d="M16.2824 13.833L13.1666 10.7177C13.0259 10.5771 12.8353 10.499 12.6353 10.499H12.1259C12.9884 9.39596 13.501 8.00859 13.501 6.49937C13.501 2.90909 10.5914 0 7.00048 0C3.40959 0 0.5 2.90909 0.5 6.49937C0.5 10.0896 3.40959 12.9987 7.00048 12.9987C8.50996 12.9987 9.89756 12.4863 11.0008 11.6239V12.1332C11.0008 12.3332 11.0789 12.5238 11.2195 12.6644L14.3354 15.7797C14.6292 16.0734 15.1042 16.0734 15.3948 15.7797L16.2793 14.8954C16.5731 14.6017 16.5731 14.1267 16.2824 13.833ZM7.00048 10.499C4.79094 10.499 3.00018 8.71165 3.00018 6.49937C3.00018 4.29021 4.78781 2.49976 7.00048 2.49976C9.21001 2.49976 11.0008 4.28708 11.0008 6.49937C11.0008 8.70852 9.21314 10.499 7.00048 10.499Z"
-                      fill="#A398B9"
-                    />
-                  </svg>
+              <div className="rounded-full relative w-fit h-fit group tag-swiper-button-next">
+                <CircularButton
+                  size="2.375rem"
+                  bg_color="white"
+                  hover_bg_color="neutral-default"
+                  text_color="text-body"
+                  text_hover_color="text-body"
+                  className="left-right-icon-swap-container"
+                >
+                  <LeftRightIconSwap direction="right">
+                    <svg className="w-2 h-3" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.07562 5.29402C7.48761 5.6845 7.48761 6.31863 7.07562 6.7091L1.80207 11.7071C1.39007 12.0976 0.720993 12.0976 0.308997 11.7071C-0.102999 11.3167 -0.102999 10.6825 0.308997 10.2921L4.83766 6L0.312293 1.70793C-0.0997031 1.31745 -0.0997031 0.683327 0.312293 0.292854C0.724289 -0.0976181 1.39337 -0.0976181 1.80537 0.292854L7.07891 5.2909L7.07562 5.29402Z" />
+                    </svg>
+                  </LeftRightIconSwap>
                 </CircularButton>
               </div>
             </div>

@@ -310,3 +310,23 @@ body {
 .left-right-icon-swap-container:hover .left-right-icon-swap.right span:nth-child(2) {
   left: 50%;
 }
+
+/* Tag slider custom styles */
+.tag-slider-container {
+  position: relative;
+}
+
+.tag-slider .swiper-slide {
+  width: auto !important;
+  display: flex;
+  justify-content: center;
+}
+
+.tag-slider-container .swiper-button-next,
+.tag-slider-container .swiper-button-prev {
+  display: none;
+}
+
+.tag-swiper-button-next {
+  z-index: 10;
+}
