@@ -6,6 +6,7 @@ import ComponentsPage from "../pages/ComponentsPage/ComponentsPage";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
 import SignIn from "../pages/Auth/SignIn/SignIn";
 import SignUp from "../pages/Auth/SignUp/SignUp";
+import ResetPassword from "../pages/Auth/ResetPassword/ResetPassword";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
   {
     path: "/sign-up",
     element: <SignUp></SignUp>,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword></ResetPassword>,
   },
   // {
   //   path: "/components",

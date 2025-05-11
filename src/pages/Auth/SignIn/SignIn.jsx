@@ -15,7 +15,7 @@ const SignIn = () => {
     console.log("form data :", { email, password });
   };
   return (
-    <div className="flex gap-12 justify-center min-h-screen">
+    <div className="flex gap-12 justify-center min-h-dvh md:min-h-screen">
       <div className="md:w-1/2 flex flex-col justify-center items-end">
         <div className="w-full md:max-w-144 px-8 py-12">
           <AuthHeader
@@ -49,7 +49,7 @@ const SignIn = () => {
             </div>
 
             <h5 className="mt-3 mb-8 text-primary text-lg text-right">
-              <Link to="/forget-password">Forgot password?</Link>
+              <Link to="/reset-password">Forgot password?</Link>
             </h5>
 
             <SubmitButton>Sign In</SubmitButton>

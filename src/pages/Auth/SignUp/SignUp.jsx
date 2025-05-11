@@ -17,7 +17,7 @@ const SignUp = () => {
     console.log("form data :", { full_name, username, email, password });
   };
   return (
-    <div className="flex gap-12 justify-center min-h-screen">
+    <div className="flex gap-12 justify-center min-h-dvh md:min-h-screen">
       <div className="md:w-1/2 flex flex-col justify-center items-end">
         <div className="w-full md:max-w-144 px-8 py-12">
           <AuthHeader
