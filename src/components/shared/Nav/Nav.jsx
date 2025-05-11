@@ -132,7 +132,7 @@ const Nav = () => {
         </CircularButton>
 
         {/* User Avatar */}
-        <Link to="/dashboard" className="rounded-full border-2 border-neutral-border block max-w-[3.5rem] max-h-[3.5rem]">
+        <Link to="/sign-in" className="rounded-full border-2 border-neutral-border block max-w-[3.5rem] max-h-[3.5rem]">
           <img src="https://cdn-icons-png.flaticon.com/128/3135/3135715.png" alt="user" className="size-full object-cover" />
         </Link>
 

@@ -3,6 +3,7 @@ import VerticalTextSwap from "./VerticalTextSwap";
 
 const CircularButton = ({
   children,
+  type = "",
   onClick = () => {},
   indicator = "",
   size = "",
@@ -25,6 +26,7 @@ const CircularButton = ({
   const getBgColorClass = (color) => {
     if (color === "white") return "bg-white";
     if (color === "neutral-default") return "bg-neutral-default";
+    if (color === "neutral-caption") return "bg-neutral-caption";
     if (color === "primary") return "bg-primary";
     if (color === "blue-50") return "bg-blue-50";
     if (color === "purple-50") return "bg-purple-50";
@@ -38,6 +40,7 @@ const CircularButton = ({
     if (color === "white") return "before:bg-white";
     if (color === "black") return "before:bg-black";
     if (color === "neutral-default") return "before:bg-neutral-default";
+    if (color === "neutral-caption") return "before:bg-neutral-caption";
     if (color === "neutral-border") return "before:bg-neutral-border";
     if (color === "primary") return "before:bg-primary";
     if (color === "blue-200") return "before:bg-blue-200";
@@ -61,6 +64,7 @@ const CircularButton = ({
   return (
     <button
       onClick={onClick}
+      type={type}
       className={`group relative flex justify-center items-center rounded-full ${getBgColorClass(bg_color)} ${
         isHovered ? getTextColorClass(text_hover_color) : getTextColorClass(text_color)
       } transition-all duration-300 ease-in-out p-4 before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full ${getHoverBgColorClass(

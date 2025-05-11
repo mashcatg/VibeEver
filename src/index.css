@@ -83,6 +83,11 @@
   .rounded-5xl {
     border-radius: var(--border-radius-5xl);
   }
+
+  .rounded-l-5xl {
+    border-top-left-radius: var(--border-radius-5xl);
+    border-bottom-left-radius: var(--border-radius-5xl);
+  }
 }
 
 /* Tailwind CSS Configs */
@@ -193,6 +198,10 @@ body {
 
 #nav .active {
   color: var(--color-primary-dark);
+}
+
+.svg-no-fill svg path {
+  fill: transparent !important;
 }
 
 /* media queries */
