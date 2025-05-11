@@ -8,6 +8,7 @@ import SignIn from "../pages/Auth/SignIn/SignIn";
 import SignUp from "../pages/Auth/SignUp/SignUp";
 import ResetPassword from "../pages/Auth/ResetPassword/ResetPassword";
 import SetNewPassword from "../pages/Auth/SetNewPassword/SetNewPassword";
+import ChangePassword from "../pages/Auth/ChangePassword/ChangePassword";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
   {
     path: "/set-new-password",
     element: <SetNewPassword></SetNewPassword>,
+  },
+  {
+    path: "/change-password",
+    element: <ChangePassword></ChangePassword>,
   },
   // {
   //   path: "/components",
