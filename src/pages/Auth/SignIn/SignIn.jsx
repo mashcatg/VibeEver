@@ -6,6 +6,14 @@ import AuthHeader from "../components/AuthHeader";
 import AuthFooter from "../components/AuthFooter";
 
 const SignIn = () => {
+  const handle_submit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    console.log("form data :", { email, password });
+  };
   return (
     <div className="flex gap-12 justify-center min-h-screen">
       <div className="md:w-1/2 flex flex-col justify-center items-end">
@@ -19,7 +27,7 @@ const SignIn = () => {
             description="Already have an account? Get into your account by providing the account credentials."
           />
 
-          <form className="mt-8">
+          <form onSubmit={handle_submit} className="mt-8">
             <div className="flex flex-col gap-8">
               {/* email */}
               <Input
