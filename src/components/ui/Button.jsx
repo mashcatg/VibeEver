@@ -149,12 +149,12 @@ const ExpandedIconButton = ({
   );
 };
 
-const RightSwapButton = ({ children, onClick = () => {}, className = "" }) => {
+const SubmitButton = ({ children, className = "" }) => {
   return (
-    <button onClick={onClick} className={`flex items-center justify-center gap-2 bg-neutral-default rounded-full p-2 ${className}`}>
+    <button type="submit" className={`w-full px-6 py-4.5 bg-primary rounded-full text-white font-semibold text-lg uppercase ${className}`}>
       {children}
     </button>
   );
 };
 
-export { CircularButton, ExpandedIconButton, RightSwapButton };
+export { CircularButton, ExpandedIconButton, SubmitButton };

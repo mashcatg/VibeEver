@@ -60,7 +60,7 @@ const Input = ({ label = "Enter", placeholder = "Type...", type = "text", id = "
       )}
 
       {type === "password" && (
-        <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
+        <div className={`absolute top-1/2 transform -translate-y-1/2 ${ is_search_focused ? "-right-6" : "right-2"} transition-all duration-300`}>
           <CircularButton
             size="4rem"
             type="button"
