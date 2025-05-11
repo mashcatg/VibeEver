@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { SubmitButton } from "../../../components/ui/Button";
 import AuthSideImage from "../components/AuthSideImage";
 import AuthHeader from "../components/AuthHeader";
-import AuthFooter from "../components/AuthFooter";
 
 const ResetPassword = () => {
   const handle_submit = (e) => {

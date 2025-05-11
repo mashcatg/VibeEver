@@ -7,6 +7,7 @@ import ProductDetails from "../pages/ProductDetails/ProductDetails";
 import SignIn from "../pages/Auth/SignIn/SignIn";
 import SignUp from "../pages/Auth/SignUp/SignUp";
 import ResetPassword from "../pages/Auth/ResetPassword/ResetPassword";
+import SetNewPassword from "../pages/Auth/SetNewPassword/SetNewPassword";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
   {
     path: "/reset-password",
     element: <ResetPassword></ResetPassword>,
+  },
+  {
+    path: "/set-new-password",
+    element: <SetNewPassword></SetNewPassword>,
   },
   // {
   //   path: "/components",
