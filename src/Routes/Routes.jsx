@@ -9,6 +9,7 @@ import SignUp from "../pages/Auth/SignUp/SignUp";
 import ResetPassword from "../pages/Auth/ResetPassword/ResetPassword";
 import SetNewPassword from "../pages/Auth/SetNewPassword/SetNewPassword";
 import ChangePassword from "../pages/Auth/ChangePassword/ChangePassword";
+import EditProfile from "../pages/EditProfile/EditProfile";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
         element: <ProductDetails></ProductDetails>,
       },
     ],
+  },
+  {
+    path: "/edit-profile",
+    element: <EditProfile></EditProfile>,
   },
   {
     path: "/sign-in",
