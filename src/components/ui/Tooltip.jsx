@@ -29,6 +29,7 @@ const Tooltip = ({ text, bg_color, text_color, arrow_position, className }) => {
     if (color === "blue-50") return "bg-blue-50";
     if (color === "purple-50") return "bg-purple-50";
     if (color === "neutral-50") return "bg-neutral-50";
+    if (color === "green-50") return "bg-green-50";
     return `bg-${color}`;
   };
 
@@ -37,6 +38,7 @@ const Tooltip = ({ text, bg_color, text_color, arrow_position, className }) => {
     if (color === "blue-400") return "text-blue-400";
     if (color === "purple-400") return "text-purple-400";
     if (color === "neutral-400") return "text-neutral-400";
+    if (color === "green-400") return "text-green-400";
     return `text-${color}`;
   };
 
@@ -45,6 +47,7 @@ const Tooltip = ({ text, bg_color, text_color, arrow_position, className }) => {
     if (color === "blue-50") return "fill-blue-50";
     if (color === "purple-50") return "fill-purple-50";
     if (color === "neutral-50") return "fill-neutral-50";
+    if (color === "green-50") return "fill-green-50";
     return `fill-${color}`;
   };
   return (

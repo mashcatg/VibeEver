@@ -31,6 +31,7 @@ const CircularButton = ({
     if (color === "blue-50") return "bg-blue-50";
     if (color === "purple-50") return "bg-purple-50";
     if (color === "neutral-50") return "bg-neutral-50";
+    if (color === "green-50") return "bg-green-50";
     if (color === "social-linkedin") return "bg-social-linkedin";
     return `bg-${color}`;
   };
@@ -46,6 +47,7 @@ const CircularButton = ({
     if (color === "blue-200") return "before:bg-blue-200";
     if (color === "purple-200") return "before:bg-purple-200";
     if (color === "neutral-200") return "before:bg-neutral-200";
+    if (color === "green-200") return "before:bg-green-200";
     return `before:bg-${color}`;
   };
 
@@ -58,6 +60,8 @@ const CircularButton = ({
     if (color === "purple-900") return "text-purple-900";
     if (color === "neutral-700") return "text-neutral-700";
     if (color === "neutral-900") return "text-neutral-900";
+    if (color === "green-700") return "text-green-700";
+    if (color === "green-900") return "text-green-900";
     return `text-${color}`;
   };
 
