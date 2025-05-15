@@ -9,7 +9,7 @@ import { IoClose } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Nav = () => {
+const Nav = ({ set_open_cart }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -121,7 +121,7 @@ const Nav = () => {
           hover_bg_color="primary"
           text_color="text-body"
           text_hover_color="white"
-          onClick={() => console.log("Clicked")}
+          onClick={() => set_open_cart(true)}
         >
           <svg viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-4">
             <path
