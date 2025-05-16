@@ -210,6 +210,10 @@ body {
   color: var(--color-primary-dark);
 }
 
+#dashboard_sidebar .active {
+  background-color: #4a11bb;
+}
+
 .svg-no-fill svg path {
   fill: transparent !important;
 }

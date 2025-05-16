@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "../layouts/Root";
+import DashboardLayout from "../layouts/Dashboard";
 import Home from "../pages/Home/Home";
 import Products from "../pages/Products/Products";
 import ComponentsPage from "../pages/ComponentsPage/ComponentsPage";
@@ -11,6 +12,7 @@ import SetNewPassword from "../pages/Auth/SetNewPassword/SetNewPassword";
 import ChangePassword from "../pages/Auth/ChangePassword/ChangePassword";
 import EditProfile from "../pages/EditProfile/EditProfile";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import AdminDashboard from "../pages/AdminDashboard/AdminDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -31,8 +33,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Dashboard></Dashboard>
-      }
+        element: <Dashboard></Dashboard>,
+      },
     ],
   },
   {
@@ -63,4 +65,14 @@ export const router = createBrowserRouter([
   //   path: "/components",
   //   element: <ComponentsPage></ComponentsPage>,
   // },
+  {
+    path: "admin-dashboard",
+    element: <DashboardLayout></DashboardLayout>,
+    children: [
+      {
+        index: true,
+        element: <AdminDashboard></AdminDashboard>,
+      },
+    ],
+  },
 ]);
