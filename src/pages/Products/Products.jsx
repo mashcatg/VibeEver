@@ -1,11 +1,13 @@
 import productImage from "../../assets/images/product.jpeg";
 import FeaturedProducts from "../../components/shared/FeaturedProducts/FeaturedProducts";
 import SectionHead from "../../components/ui/SectionHead";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CircularButton } from "../../components/ui/Button";
 import LeftRightIconSwap from "../../components/ui/LeftRightIconSwap";
 import Tooltip from "../../components/ui/Tooltip";
 import Select from "../../components/ui/Select";
+import useAxios from "../../Hooks/useAxios";
+import toast from "react-hot-toast";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import required Swiper modules
@@ -15,6 +17,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const Products = () => {
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
   const [is_filter_shown, set_is_filter_shown] = useState(false);
   const [is_search_hovered, set_is_search_hovered] = useState(false);
   const [selected, set_selected] = useState("Graphics");
@@ -27,7 +31,24 @@ const Products = () => {
   // All available tags
   const tags = ["Illustrator", "WordPress", "Photoshop", "Figma", "Sketch", "Adobe XD", "Webflow", "After Effects", "InDesign", "Canva"];
 
-  // Handler for selection change
+  const axios = useAxios();
+
+  // Fetch products
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('/products');
+        setProducts(response.data.products);
+      } catch (error) {
+        toast.error('Failed to load products');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchProducts();
+  }, [axios]);
+
   const handleSelectChange = (value) => {
     set_selected(value);
   };
@@ -42,134 +63,22 @@ const Products = () => {
         }
         section_head_stats={[
           {
-            count: 1250,
+            count: products.length,
             text: "Ready Templates",
           },
         ]}
         section_head_circle_btn_text="Help?"
-        products={[
-          {
-            id: 1,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 2,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 3,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 4,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 5,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 6,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 7,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 8,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 9,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 10,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 11,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 12,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 13,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 14,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 15,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-        ]}
         section_head_filter_handler={() => set_is_filter_shown(!is_filter_shown)}
+        products={products.map(product => ({
+          id: product._id,
+          image: product.thumbnailUrls[0],
+          title: product.title,
+          tags: product.tags,
+          price: product.finalPrice,
+          regular_price: product.price,
+          category: product.category?.name,
+          isPublished: product.isPublished
+        }))}
       >
         <div
           className={`border-t border-t-neutral-default ${

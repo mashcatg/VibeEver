@@ -15,6 +15,8 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import AdminDashboard from "../pages/AdminDashboard/AdminDashboard";
 import VerifyEmail from "../pages/Auth/VerifyEmail/VerifyEmail";
 import PrivateRoute from "../components/PrivateRoute";
+import AddProduct from "../pages/AdminDashboard/AddProduct/AddProduct";
+import ProductManage from "../pages/AdminDashboard/ProductManage/ProductManage";
 
 export const router = createBrowserRouter([
   {
@@ -92,6 +94,22 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute role="admin">
             <AdminDashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "add-product",
+        element: (
+          <PrivateRoute role="admin">
+            <AddProduct />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-products",
+        element: (
+          <PrivateRoute role="admin">
+            <ProductManage />
           </PrivateRoute>
         ),
       },
