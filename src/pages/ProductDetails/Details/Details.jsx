@@ -14,12 +14,8 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "swiper/css/free-mode";
 
-const ProductImageSlider = () => {
-  // Store thumbs swiper instance
+const ProductImageSlider = ({ images }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
-  // Sample product images - in a real project, these would come from props or an API
-  const productImages = [sliderImage, sliderImage, sliderImage, sliderImage, sliderImage];
 
   return (
     <div className="product-slider-container">
@@ -32,7 +28,7 @@ const ProductImageSlider = () => {
           modules={[Navigation, Thumbs]}
           className="main-product-slider sm:h-[26rem]"
         >
-          {productImages.map((image, index) => (
+          {images.map((image, index) => (
             <SwiperSlide key={index}>
               <div className="product-slide rounded-2xl overflow-hidden">
                 <img src={image} alt={`Product image ${index + 1}`} className="w-full h-full object-cover" />
@@ -53,7 +49,7 @@ const ProductImageSlider = () => {
           modules={[FreeMode, Navigation, Thumbs]}
           className="thumbnail-slider sm:h-[6.25rem]"
         >
-          {productImages.map((image, index) => (
+          {images.map((image, index) => (
             <SwiperSlide key={index}>
               <div className="thumbnail-slide cursor-pointer rounded-xl overflow-hidden border-2 border-transparent hover:border-neutral-border transition-all duration-300">
                 <img src={image} alt={`Thumbnail ${index + 1}`} className="w-full h-full max-h-[5.75rem] object-cover" />
@@ -122,49 +118,66 @@ const ActionButton = ({ icon, text, className }) => {
   );
 };
 
-const PrimaryInfo = () => {
+const PrimaryInfo = ({ product }) => {
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  };
+
   return (
     <div>
       {/* category */}
       <div className="w-fit border border-neutral-border rounded-full py-0.5 px-2 text-caption leading-caption text-neutral-caption font-semibold uppercase">
-        Website
+        {product.category.name}
       </div>
 
       {/* title */}
-      <h5 className="text-headline leading-headline font-bold mt-2 mb-10">Demo Portfolio Website Template</h5>
+      <h5 className="text-headline leading-headline font-bold mt-2 mb-10">{product.title}</h5>
 
       {/* price */}
       <div>
         <p className="text-footnote leading-footnote font-medium tracking-[4%]">PRICE:</p>
 
         <div className="relative group w-fit">
-          {/* discounted price */}
-          <h3 className="text-primary font-bold">$12.80</h3>
+          <h3 className="text-primary font-bold">${product.finalPrice.toFixed(2)}</h3>
 
-          {/* regular price */}
-          <div className="bg-neutral-default rounded-sm w-fit opacity-0 group-hover:opacity-100 absolute -right-[5.55rem] group-hover:-right-18.25 top-[50%] translate-y-[-50%] pointer-events-none transition-all duration-600 ease-in-out">
-            <div className="relative px-1.5">
-              <span className="absolute -left-1.5 top-[50%] translate-y-[-50%]">
-                <svg className="w-2 h-2" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M0.500001 4.86603C-0.166666 4.48113 -0.166667 3.51887 0.5 3.13397L5 0.535898C5.66667 0.150998 6.5 0.632122 6.5 1.40192L6.5 6.59807C6.5 7.36788 5.66667 7.849 5 7.4641L0.500001 4.86603Z"
-                    className="fill-neutral-default"
-                  />
-                </svg>
-              </span>
-              <del className="font-semibold text-neutral-caption">$19.99</del>
+          {product.finalPrice !== product.price && (
+            <div className="bg-neutral-default rounded-sm w-fit opacity-0 group-hover:opacity-100 absolute -right-[5.55rem] group-hover:-right-18.25 top-[50%] translate-y-[-50%] pointer-events-none transition-all duration-600 ease-in-out">
+              <div className="relative px-1.5">
+                <span className="absolute -left-1.5 top-[50%] translate-y-[-50%]">
+                  <svg className="w-2 h-2" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.500001 4.86603C-0.166666 4.48113 -0.166667 3.51887 0.5 3.13397L5 0.535898C5.66667 0.150998 6.5 0.632122 6.5 1.40192L6.5 6.59807C6.5 7.36788 5.66667 7.849 5 7.4641L0.500001 4.86603Z" className="fill-neutral-default"/>
+                  </svg>
+                </span>
+                <del className="font-semibold text-neutral-caption">${product.price.toFixed(2)}</del>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
       <div className="pt-10 space-y-8">
         <div className="grid grid-cols-2">
-          <StatCard icon={versionIcon} title="Version" value="V12.3.001" />
-          <StatCard icon={calenderIcon} title="Released" value="12 March, 2024" />
+          <StatCard 
+            icon={versionIcon} 
+            title="Version" 
+            value={product.downloads[0]?.version || "No version"} 
+          />
+          <StatCard 
+            icon={calenderIcon} 
+            title="Released" 
+            value={formatDate(product.createdAt)} 
+          />
         </div>
 
-        <StatCard icon={tagIcon} title="Tags" value="Wordpress, Elementor, Portfolio" />
+        <StatCard 
+          icon={tagIcon} 
+          title="Tags" 
+          value={product.tags.join(", ")} 
+        />
       </div>
 
       <div className="py-10 flex gap-5 items-center">
@@ -216,33 +229,26 @@ const PrimaryInfo = () => {
   );
 };
 
-const Details = () => {
+const Details = ({ product }) => {
   return (
     <div className="sm:py-10 flex flex-col md:flex-row justify-between gap-16">
       <div className="w-full md:max-w-[59%]">
-        {/* Product image slider */}
-        <ProductImageSlider />
+        <ProductImageSlider images={product.thumbnailUrls} />
 
         <div className="mt-10 md:hidden">
-          <PrimaryInfo />
+          <PrimaryInfo product={product} />
         </div>
 
         <div className="mt-10 md:mt-16">
           <h4 className="font-bold">Overview</h4>
-
           <p className="text-xl text-neutral-subtitle mt-6">
-            TaskFlow Pro is an all-in-one digital productivity platform designed to help individuals and teams streamline tasks, manage projects, and crush
-            deadlines without the chaos. Whether you're a freelancer juggling multiple clients or part of a fast-paced team, TaskFlow adapts to your workflow
-            with ease.
-            <br /> <br />
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, deleniti ex perferendis voluptas veniam voluptatem. Enim possimus animi rem
-            quae facere. Magnam quisquam obcaecati rem consequatur vitae, eius explicabo ducimus.
+            {product.description}
           </p>
         </div>
       </div>
 
       <div className="hidden md:block w-full md:max-w-[38%]">
-        <PrimaryInfo />
+        <PrimaryInfo product={product} />
       </div>
     </div>
   );

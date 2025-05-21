@@ -6,9 +6,25 @@ import FeaturedProducts from "../../components/shared/FeaturedProducts/FeaturedP
 import FAQs from "../../components/shared/FAQs/FAQs";
 import Contact from "./Contact/Contact";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import useAxios from "../../Hooks/useAxios";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const axios = useAxios();
+
+   useEffect(() => {
+      const fetchProducts = async () => {
+       
+          const response = await axios.get('/products?limit=6');
+          setProducts(response.data.products);
+         
+        
+      };
+      
+      fetchProducts();
+    }, [axios]);
   return (
     <div>
       <Hero></Hero>
@@ -63,56 +79,7 @@ const Home = () => {
         ]}
         section_head_circle_btn_text="View All"
         section_head_circuler_btn_handler={() => navigate("/products")}
-        products={[
-          {
-            id: 1,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 2,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 3,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 4,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 5,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-          {
-            id: 6,
-            image: productImage,
-            title: "Landing page React & Tailwind CSS code Snippets",
-            tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-            price: 22.5,
-            regular_price: 37.5,
-          },
-        ]}
+        products={products}
       ></FeaturedProducts>
 
       <FAQs
