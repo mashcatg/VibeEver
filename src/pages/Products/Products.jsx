@@ -1,4 +1,3 @@
-import productImage from "../../assets/images/product.jpeg";
 import FeaturedProducts from "../../components/shared/FeaturedProducts/FeaturedProducts";
 import SectionHead from "../../components/ui/SectionHead";
 import { useState, useEffect } from "react";
@@ -22,6 +21,9 @@ const Products = () => {
   const [is_filter_shown, set_is_filter_shown] = useState(false);
   const [is_search_hovered, set_is_search_hovered] = useState(false);
   const [selected, set_selected] = useState("Graphics");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [limit] = useState(2);
   // Reference to the swiper instance for tags
   const [tagSwiper, setTagSwiper] = useState(null);
 
@@ -37,8 +39,10 @@ const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('/products');
+        setLoading(true);
+        const response = await axios.get(`/products?page=${page}&limit=${limit}`);
         setProducts(response.data.products);
+        setTotalPages(response.data.totalPages);
       } catch (error) {
         toast.error('Failed to load products');
       } finally {
@@ -47,10 +51,15 @@ const Products = () => {
     };
     
     fetchProducts();
-  }, [axios]);
+  }, [axios, page, limit]);
 
   const handleSelectChange = (value) => {
     set_selected(value);
+  };
+
+  // Add pagination handler
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
   };
 
   return (
@@ -69,6 +78,9 @@ const Products = () => {
         ]}
         section_head_circle_btn_text="Help?"
         section_head_filter_handler={() => set_is_filter_shown(!is_filter_shown)}
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
         products={products.map(product => ({
           id: product._id,
           image: product.thumbnailUrls[0],
@@ -187,6 +199,7 @@ const Products = () => {
             </div>
           </div>
         </div>
+
       </FeaturedProducts>
 
       {/* lets talk */}
