@@ -141,6 +141,7 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const { id, image, title, tags, price, regular_price, download_link } =
     product;
+    console.log(id);
   return (
     <div>
       {/* product image */}

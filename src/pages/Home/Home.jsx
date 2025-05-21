@@ -8,23 +8,40 @@ import Contact from "./Contact/Contact";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useAxios from "../../Hooks/useAxios";
+import toast from "react-hot-toast";
 
 const Home = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const axios = useAxios();
 
-   useEffect(() => {
-      const fetchProducts = async () => {
-       
-          const response = await axios.get('/products?limit=6');
-          setProducts(response.data.products);
-         
-        
-      };
-      
-      fetchProducts();
-    }, [axios]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get('/products?limit=6');
+        // Transform products data to match the required format
+        const formattedProducts = response.data.products.map(product => ({
+          id: product._id,
+          image: product.thumbnailUrls[0],
+          title: product.title,
+          tags: product.tags,
+          price: product.finalPrice,
+          regular_price: product.price,
+          category: product.category?.name,
+          isPublished: product.isPublished
+        }));
+        setProducts(formattedProducts);
+      } catch (error) {
+        toast.error('Failed to load featured products');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchProducts();
+  }, [axios]);
   return (
     <div>
       <Hero></Hero>
@@ -73,13 +90,14 @@ const Home = () => {
         }
         section_head_stats={[
           {
-            count: 1250,
+            count: products.length,
             text: "Ready Templates",
           },
         ]}
         section_head_circle_btn_text="View All"
         section_head_circuler_btn_handler={() => navigate("/products")}
         products={products}
+        loading={loading}
       ></FeaturedProducts>
 
       <FAQs
