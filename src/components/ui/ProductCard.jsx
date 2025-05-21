@@ -4,6 +4,7 @@ import Tooltip from "../ui/Tooltip";
 import LeftRightIconSwap from "../ui/LeftRightIconSwap";
 import { Link, useNavigate } from "react-router-dom";
 import TopBottomIconSwap from "./TopBottomIconSwap";
+import { useCart } from "../../Providers/cartProvider";
 
 const ProductImage = ({ id, product_image, save_handler = () => {} }) => {
   return (
@@ -131,6 +132,12 @@ const ProductCardActionButton = ({
 };
 
 const ProductCard = ({ product }) => {
+  console.log(product);
+  const { addToCart } = useCart();
+    const handleAddToCart = () => {
+      console.log("add to cart " , product.id);
+    addToCart(product.id);
+  };
   const navigate = useNavigate();
   const { id, image, title, tags, price, regular_price, download_link } =
     product;
@@ -224,13 +231,14 @@ const ProductCard = ({ product }) => {
               {/* Add to Cart */}
               <ProductCardActionButton
                 tooltip_text="Add to Cart"
-                on_click_handler={() => console.log("Add to Cart " + id)}
+                on_click_handler={handleAddToCart}
                 bg_color="blue-50"
                 hover_bg_color="blue-200"
                 tooltip_text_color="blue-400"
                 tooltip_arrow_position="bottom"
                 icon_color="blue-900"
                 icon_hover_color="blue-700"
+                 
                 icon={
                   <svg
                     viewBox="0 0 12 12"
