@@ -13,6 +13,8 @@ import ChangePassword from "../pages/Auth/ChangePassword/ChangePassword";
 import EditProfile from "../pages/EditProfile/EditProfile";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import AdminDashboard from "../pages/AdminDashboard/AdminDashboard";
+import VerifyEmail from "../pages/Auth/VerifyEmail/VerifyEmail";
+import PrivateRoute from "../components/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -33,13 +35,25 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Dashboard></Dashboard>,
+        element: (
+          <PrivateRoute role="user">
+            <Dashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/verify-email/:token",
+        element: <VerifyEmail></VerifyEmail>,
       },
     ],
   },
   {
     path: "/edit-profile",
-    element: <EditProfile></EditProfile>,
+    element: (
+      <PrivateRoute>
+        <EditProfile />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/sign-in",
@@ -59,19 +73,27 @@ export const router = createBrowserRouter([
   },
   {
     path: "/change-password",
-    element: <ChangePassword></ChangePassword>,
+    element: (
+      <PrivateRoute>
+        <ChangePassword />
+      </PrivateRoute>
+    ),
   },
-  // {
-  //   path: "/components",
-  //   element: <ComponentsPage></ComponentsPage>,
-  // },
   {
     path: "admin-dashboard",
-    element: <DashboardLayout></DashboardLayout>,
+    element: (
+      <PrivateRoute role="admin">
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,
-        element: <AdminDashboard></AdminDashboard>,
+        element: (
+          <PrivateRoute role="admin">
+            <AdminDashboard />
+          </PrivateRoute>
+        ),
       },
     ],
   },
