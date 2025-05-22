@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import user from "../../assets/images/istiaque.png";
+import { useAuth } from "../../Providers/AuthProvider";
 
 const DashboardProfile = () => {
+  const {user} = useAuth()
   return (
     <div className="py-10">
       <h3 className="font-extrabold uppercase text-text-body">DASHBOARD</h3>
@@ -14,10 +16,10 @@ const DashboardProfile = () => {
         <div>
           <div className="text-center sm:text-left">
             <h3 className="font-extrabold uppercase text-text-body">
-              ISTIAQUE ZAMAN
+              {user?.fullName}
             </h3>
             <p className="text-neutral-subtitle text-xl leading-body">
-              istiaquezaman51@gmail.com
+              {user?.email}
             </p>
           </div>
 

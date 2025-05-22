@@ -20,8 +20,17 @@ const Home = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/products?limit=6');
-        // Transform products data to match the required format
+        // Get token from localStorage
+        const token = JSON.parse(localStorage.getItem("auth"))?.token
+
+        console.log(token.token , "token home");
+        
+        const response = await axios.get('/products?limit=6', {
+          headers: {
+            'Authorization':`${token}`
+          }
+        });
+
         const formattedProducts = response.data.products.map(product => ({
           id: product._id,
           image: product.thumbnailUrls[0],
@@ -34,14 +43,27 @@ const Home = () => {
         }));
         setProducts(formattedProducts);
       } catch (error) {
-        toast.error('Failed to load featured products');
+        // Check if unauthorized
+        if (error.response?.status === 401) {
+          toast.error('Please login to view products');
+          // Optionally redirect to login
+          // navigate('/sign-in');
+        } else {
+          toast.error('Failed to load featured products');
+        }
       } finally {
         setLoading(false);
       }
     };
     
-    fetchProducts();
-  }, [axios]);
+    // Only fetch if we have a token
+    const token = JSON.parse(localStorage.getItem("auth"))?.token
+    if (token) {
+      fetchProducts();
+    } else {
+      setLoading(false);
+    }
+  }, [axios, navigate]);
   return (
     <div>
       <Hero></Hero>
