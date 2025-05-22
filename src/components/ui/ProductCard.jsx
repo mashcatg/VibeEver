@@ -132,7 +132,7 @@ const ProductCardActionButton = ({
 };
 
 const ProductCard = ({ product }) => {
-  console.log(product);
+  // console.log(product);
   const { addToCart } = useCart();
     const handleAddToCart = () => {
       console.log("add to cart " , product.id);
