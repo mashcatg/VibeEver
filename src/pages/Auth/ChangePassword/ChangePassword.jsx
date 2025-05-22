@@ -1,23 +1,51 @@
-import Input from "../../../components/ui/Input";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { SubmitButton } from "../../../components/ui/Button";
 import AuthSideImage from "../components/AuthSideImage";
 import AuthHeader from "../components/AuthHeader";
+import Input from "../../../components/ui/Input";
+import useAxios from "../../../Hooks/useAxios";
+import toast from "react-hot-toast";
 
 const ChangePassword = () => {
-  const handle_submit = (e) => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const axios = useAxios();
+
+  const handle_submit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const current_password = form.current_password.value;
     const new_password = form.new_password.value;
     const confirm_password = form.confirm_password.value;
 
-    console.log("form data :", {
-      current_password,
-      new_password,
-      confirm_password,
-    });
+    if (new_password !== confirm_password) {
+      return toast.error("New passwords don't match");
+    }
+
+    try {
+      setLoading(true);
+      // Get token from localStorage
+      // const token = JSON.parse(localStorage.getItem("auth"))?.token;
+
+      const response = await axios.put(
+        "/auth/change-password",
+        {
+          currentPassword: current_password,
+          newPassword: new_password,
+        }       );
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+        navigate("/my-profile");
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to change password");
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <div className="flex gap-12 justify-center min-h-dvh md:min-h-screen">
       <div className="md:w-1/2 flex flex-col justify-center items-end">
@@ -62,7 +90,9 @@ const ChangePassword = () => {
                 is_required
               />
 
-              <SubmitButton>Change Password</SubmitButton>
+              <SubmitButton disabled={loading}>
+                {loading ? "Changing Password..." : "Change Password"}
+              </SubmitButton>
             </div>
           </form>
 

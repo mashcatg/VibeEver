@@ -18,6 +18,7 @@ import PrivateRoute from "../components/PrivateRoute";
 import AddProduct from "../pages/AdminDashboard/AddProduct/AddProduct";
 import ProductManage from "../pages/AdminDashboard/ProductManage/ProductManage";
 import EditProduct from "../pages/AdminDashboard/EditProduct/EditProduct";
+import Myprofile from "../pages/Myprofile/Myprofile";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,14 @@ export const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <EditProfile />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/MY-profile",
+    element: (
+      <PrivateRoute>
+        <Myprofile />
       </PrivateRoute>
     ),
   },
