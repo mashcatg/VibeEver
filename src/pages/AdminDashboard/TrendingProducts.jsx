@@ -1,15 +1,48 @@
-import productImage from "../../assets/images/product.jpeg";
+import { useEffect, useState } from "react";
 import ProductCard from "../../components/ui/ProductCard";
+import useAxios from "../../Hooks/useAxios";
 
 const TrendingProducts = () => {
-  const product = {
-    id: 13,
-    image: productImage,
-    title: "Landing page React & Tailwind CSS code Snippets",
-    tags: ["Coding", "React", "Tailwind Css", "Landing Page"],
-    price: 22.5,
-    regular_price: 37.5,
-  };
+  const [products , setProducts] = useState([])
+  const [loading, setLoading] = useState(true);
+
+  const axios= useAxios()
+
+   useEffect(() => {
+      const fetchProducts = async () => {
+        try {
+          setLoading(true);
+          const response = await axios.get(`/products?limit=5`);
+
+          console.log("response.data.products" , response.data.products);
+          setProducts(response.data.products);
+        } catch (error) {
+          console.log('Failed to load products');
+        } finally {
+          setLoading(false);
+        }
+      };
+      
+      fetchProducts();
+    }, [axios]);
+
+
+
+     if (loading) {
+    return (
+      <div className="py-4 px-4 sm:px-8 rounded-xl bg-neutral-subtle">
+        <h5 className="text-text-body text-headline leading-headline">Recent Users</h5>
+        <div className="mt-5 space-y-3">
+          {[...Array(6)].map((_, index) => (
+            <div key={index} className="flex gap-4">
+              <div className="flex-1 h-20 bg-white/50 rounded-xl animate-pulse" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
 
   return (
     <div className="mt-10">
@@ -19,10 +52,13 @@ const TrendingProducts = () => {
 
       <div className="mt-5">
         <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 max-w-[51.25rem]">
-          <ProductCard product={product}></ProductCard>
-          <ProductCard product={product}></ProductCard>
-          <ProductCard product={product}></ProductCard>
-          <ProductCard product={product}></ProductCard>
+         {
+          products.map((product) => (
+            <ProductCard
+              key={product._id}
+               product={product}
+            />
+          ))}
         </div>
       </div>
     </div>
