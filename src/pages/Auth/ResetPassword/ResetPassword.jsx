@@ -1,17 +1,33 @@
-import Input from "../../../components/ui/Input";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SubmitButton } from "../../../components/ui/Button";
 import AuthSideImage from "../components/AuthSideImage";
 import AuthHeader from "../components/AuthHeader";
+import Input from "../../../components/ui/Input";
+import useAxios from "../../../Hooks/useAxios";
+import toast from "react-hot-toast";
 
 const ResetPassword = () => {
-  const handle_submit = (e) => {
+  const [loading, setLoading] = useState(false);
+  const axios = useAxios();
+
+  const handle_submit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
 
-    console.log("form data :", { email });
+    try {
+      setLoading(true);
+      const response = await axios.post('/auth/forgot-password', { email });
+      toast.success(response.data.message);
+      form.reset();
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Failed to send reset email');
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <div className="flex gap-12 justify-center min-h-dvh md:min-h-screen">
       <div className="md:w-1/2 flex flex-col justify-center items-end">
@@ -36,13 +52,15 @@ const ResetPassword = () => {
                 is_required
               />
 
-              <SubmitButton>SEND INSTRUCTIONS</SubmitButton>
+              <SubmitButton disabled={loading}>
+                {loading ? "SENDING..." : "SEND INSTRUCTIONS"}
+              </SubmitButton>
             </div>
           </form>
 
           <h6 className="text-lg text-text-body mt-12 flex items-center justify-center gap-2">
             Need help?
-            <Link to="/conatct" className="text-primary">
+            <Link to="/contact" className="text-primary">
               Contact Support
             </Link>
           </h6>

@@ -77,10 +77,10 @@ export const router = createBrowserRouter([
   },
   {
     path: "/reset-password",
-    element: <ResetPassword></ResetPassword>,
+    element: <ResetPassword></ResetPassword>, // note: reset and set new password are related
   },
   {
-    path: "/set-new-password",
+    path: "/set-new-password/:token",
     element: <SetNewPassword></SetNewPassword>,
   },
   {
