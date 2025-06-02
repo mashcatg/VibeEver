@@ -20,50 +20,27 @@ const Home = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        // Get token from localStorage
-        const token = JSON.parse(localStorage.getItem("auth"))?.token
-
-        console.log(token.token , "token home");
-        
-        const response = await axios.get('/products?limit=6', {
-          headers: {
-            'Authorization':`${token}`
-          }
-        });
-
-        const formattedProducts = response.data.products.map(product => ({
-          id: product._id,
-          image: product.thumbnailUrls[0],
+        const response = await axios.get(`/products/products-home?limit=5`);
+        // Transform the products data to include id
+        const formattedProducts = response.data.products.map((product) => ({
+          id: product._id, // Map MongoDB _id to id
           title: product.title,
-          tags: product.tags,
-          price: product.finalPrice,
-          regular_price: product.price,
+          image: product.thumbnailUrls[0],
+          price: product.finalPrice || product.price,
+          regularPrice: product.price,
           category: product.category?.name,
-          isPublished: product.isPublished
+          tags: product.tags,
         }));
         setProducts(formattedProducts);
       } catch (error) {
-        // Check if unauthorized
-        if (error.response?.status === 401) {
-          toast.error('Please login to view products');
-          // Optionally redirect to login
-          // navigate('/sign-in');
-        } else {
-          toast.error('Failed to load featured products');
-        }
+        toast.error("Failed to load products");
       } finally {
         setLoading(false);
       }
     };
-    
-    // Only fetch if we have a token
-    const token = JSON.parse(localStorage.getItem("auth"))?.token
-    if (token) {
-      fetchProducts();
-    } else {
-      setLoading(false);
-    }
-  }, [axios, navigate]);
+
+    fetchProducts();
+  }, [axios]);
   return (
     <div>
       <Hero></Hero>
@@ -95,11 +72,13 @@ const Home = () => {
         cards={[
           {
             title: "GRAPHICS ASSETS",
-            description: "Sample 2-3 lines of description for the Template will go here in this short paragraph to make it concise.",
+            description:
+              "Sample 2-3 lines of description for the Template will go here in this short paragraph to make it concise.",
           },
           {
             title: "UI Templates",
-            description: "Sample 2-3 lines of description for the Template will go here in this short paragraph to make it concise.",
+            description:
+              "Sample 2-3 lines of description for the Template will go here in this short paragraph to make it concise.",
           },
         ]}
       ></SectionHead>
