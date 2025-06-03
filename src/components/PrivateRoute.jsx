@@ -4,7 +4,7 @@ import { useAuth } from "../Providers/AuthProvider";
 const PrivateRoute = ({ children, role }) => {
   const { user, loading } = useAuth();
 
-  console.log(user);
+  // console.log(user);
   const location = useLocation();
   
 
