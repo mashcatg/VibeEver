@@ -4,13 +4,14 @@ import { useAuth } from "../../Providers/AuthProvider";
 
 const DashboardProfile = () => {
   const {user} = useAuth()
+  console.log(user);
   return (
     <div className="py-10">
       <h3 className="font-extrabold uppercase text-text-body">DASHBOARD</h3>
 
       <div className="sm:w-fit mt-8 p-8 rounded-xl bg-neutral-subtle flex flex-col sm:flex-row items-center gap-6">
         <div className="w-full max-w-45">
-          <img src={user} alt="User" className="w-full object-cover" />
+          <img src={user?.image} alt="User" className="w-full object-cover" />
         </div>
 
         <div>

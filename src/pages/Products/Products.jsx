@@ -23,7 +23,7 @@ const Products = () => {
   const [selected, set_selected] = useState("Graphics");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [limit] = useState(2);
+  const [limit] = useState(10);
   // Reference to the swiper instance for tags
   const [tagSwiper, setTagSwiper] = useState(null);
   const token = JSON.parse(localStorage.getItem("auth"))?.token
