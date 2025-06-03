@@ -26,6 +26,8 @@ const Products = () => {
   const [limit] = useState(2);
   // Reference to the swiper instance for tags
   const [tagSwiper, setTagSwiper] = useState(null);
+  const token = JSON.parse(localStorage.getItem("auth"))?.token
+// console.log("token token" , token);
 
   // Options for the select component
   const selectOptions = ["Graphics", "Color", "Toast", "Logos"];
@@ -51,7 +53,7 @@ const Products = () => {
     };
     
     fetchProducts();
-  }, [axios, page, limit]);
+  }, [token ,axios, page, limit]);
 
   const handleSelectChange = (value) => {
     set_selected(value);

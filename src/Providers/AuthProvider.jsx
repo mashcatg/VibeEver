@@ -46,19 +46,57 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const auth = JSON.parse(localStorage.getItem('auth'));
-    if (auth) {
-      setUser(auth.user);
+    const checkAuth = () => {
+      const auth = localStorage.getItem('auth');
+      if (auth) {
+        try {
+          const parsed = JSON.parse(auth);
+          if (parsed.token && parsed.user) {
+            setUser(parsed.user);
+          } else {
+            localStorage.removeItem('auth');
+          }
+        } catch (error) {
+          localStorage.removeItem('auth');
+        }
+      }
+      setLoading(false);
+    };
+
+    checkAuth();
+  }, []); // Run only once on mount
+
+  const googleSignIn = () => {
+    // Open Google auth in a new window
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
+  };
+
+  // Add function to handle the callback
+  const handleGoogleCallback = async (token) => {
+    try {
+      const decodedToken = decodeURIComponent(token);
+      const payload = JSON.parse(atob(decodedToken.split('.')[1]));
+      
+      // Store auth data
+      const authData = { token: decodedToken, user: payload };
+      localStorage.setItem('auth', JSON.stringify(authData));
+      setUser(payload);
+      
+      return authData;
+    } catch (error) {
+      localStorage.removeItem('auth');
+      throw new Error('Failed to process Google authentication');
     }
-    setLoading(false);
-  }, []);
+  };
 
   const authInfo = {
     user,
     loading,
     createUser,
     signIn,
-    logOut
+    logOut,
+    googleSignIn,
+    handleGoogleCallback
   };
 
   return (

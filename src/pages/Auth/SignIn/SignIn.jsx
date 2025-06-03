@@ -11,8 +11,9 @@ import toast from "react-hot-toast";
 const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { signIn } = useAuth();
+  const { signIn, googleSignIn } = useAuth();
   const navigate = useNavigate();
+   
 
   const handle_submit = async (e) => {
     e.preventDefault();
@@ -98,7 +99,7 @@ const SignIn = () => {
           </form>
 
           <AuthFooter
-            google_handler={() => {}}
+            google_handler={googleSignIn}
             github_handler={() => {}}
             link_content={
               <>

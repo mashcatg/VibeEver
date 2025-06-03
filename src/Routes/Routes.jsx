@@ -19,6 +19,7 @@ import AddProduct from "../pages/AdminDashboard/AddProduct/AddProduct";
 import ProductManage from "../pages/AdminDashboard/ProductManage/ProductManage";
 import EditProduct from "../pages/AdminDashboard/EditProduct/EditProduct";
 import Myprofile from "../pages/Myprofile/Myprofile";
+import GoogleCallback from "../components/GoogleCallback";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: "/verify-email/:token",
         element: <VerifyEmail></VerifyEmail>,
+      },
+      {
+        path: "/auth/success",
+        element:  <GoogleCallback/>,
       },
     ],
   },
