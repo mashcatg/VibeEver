@@ -203,7 +203,9 @@ const ProductCard = ({ product }) => {
             <ProductCardActionButton
               tooltip_text="Download"
               on_click_handler={() =>
-                console.log("Download link: " + download_link)
+
+                // console.log("Download link: " + download_link)
+                window.open(download_link, "_blank")
               }
               bg_color="green-50"
               hover_bg_color="green-200"

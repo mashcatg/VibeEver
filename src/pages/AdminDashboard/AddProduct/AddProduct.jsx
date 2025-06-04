@@ -51,7 +51,10 @@ const AddProduct = () => {
         startDate: formData.get('discountStart'),
         endDate: formData.get('discountEnd')
       }
+      ,
+      download_url:formData.get('downloadUrl'),
     };
+    console.log(productData);
 
     try {
       const response = await axios.post('/products', productData);
@@ -151,6 +154,15 @@ const AddProduct = () => {
             <input
               type="url"
               name="thumbnail"
+              required
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">download URL</label>
+            <input
+              type="url"
+              name="downloadUrl"
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
             />

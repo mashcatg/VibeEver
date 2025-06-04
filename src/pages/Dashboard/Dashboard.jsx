@@ -15,15 +15,16 @@ const Dashboard = () => {
     const fetchPurchases = async () => {
       try {
         const { data } = await axios.get("/orders/purchases");
-console.log(data , "dfsdfsdf");
-        const formattedProducts = data.purchases.map((purchase) => ({
+// console.log(data , "dfsdfsdf");
+        const formattedProducts = data.purchases.map((purchase) => (console.log(purchase) ,{
           id: purchase.product._id,
-          image: purchase.product.thumbnailUrls[0] || productImage,
+          image: purchase.product?.thumbnailUrls[0] || productImage,
           title: purchase.product.title,
-          tags: purchase.product.tags,
-          price: purchase.product.finalPrice,  
+          tags: purchase.product?.tags,
+          price: purchase.product?.finalPrice,  
           regular_price: purchase.product.price, 
-          download_link: purchase.product.downloads?.[0]?.fileUrl || "#",
+          download_link: purchase.product.download_url || "#",
+          version: purchase.product?.version ,
         }));
 
         setProducts(formattedProducts);
