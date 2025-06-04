@@ -1,11 +1,38 @@
 import { useState, useRef, useEffect } from "react";
 import { useCart } from "../../../Providers/cartProvider";
 import Divider from "../../ui/Divider";
+import useAxios from "../../../Hooks/useAxios";
 
 const Cart = ({ open_cart, set_open_cart }) => {
   const cart_ref = useRef(null);
   const { cart, loading, updateQuantity, removeFromCart, applyCoupon } = useCart();
   const [couponCode, setCouponCode] = useState("");
+
+  const axios = useAxios()
+
+  const handleStripeCartPayment = async ()=>{
+
+    if (!cart || !cart.items || cart.items.length === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("/orders/create-checkout-session");
+
+      if (response.data.url) {
+        window.location.href = response.data.url;
+      } else {
+        console.error("No URL returned from Stripe API");
+      }
+    } catch (error) {
+      console.error("Error creating Stripe checkout session:", error);
+      alert("Failed to create payment session. Please try again.");
+    }
+
+
+
+  }
 
   // Handle coupon submission
   const handleCouponSubmit = async (e) => {
@@ -130,7 +157,7 @@ const Cart = ({ open_cart, set_open_cart }) => {
             </div>
           </div>
 
-          <button className="w-full px-8 py-6 bg-primary rounded-full text-xl leading-body font-bold text-white">
+          <button onClick={handleStripeCartPayment} className="w-full px-8 py-6 bg-primary rounded-full text-xl leading-body font-bold text-white">
             CONTINUE PAYMENT
           </button>
         </div>

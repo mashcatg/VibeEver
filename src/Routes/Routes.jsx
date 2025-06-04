@@ -20,6 +20,7 @@ import ProductManage from "../pages/AdminDashboard/ProductManage/ProductManage";
 import EditProduct from "../pages/AdminDashboard/EditProduct/EditProduct";
 import Myprofile from "../pages/Myprofile/Myprofile";
 import GoogleCallback from "../components/GoogleCallback";
+import CheckoutSuccess from "../pages/Checkout/CheckoutSuccess";
 
 export const router = createBrowserRouter([
   {
@@ -53,7 +54,7 @@ export const router = createBrowserRouter([
       {
         path: "/auth/success",
         element:  <GoogleCallback/>,
-      },
+      }
     ],
   },
   {
@@ -64,6 +65,11 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
   },
+  
+      {
+        path: "/checkout/success",
+        element:  <CheckoutSuccess/>,
+      },
   {
     path: "/MY-profile",
     element: (
