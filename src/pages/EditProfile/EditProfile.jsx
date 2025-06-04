@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../../components/ui/Input";
 import { SubmitButton } from "../../components/ui/Button";
 import AuthSideImage from "../Auth/components/AuthSideImage";
@@ -6,38 +6,49 @@ import AuthHeader from "../Auth/components/AuthHeader";
 import demo_preview from "../../assets/images/upload-preview-demo.png";
 import useUpdateProfile from "../../Hooks/useUpdateProfile";
 import { useNavigate } from "react-router-dom";
+import uploadImage from "../../Hooks/useImageUpload";
+import { useAuth } from "../../Providers/AuthProvider";
 
 const EditProfile = () => {
   const [previewImage, setPreviewImage] = useState(demo_preview);
   const { updateProfile, loading } = useUpdateProfile();
   const navigate = useNavigate();
+  const {user} = useAuth()
+   // Set initial preview image from user data
+  useEffect(() => {
+    if (user?.image) {
+      setPreviewImage(user?.image);
+    }
+  }, [user]);
 
-  const handleImageChange = (e) => {
+  // console.log(user);
+
+
+
+
+  const handleImageChange = async (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
+      
+      const imageUrl = await uploadImage(file);
+      console.log("Image URL:", imageUrl);
       setPreviewImage(imageUrl);
     }
   };
 
-  const handleImageUrlChange = (e) => {
-    const url = e.target.value;
-    if (url) {
-      setPreviewImage(url);
-    }
-  };
+ 
 
   const handle_submit = async (e) => {
     e.preventDefault();
     const form = e.target;
 
     const updateData = {
-      fullName: form.full_name.value,
-      userName: form.username.value,
-      email: form.email.value,
-      phoneNumber: form.phone_number.value,
-      bio: form.bio.value,
-      image: form.image_url.value || previewImage,
+      fullName: form?.full_name?.value,
+      userName: form?.username?.value,
+      email: form?.email?.value,
+      phoneNumber: form?.phone_number?.value,
+      bio: form?.bio?.value,
+      image: form?.image_url?.value || previewImage,
     };
 
     try {
@@ -47,6 +58,7 @@ const EditProfile = () => {
       console.error("Update failed:", error);
     }
   };
+  // console.log(user.fullName);
 
   return (
     <div className="flex gap-12 justify-center min-h-dvh md:min-h-screen">
@@ -69,6 +81,7 @@ const EditProfile = () => {
                 type="text"
                 label="Full name"
                 placeholder="Anisur R."
+                defaultValue={user?.fullName}
               />
 
               {/* Username */}
@@ -131,37 +144,11 @@ const EditProfile = () => {
                       accept="image/*"
                       onChange={handleImageChange}
                       className="w-full cursor-pointer pl-16 bg-neutral-subtle py-6 px-8 rounded-full border-2 hover:border-4 focus:border-2 border-dashed focus:border-solid outline-0 border-neutral-default focus:border-neutral-border transition-all duration-300"
+                      
                     />
                   </div>
 
-                  <div className="relative w-full">
-                    <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-8">
-                      <svg
-                        className="size-5"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M13.5 12C13.5 12.8284 12.8284 13.5 12 13.5C11.1716 13.5 10.5 12.8284 10.5 12C10.5 11.1716 11.1716 10.5 12 10.5C12.8284 10.5 13.5 11.1716 13.5 12Z"
-                          fill="#372F46"
-                        />
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM4.5 12C4.5 7.85786 7.85786 4.5 12 4.5C16.1421 4.5 19.5 7.85786 19.5 12C19.5 16.1421 16.1421 19.5 12 19.5C7.85786 19.5 4.5 16.1421 4.5 12Z"
-                          fill="#372F46"
-                        />
-                      </svg>
-                    </div>
-                    <input
-                      type="url"
-                      name="image_url"
-                      placeholder="Or paste image URL here"
-                      onChange={handleImageUrlChange}
-                      className="w-full pl-16 bg-neutral-subtle py-6 px-8 rounded-full border-2 hover:border-4 focus:border-2 border-dashed focus:border-solid outline-0 border-neutral-default focus:border-neutral-border transition-all duration-300"
-                    />
-                  </div>
+                  
                 </div>
               </div>
 
