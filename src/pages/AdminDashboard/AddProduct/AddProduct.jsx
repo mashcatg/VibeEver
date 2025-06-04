@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAxios from '../../../Hooks/useAxios';
 import toast from 'react-hot-toast';
+import { uploadFile } from '../../../utility/uploadzip';
 
 const AddProduct = () => {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [subcategories, setSubcategories] = useState([]);
+  const [uploadLoading, setUploadLoading] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState('');
   const axios = useAxios();
   const navigate = useNavigate();
 
@@ -31,10 +34,36 @@ const AddProduct = () => {
     setSubcategories(selectedCat?.subcategories || []);
   };
 
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.type !== 'application/zip' && !file.name.endsWith('.zip')) {
+      toast.error('Please upload a ZIP file');
+      return;
+    }
+
+    try {
+      setUploadLoading(true);
+      const uploadedUrl = await uploadFile(file);
+      setDownloadUrl(uploadedUrl);
+      toast.success('File uploaded successfully!');
+    } catch (error) {
+      toast.error('Failed to upload file');
+      console.error('Upload error:', error);
+    } finally {
+      setUploadLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!downloadUrl) {
+      toast.error('Please upload a ZIP file first');
+      return;
+    }
+    
     setLoading(true);
-
     const formData = new FormData(e.target);
     const productData = {
       title: formData.get('title'),
@@ -50,9 +79,8 @@ const AddProduct = () => {
         value: Number(formData.get('discountValue')),
         startDate: formData.get('discountStart'),
         endDate: formData.get('discountEnd')
-      }
-      ,
-      download_url:formData.get('downloadUrl'),
+      },
+      download_url: downloadUrl, // Use the uploaded file URL
     };
     console.log(productData);
 
@@ -158,14 +186,32 @@ const AddProduct = () => {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
             />
           </div>
+
           <div>
-            <label className="block text-sm font-medium text-gray-700">download URL</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Upload ZIP File
+            </label>
             <input
-              type="url"
-              name="downloadUrl"
-              required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              type="file"
+              accept=".zip"
+              onChange={handleFileUpload}
+              className="mt-1 block w-full text-sm text-slate-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-full file:border-0
+                file:text-sm file:font-semibold
+                file:bg-primary file:text-white
+                hover:file:bg-primary-dark
+                cursor-pointer"
+              disabled={uploadLoading}
             />
+            {uploadLoading && (
+              <p className="mt-2 text-sm text-gray-500">Uploading file...</p>
+            )}
+            {downloadUrl && (
+              <p className="mt-2 text-sm text-green-600">
+                ✓ File uploaded successfully
+              </p>
+            )}
           </div>
 
           <div>
@@ -227,8 +273,8 @@ const AddProduct = () => {
 
         <button
           type="submit"
-          disabled={loading}
-          className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+          disabled={loading || uploadLoading || !downloadUrl}
+          className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
         >
           {loading ? 'Adding Product...' : 'Add Product'}
         </button>
