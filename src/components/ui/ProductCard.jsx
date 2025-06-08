@@ -135,13 +135,13 @@ const ProductCard = ({ product }) => {
   // console.log(product);
   const { addToCart } = useCart();
     const handleAddToCart = () => {
-      console.log("add to cart " , product.id);
+      // console.log("add to cart " , product.id);
     addToCart(product.id);
   };
   const navigate = useNavigate();
   const { id, image, title, tags, price, regular_price, download_link } =
     product;
-    console.log(id);
+    // console.log(id);
   return (
     <div>
       {/* product image */}

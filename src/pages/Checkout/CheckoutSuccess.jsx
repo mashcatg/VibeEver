@@ -1,26 +1,39 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import useAxios from '../../Hooks/useAxios';
 
 const CheckoutSuccess = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get('sessionId');
-const axios =useAxios()
+  const axios = useAxios();
+  const paymentProcessed = useRef(false);
+
   useEffect(() => {
-    if (sessionId) {
-      console.log('Session ID:', sessionId);
+    let timer;
 
-      const payment = axios.post('/orders/process-payment' , {sessionId})
-      console.log(payment);
-      
-      const timer = setTimeout(() => {
-        navigate('/dashboard');
-      }, 5000);
+    const processPayment = async () => {
+      if (!sessionId || paymentProcessed.current) return;
 
-      return () => clearTimeout(timer);
-    }
-  }, [sessionId, navigate]);
+      try {
+        paymentProcessed.current = true;
+        await axios.post('/orders/process-payment', { sessionId });
+        
+        timer = setTimeout(() => {
+          navigate('/dashboard');
+        }, 5000);
+      } catch (error) {
+        console.error('Payment processing error:', error);
+        paymentProcessed.current = false;
+      }
+    };
+
+    processPayment();
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [sessionId, navigate, axios]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">

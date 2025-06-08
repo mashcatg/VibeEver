@@ -12,11 +12,11 @@ const DashboardStats = () => {
       try {
         setLoading(true);
         const response = await axios.get('/profile/get-stats');
-        console.log(response.data, "stats response");
+        // console.log(response.data, "stats response");
         setStats(response.data);
         setError(null);
       } catch (err) {
-        console.error('Error fetching stats:', err);
+        // console.error('Error fetching stats:', err);
         setError(err);
       } finally {
         setLoading(false);

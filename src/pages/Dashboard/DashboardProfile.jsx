@@ -4,7 +4,7 @@ import { useAuth } from "../../Providers/AuthProvider";
 
 const DashboardProfile = () => {
   const {user} = useAuth()
-  console.log(user);
+  // console.log(user);
   return (
     <div className="py-10">
       <h3 className="font-extrabold uppercase text-text-body">DASHBOARD</h3>

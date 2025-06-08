@@ -16,7 +16,7 @@ const Dashboard = () => {
       try {
         const { data } = await axios.get("/orders/purchases");
 // console.log(data , "dfsdfsdf");
-        const formattedProducts = data.purchases.map((purchase) => (console.log(purchase) ,{
+        const formattedProducts = data.purchases.map((purchase) => ({
           id: purchase.product._id,
           image: purchase.product?.thumbnailUrls[0] || productImage,
           title: purchase.product.title,
