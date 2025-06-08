@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAxios from '../../../Hooks/useAxios';
 import toast from 'react-hot-toast';
-import { uploadFile } from '../../../utility/uploadzip';
+import { uploadZip } from '../../../utility/uploadzip';
+ 
 
 const AddProduct = () => {
   const [loading, setLoading] = useState(false);
@@ -45,7 +46,7 @@ const AddProduct = () => {
 
     try {
       setUploadLoading(true);
-      const uploadedUrl = await uploadFile(file);
+      const uploadedUrl = await uploadZip(file);
       setDownloadUrl(uploadedUrl);
       toast.success('File uploaded successfully!');
     } catch (error) {
