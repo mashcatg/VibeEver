@@ -65,10 +65,10 @@ const Cart = ({ open_cart, set_open_cart }) => {
   }
 
   return (
-    <div className={`fixed top-0 right-0 z-50 w-full h-full transition-all duration-300 ease-in-out ${open_cart ? "translate-x-0" : "translate-x-[110%]"}`}>
+    <div className={`fixed top-0 z-50 w-full h-full transition-all duration-300 ease-in-out ${open_cart ? "translate-x-0 -right-0" : "translate-x-[110%] -right-1000"}`}>
       <div
         ref={cart_ref}
-        className="absolute top-0 right-0 h-full bg-white p-8 sm:p-16 rounded-l-5xl flex flex-col gap-12 justify-between overflow-y-auto"
+        className={`absolute top-0 ${open_cart ? "-right-0" : "-right-1000"} h-full bg-white p-8 sm:p-16 rounded-l-5xl flex flex-col gap-12 justify-between overflow-y-auto`}
         style={{
           boxShadow: "-0.25rem 0rem 0.125rem 0rem rgba(0, 0, 0, 0.04),-2rem 0rem 1rem -0.25rem rgba(0, 0, 0, 0.1)",
         }}
