@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCart } from "../../../Providers/cartProvider";
 import VerticalTextSwap from "../../../components/ui/VerticalTextSwap";
 import sliderImage from "../../../assets/images/slider-image.jpg";
 import versionIcon from "../../../assets/icons/version.svg";
@@ -104,9 +105,10 @@ const StatCard = ({ icon, title, value }) => {
   );
 };
 
-const ActionButton = ({ icon, text, className }) => {
+const ActionButton = ({ icon, text, className, onClick }) => {
   return (
     <button
+      onClick={onClick}
       className={`vertical-text-swap-container relative overflow-hidden flex items-center gap-3 py-3 px-5 rounded-full text-caption leading-caption font-semibold uppercase before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-1/2 before:size-0  hover:before:size-[10.625rem] before:rounded-full before:transition-all before:duration-500 before:ease-in-out ${className}`}
     >
       {/* Icon for the button */}
@@ -119,6 +121,12 @@ const ActionButton = ({ icon, text, className }) => {
 };
 
 const PrimaryInfo = ({ product }) => {
+  const { addToCart } = useCart();
+  
+  const handleAddToCart = () => {
+    addToCart(product._id);
+  };
+
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       day: 'numeric',
@@ -192,6 +200,7 @@ const PrimaryInfo = ({ product }) => {
           }
           text="Add to Cart"
           className="bg-neutral-subtle before:bg-neutral-default"
+          onClick={handleAddToCart}
         />
 
         <ActionButton
@@ -233,7 +242,7 @@ const Details = ({ product }) => {
   return (
     <div className="sm:py-10 flex flex-col md:flex-row justify-between gap-16">
       <div className="w-full md:max-w-[59%]">
-        <ProductImageSlider images={product.thumbnailUrls} />
+        <ProductImageSlider images={product?.thumbnailUrls} />
 
         <div className="mt-10 md:hidden">
           <PrimaryInfo product={product} />
@@ -242,7 +251,7 @@ const Details = ({ product }) => {
         <div className="mt-10 md:mt-16">
           <h4 className="font-bold">Overview</h4>
           <p className="text-xl text-neutral-subtitle mt-6">
-            {product.description}
+            {product?.description}
           </p>
         </div>
       </div>

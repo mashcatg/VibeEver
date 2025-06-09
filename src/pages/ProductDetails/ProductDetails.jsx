@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import Details from "./Details/Details";
 import FeaturedProducts from "../../components/shared/FeaturedProducts/FeaturedProducts";
 import FAQs from "../../components/shared/FAQs/FAQs";
+ 
 
 const ProductDetails = () => {
   const [product, setProduct] = useState(null);
@@ -12,6 +13,7 @@ const ProductDetails = () => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const { id } = useParams();
   const axios = useAxios();
+
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -63,13 +65,13 @@ const ProductDetails = () => {
           },
         ]}
         products={relatedProducts.map((product) => ({
-          id: product._id,
-          image: product.thumbnailUrls[0],
-          title: product.title,
-          tags: product.tags,
-          price: product.finalPrice,
-          regular_price: product.price,
-          category: product.category?.name,
+          id: product?._id,
+          image: product?.thumbnailUrls[0],
+          title: product?.title,
+          tags: product?.tags,
+          price: product?.finalPrice,
+          regular_price: product?.price,
+          category: product?.category?.name,
         }))}
       />
 

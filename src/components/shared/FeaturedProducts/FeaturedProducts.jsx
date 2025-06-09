@@ -2,6 +2,7 @@ import SectionHead from "../../ui/SectionHead";
 import ProductCard from "../../ui/ProductCard";
 import { CircularButton } from "../../ui/Button";
 import LeftRightIconSwap from "../../ui/LeftRightIconSwap";
+import { LoaderIcon } from "react-hot-toast";
 
 const FeaturedProducts = ({
   section_head_title,
@@ -14,6 +15,7 @@ const FeaturedProducts = ({
   totalPages,
   onPageChange,
   children,
+  loading
 }) => {
   // Generate page numbers array
   const getPageNumbers = () => {
@@ -23,6 +25,8 @@ const FeaturedProducts = ({
     }
     return pages;
   };
+
+   
 
   return (
     <div>
@@ -38,11 +42,29 @@ const FeaturedProducts = ({
 
       {/* products */}
       <div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        {/* Loading state */}
+        {loading && (
+          <div className="flex justify-center items-center h-64">
+            <LoaderIcon className="w-10 h-10 text-primary animate-spin" />
+          </div>
+        )}
+
+        {/* Products grid */}
+        {!loading && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product}></ProductCard>
+            ))}
+          </div>
+        )}
+
+
+
+        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {products.map((product) => (
             <ProductCard key={product.id} product={product}></ProductCard>
           ))}
-        </div>
+        </div> */}
 
         {/* Updated pagination section */}
         <div className="py-20 flex flex-wrap justify-center items-center gap-5">

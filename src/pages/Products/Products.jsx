@@ -20,17 +20,37 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [is_filter_shown, set_is_filter_shown] = useState(false);
   const [is_search_hovered, set_is_search_hovered] = useState(false);
-  const [selected, set_selected] = useState("Graphics");
+  const [selected, set_selected] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit] = useState(10);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(120);
+  const [selectedTag, setSelectedTag] = useState("");
+  const axios = useAxios();
+  
   // Reference to the swiper instance for tags
   const [tagSwiper, setTagSwiper] = useState(null);
   const token = JSON.parse(localStorage.getItem("auth"))?.token;
   // console.log("token token" , token);
 
   // Options for the select component
-  const selectOptions = ["Graphics", "Color", "Toast", "Logos"];
+  const [selectOptions , setSelectOptions] = useState([]);
+   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get('/categories');
+        // Extract only the category names into an array
+        const categoryNames = response.data?.categories.map(category => category.name);
+        console.log(categoryNames);
+        setSelectOptions(categoryNames);
+      } catch (error) {
+        toast.error('Failed to load categories');
+      }
+    };
+    fetchCategories();
+  }, [axios]);
 
   // All available tags
   const tags = [
@@ -46,15 +66,24 @@ const Products = () => {
     "Canva",
   ];
 
-  const axios = useAxios();
-
   // Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
+        // Build query parameters
+        const queryParams = new URLSearchParams({
+          page: page,
+          limit: limit,
+          ...(searchQuery && { search: searchQuery }),
+          ...(selected && { category: selected }),
+          ...(selectedTag && { tag: selectedTag }),
+          ...(minPrice !== 0 && { minPrice: minPrice }),
+          ...(maxPrice !== 120 && { maxPrice: maxPrice })
+        }).toString();
+
         const response = await axios.get(
-          `/products?page=${page}&limit=${limit}`, 
+          `/products?${queryParams}`,
           {
             headers: {
               Authorization: `${token}`,
@@ -66,19 +95,14 @@ const Products = () => {
         setLoading(false);
       } catch (error) {
         toast.error("Failed to load products");
+        setLoading(false);
       }
     };
 
     fetchProducts();
-  }, [token, axios, page, limit]);
+  }, [token, axios, page, limit, searchQuery, selected, selectedTag, minPrice, maxPrice]);
 
-   if(loading){
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <LoaderIcon />
-      </div>
-    );
-  }
+ 
 
   const handleSelectChange = (value) => {
     set_selected(value);
@@ -119,8 +143,9 @@ const Products = () => {
           regular_price: product.price,
           category: product.category?.name,
           isPublished: product.isPublished,
-        }))}
-      >
+        }))} 
+        loading={loading}
+       >
         <div
           className={`border-t border-t-neutral-default ${
             is_filter_shown
@@ -139,10 +164,11 @@ const Products = () => {
               } pl-3 pr-1.5 py-1.5 rounded-full transition-all duration-300`}
               onMouseEnter={() => set_is_search_hovered(true)}
               onMouseLeave={() => set_is_search_hovered(false)}
-            >
-              <input
+            >              <input
                 type="text"
                 name="search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search assets & templates..."
                 className={`px-2.5 w-full font-semibold text-text-body ${
                   is_search_hovered
@@ -189,9 +215,15 @@ const Products = () => {
                   className="tag-slider"
                 >
                   {tags.map((item, index) => (
-                    <SwiperSlide key={index}>
-                      <div className="bg-neutral-default px-5 py-3 w-fit rounded-full">
-                        <span className="text-xl text-text-body leading-body">
+                    <SwiperSlide key={index}>                      <div 
+                        className={`px-5 py-3 w-fit rounded-full cursor-pointer ${
+                          selectedTag === item 
+                            ? "bg-primary text-white" 
+                            : "bg-neutral-default text-text-body"
+                        }`}
+                        onClick={() => setSelectedTag(selectedTag === item ? "" : item)}
+                      >
+                        <span className="text-xl leading-body">
                           {item}
                         </span>
                       </div>
@@ -223,11 +255,26 @@ const Products = () => {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-5 items-center">
-              <div className="py-3 px-5 rounded-full border border-neutral-default bg-white text-text-body font-semibold flex items-center gap-5">
+            <div className="flex flex-col sm:flex-row gap-5 items-center">              <div className="py-3 px-5 rounded-full border border-neutral-default bg-white text-text-body font-semibold flex items-center gap-5">
                 <span>Price:</span>
-
-                <span>$0.00 - $120.00</span>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    value={minPrice}
+                    onChange={(e) => setMinPrice(Number(e.target.value))}
+                    className="w-20 outline-none border-b border-neutral-default text-center"
+                    min="0"
+                    max={maxPrice}
+                  />
+                  <span>-</span>
+                  <input
+                    type="number"
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(Number(e.target.value))}
+                    className="w-20 outline-none border-b border-neutral-default text-center"
+                    min={minPrice}
+                  />
+                </div>
               </div>
 
               <Select
