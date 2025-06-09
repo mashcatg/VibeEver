@@ -10,6 +10,7 @@ import { IoClose } from "react-icons/io5";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../../../Providers/AuthProvider";
+import { useCart } from "../../../Providers/cartProvider";
 
 const Nav = ({ set_open_cart }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -19,6 +20,9 @@ const Nav = ({ set_open_cart }) => {
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
 
+  const {cart} = useCart()
+
+  // console.log(cart.items.length);
   // Check screen size to determine if mobile view
   useEffect(() => {
     const checkIfMobile = () => {
@@ -146,7 +150,7 @@ const Nav = ({ set_open_cart }) => {
         {/* Cart Button */}
         <CircularButton
           size="3.375rem"
-          indicator={2}
+          indicator={cart?.items?.length}
           bg_color="neutral-default"
           hover_bg_color="primary"
           text_color="text-body"
