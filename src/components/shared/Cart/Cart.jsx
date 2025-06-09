@@ -5,34 +5,11 @@ import useAxios from "../../../Hooks/useAxios";
 
 const Cart = ({ open_cart, set_open_cart }) => {
   const cart_ref = useRef(null);
-  const { cart, loading, updateQuantity, removeFromCart, applyCoupon } = useCart();
+  const { cart, loading, updateQuantity, removeFromCart, applyCoupon , handleStripeCartPayment } = useCart();
   const [couponCode, setCouponCode] = useState("");
 
-  const axios = useAxios()
 
-  const handleStripeCartPayment = async ()=>{
-
-    if (!cart || !cart.items || cart.items.length === 0) {
-      alert("Your cart is empty.");
-      return;
-    }
-
-    try {
-      const response = await axios.post("/orders/create-checkout-session");
-
-      if (response.data.url) {
-        window.location.href = response.data.url;
-      } else {
-        console.error("No URL returned from Stripe API");
-      }
-    } catch (error) {
-      console.error("Error creating Stripe checkout session:", error);
-      alert("Failed to create payment session. Please try again.");
-    }
-
-
-
-  }
+  
 
   // Handle coupon submission
   const handleCouponSubmit = async (e) => {

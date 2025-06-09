@@ -64,6 +64,30 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const handleStripeCartPayment = async ()=>{
+
+    if (!cart || !cart.items || cart.items.length === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("/orders/create-checkout-session");
+
+      if (response.data.url) {
+        window.location.href = response.data.url;
+      } else {
+        console.error("No URL returned from Stripe API");
+      }
+    } catch (error) {
+      console.error("Error creating Stripe checkout session:", error);
+      alert("Failed to create payment session. Please try again.");
+    }
+
+
+
+  }
+
   return (
     <CartContext.Provider 
       value={{
@@ -72,7 +96,8 @@ export const CartProvider = ({ children }) => {
         addToCart,
         removeFromCart,
         updateQuantity,
-        applyCoupon
+        applyCoupon,
+        handleStripeCartPayment
       }}
     >
       {children}
