@@ -35,13 +35,22 @@ const AdminDashboard = () => {
 
     fetchAnalytics();
   }, [axios, dateRange]);
-
   const handleDateRangeChange = (start, end) => {
-    setDateRange({
-      startDate: start,
-      endDate: end,
-    });
+    // Ensure we're working with valid dates
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    
+    if (startDate instanceof Date && !isNaN(startDate) && endDate instanceof Date && !isNaN(endDate)) {
+      setDateRange({
+        startDate: startDate.toISOString().split('T')[0],
+        endDate: endDate.toISOString().split('T')[0],
+      });
+    } else {
+      toast.error("Invalid date range");
+    }
   };
+
+  console.log(dateRange , "dateRange");
 
   return (
     <div>

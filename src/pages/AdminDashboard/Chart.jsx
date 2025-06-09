@@ -54,8 +54,10 @@ const Chart = ({ dailyRevenue, loading, dateRange, onDateRangeChange }) => {
     );
   }
 
-  const data = {
-    labels: dailyRevenue?.map((item) => new Date(item.date).toLocaleDateString()) || [],
+  const data = {    labels: dailyRevenue?.map((item) => {
+      const date = new Date(item._id);
+      return date.toLocaleDateString();
+    }) || [],
     datasets: [
       {
         label: "Daily Revenue",
