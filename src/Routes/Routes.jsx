@@ -21,6 +21,7 @@ import EditProduct from "../pages/AdminDashboard/EditProduct/EditProduct";
 import Myprofile from "../pages/Myprofile/Myprofile";
 import GoogleCallback from "../components/GoogleCallback";
 import CheckoutSuccess from "../pages/Checkout/CheckoutSuccess";
+import OrderManage from "../pages/AdminDashboard/OrderManage/OrderManage";
 
 export const router = createBrowserRouter([
   {
@@ -139,6 +140,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute role="admin">
             <EditProduct />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "orders",
+        element: (
+          <PrivateRoute role="admin">
+            <OrderManage />
           </PrivateRoute>
         ),
       },
