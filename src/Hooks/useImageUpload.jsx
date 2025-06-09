@@ -5,10 +5,10 @@ const uploadImage = async (file) => {
     // Create a FormData object to send the file
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "ems_event_images");
+    formData.append("upload_preset", "files_mehedi");
 
     // Upload to Cloudinary
-    const response = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_API}/image/upload`, formData);
+    const response = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`, formData);
 
     // Return the URL of the uploaded image
     return response.data.secure_url;
