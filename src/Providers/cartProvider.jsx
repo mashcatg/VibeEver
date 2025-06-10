@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import useAxios from '../Hooks/useAxios';
-import toast from 'react-hot-toast';
+import { createContext, useContext, useState, useEffect } from "react";
+import useAxios from "../Hooks/useAxios";
+import toast from "react-hot-toast";
 
 const CartContext = createContext();
 
@@ -16,10 +16,10 @@ export const CartProvider = ({ children }) => {
 
   const fetchCart = async () => {
     try {
-      const response = await axios.get('/cart');
+      const response = await axios.get("/cart");
       setCart(response.data);
     } catch (error) {
-      console.error('Error fetching cart:', error);
+      console.error("Error fetching cart:", error);
     } finally {
       setLoading(false);
     }
@@ -27,11 +27,11 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = async (productId, quantity = 1) => {
     try {
-      const response = await axios.post('/cart/add', { productId, quantity });
+      const response = await axios.post("/cart/add", { productId, quantity });
       setCart(response.data);
-      toast.success('Added to cart successfully');
+      toast.success("Added to cart successfully");
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to add to cart');
+      toast.error(error.response?.data?.message || "Failed to add to cart");
     }
   };
 
@@ -39,33 +39,37 @@ export const CartProvider = ({ children }) => {
     try {
       const response = await axios.delete(`/cart/remove/${productId}`);
       setCart(response.data);
-      toast.success('Removed from cart');
+      toast.success("Removed from cart");
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to remove from cart');
+      toast.error(
+        error.response?.data?.message || "Failed to remove from cart"
+      );
     }
   };
 
   const updateQuantity = async (productId, quantity) => {
     try {
-      const response = await axios.put('/cart/update-quantity', { productId, quantity });
+      const response = await axios.put("/cart/update-quantity", {
+        productId,
+        quantity,
+      });
       setCart(response.data);
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to update quantity');
+      toast.error(error.response?.data?.message || "Failed to update quantity");
     }
   };
 
   const applyCoupon = async (code) => {
     try {
-      const response = await axios.post('/cart/apply-coupon', { code });
+      const response = await axios.post("/cart/apply-coupon", { code });
       setCart(response.data);
-      toast.success('Coupon applied successfully');
+      toast.success("Coupon applied successfully");
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to apply coupon');
+      toast.error(error.response?.data?.message || "Failed to apply coupon");
     }
   };
 
-  const handleStripeCartPayment = async ()=>{
-
+  const handleStripeCartPayment = async () => {
     if (!cart || !cart.items || cart.items.length === 0) {
       alert("Your cart is empty.");
       return;
@@ -83,13 +87,31 @@ export const CartProvider = ({ children }) => {
       console.error("Error creating Stripe checkout session:", error);
       alert("Failed to create payment session. Please try again.");
     }
+  };
 
+  //single stripe payment 
 
+  const directStripePayment = async(productId)=>{
+
+    try {
+
+      const response = await axios.post("/orders/directStripe" , {productId})
+
+      if(response.data.url){
+        window.location.href=response.data.url
+      } else {
+        console.error("No URL returned from Stripe API");
+      }
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
 
   }
 
   return (
-    <CartContext.Provider 
+    <CartContext.Provider
       value={{
         cart,
         loading,
@@ -97,7 +119,8 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         updateQuantity,
         applyCoupon,
-        handleStripeCartPayment
+        handleStripeCartPayment,
+        directStripePayment
       }}
     >
       {children}
@@ -108,7 +131,7 @@ export const CartProvider = ({ children }) => {
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
+    throw new Error("useCart must be used within a CartProvider");
   }
   return context;
 };

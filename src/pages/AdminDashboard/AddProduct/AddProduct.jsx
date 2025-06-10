@@ -13,8 +13,8 @@ const AddProduct = () => {
   const [uploadLoading, setUploadLoading] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState('');
   const [thumbnailLoading, setThumbnailLoading] = useState(false);
-  const [thumbnailUrl, setThumbnailUrl] = useState('');
-  const [thumbnailPreview, setThumbnailPreview] = useState('');
+  const [thumbnailUrls, setThumbnailUrls] = useState([]);
+  const [thumbnailPreviews, setThumbnailPreviews] = useState([]);
   const axios = useAxios();
   const navigate = useNavigate();
 
@@ -61,30 +61,42 @@ const AddProduct = () => {
   };
 
   const handleThumbnailUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
 
-    if (!file.type.startsWith('image/')) {
-      toast.error('Please upload an image file');
-      return;
+    const newThumbnailUrls = [...thumbnailUrls];
+    const newThumbnailPreviews = [...thumbnailPreviews];
+
+    for (const file of files) {
+      if (!file.type.startsWith('image/')) {
+        toast.error('Please upload image files only');
+        return;
+      }
+
+      try {
+        setThumbnailLoading(true);
+        // Create preview URL
+        const previewUrl = URL.createObjectURL(file);
+        newThumbnailPreviews.push(previewUrl);
+
+        const uploadedUrl = await uploadImage(file);
+        newThumbnailUrls.push(uploadedUrl);
+      } catch (error) {
+        toast.error('Failed to upload thumbnail');
+        console.error('Upload error:', error);
+        newThumbnailPreviews.pop();
+      }
     }
 
-    // Create preview URL
-    const previewUrl = URL.createObjectURL(file);
-    setThumbnailPreview(previewUrl);
+    setThumbnailUrls(newThumbnailUrls);
+    setThumbnailPreviews(newThumbnailPreviews);
+    setThumbnailLoading(false);
+    toast.success('Thumbnails uploaded successfully!');
+  };
 
-    try {
-      setThumbnailLoading(true);
-      const uploadedUrl = await uploadImage(file);
-      setThumbnailUrl(uploadedUrl);
-      toast.success('Thumbnail uploaded successfully!');
-    } catch (error) {
-      toast.error('Failed to upload thumbnail');
-      console.error('Upload error:', error);
-      setThumbnailPreview('');
-    } finally {
-      setThumbnailLoading(false);
-    }
+  const handleRemoveThumbnail = (index) => {
+    setThumbnailUrls(prev => prev.filter((_, i) => i !== index));
+    setThumbnailPreviews(prev => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e) => {
@@ -93,8 +105,8 @@ const AddProduct = () => {
       toast.error('Please upload a ZIP file first');
       return;
     }
-    if (!thumbnailUrl) {
-      toast.error('Please upload a thumbnail image first');
+    if (thumbnailUrls.length === 0) {
+      toast.error('Please upload at least one thumbnail image');
       return;
     }
     
@@ -107,7 +119,7 @@ const AddProduct = () => {
       category: formData.get('category'),
       subcategory: formData.get('subcategory'),
       tags: formData.get('tags').split(',').map(tag => tag.trim()),
-      thumbnailUrls: [thumbnailUrl],  // Use the uploaded thumbnail URL
+      thumbnailUrls: thumbnailUrls,  // Now sending array of URLs
       isPublished: formData.get('isPublished') === 'true',
       discount: {
         type: formData.get('discountType'),
@@ -117,7 +129,8 @@ const AddProduct = () => {
       },
       download_url: downloadUrl,
     };
-    console.log(productData);    try {
+
+    try {
       await axios.post('/products', productData);
       toast.success('Product added successfully!');
       navigate('/products');
@@ -231,7 +244,7 @@ const AddProduct = () => {
             <h3 className="text-xl font-semibold text-gray-700 mb-4">Media</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Product Thumbnail</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Product Thumbnails</label>
                 <div className="space-y-4">
                   <div className="relative">
                     <input
@@ -240,6 +253,7 @@ const AddProduct = () => {
                       onChange={handleThumbnailUpload}
                       className="w-full px-4 py-2 rounded-lg border-2 border-dashed border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200 cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-dark"
                       disabled={thumbnailLoading}
+                      multiple
                     />
                     {thumbnailLoading && (
                       <div className="mt-2 flex items-center text-sm text-gray-500">
@@ -247,27 +261,32 @@ const AddProduct = () => {
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        Uploading thumbnail...
+                        Uploading thumbnails...
                       </div>
                     )}
                   </div>
-                  {thumbnailPreview && (
-                    <div className="relative group">
-                      <img
-                        src={thumbnailPreview}
-                        alt="Thumbnail preview"
-                        className="w-full h-48 object-cover rounded-lg border border-gray-200"
-                      />
-                      {thumbnailUrl && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
-                          <span className="text-white flex items-center">
-                            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            Uploaded Successfully
-                          </span>
+                  {thumbnailPreviews.length > 0 && (
+                    <div className="grid grid-cols-2 gap-4">
+                      {thumbnailPreviews.map((preview, index) => (
+                        <div key={index} className="relative group">
+                          <img
+                            src={preview}
+                            alt={`Thumbnail preview ${index + 1}`}
+                            className="w-full h-32 object-cover rounded-lg border border-gray-200"
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveThumbnail(index)}
+                              className="text-white bg-red-500 hover:bg-red-600 p-2 rounded-full"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                              </svg>
+                            </button>
+                          </div>
                         </div>
-                      )}
+                      ))}
                     </div>
                   )}
                 </div>
