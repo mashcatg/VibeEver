@@ -133,7 +133,7 @@ const ProductCardActionButton = ({
 
 const ProductCard = ({ product }) => {
   // console.log(product);
-  const { addToCart } = useCart();
+  const { addToCart , directStripePayment } = useCart();
     const handleAddToCart = () => {
       // console.log("add to cart " , product.id);
     addToCart(product.id);
@@ -257,7 +257,7 @@ const ProductCard = ({ product }) => {
               {/* Buy Now */}
               <ProductCardActionButton
                 tooltip_text="Buy Now"
-                on_click_handler={() => console.log("Buy Now " + id)}
+                on_click_handler={() => directStripePayment(id)}
                 bg_color="purple-50"
                 hover_bg_color="purple-200"
                 tooltip_text_color="purple-400"
