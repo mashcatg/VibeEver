@@ -121,7 +121,8 @@ const ActionButton = ({ icon, text, className, onClick }) => {
 };
 
 const PrimaryInfo = ({ product }) => {
-  const { addToCart } = useCart();
+  // const {} = useCart()
+  const { addToCart , directStripePayment} = useCart();
   
   const handleAddToCart = () => {
     addToCart(product._id);
@@ -213,6 +214,7 @@ const PrimaryInfo = ({ product }) => {
             </svg>
           }
           text="Buy Now"
+          onClick={()=> directStripePayment(product._id)}
           className="text-white bg-primary before:bg-white before:opacity-100 hover:before:opacity-0"
         />
       </div>
