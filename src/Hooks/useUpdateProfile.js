@@ -16,12 +16,14 @@ const useUpdateProfile = () => {
         const updatedAuth = {
           ...currentAuth,
           user: {
-            id: response.data._id,
-            fullName: response.data.fullName,
-            role: response.data.role,
-            image: response.data.image
+            id: response?.data?._id,
+            fullName: response?.data?.fullName,
+            role: response?.data?.role,
+            image: response?.data?.image
           }
         };
+
+        console.log("updatedAuth" , updatedAuth);
         localStorage.setItem('auth', JSON.stringify(updatedAuth));
         
         toast.success('Profile updated successfully!');

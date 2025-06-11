@@ -10,11 +10,14 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const axios  =useAxios()
+  const [limit] = useState(6)
+  const [page , setPage] =useState(1)
+  const [totalPages , setTotalPages ] =useState(1)
 
   useEffect(() => {
     const fetchPurchases = async () => {
       try {
-        const { data } = await axios.get("/orders/purchases");
+        const { data } = await axios.get(`/orders/purchases?limit=${limit}&page=${page}` );
 // console.log(data , "dfsdfsdf");
         const formattedProducts = data.purchases.map((purchase) => ({
           id: purchase.product._id,
@@ -28,13 +31,21 @@ const Dashboard = () => {
         }));
 
         setProducts(formattedProducts);
+        setTotalPages(data.totalPages)
       } catch (error) {
         console.error("Error fetching purchases:", error?.response?.data || error.message);
       }
     };
 
     fetchPurchases();
-  }, []);
+  }, [axios, page , limit ]);
+
+  
+  // Add pagination handler
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
+
 
   return (
     <div>
@@ -54,9 +65,12 @@ const Dashboard = () => {
             text: "Products Downloaded",
           },
         ]}
+        onPageChange={handlePageChange}
         section_head_circle_btn_text="View All"
         section_head_circuler_btn_handler={() => navigate("/products")}
         products={products}
+         currentPage={page}
+        totalPages={totalPages}
       ></FeaturedProducts>
     </div>
   );

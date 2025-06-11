@@ -22,6 +22,8 @@ const Nav = ({ set_open_cart }) => {
 
   const {cart} = useCart()
 
+  console.log(user?.image );
+
   // console.log(cart.items.length);
   // Check screen size to determine if mobile view
   useEffect(() => {

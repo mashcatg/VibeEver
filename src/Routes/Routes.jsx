@@ -22,6 +22,7 @@ import Myprofile from "../pages/Myprofile/Myprofile";
 import GoogleCallback from "../components/GoogleCallback";
 import CheckoutSuccess from "../pages/Checkout/CheckoutSuccess";
 import OrderManage from "../pages/AdminDashboard/OrderManage/OrderManage";
+import CategoryManage from "../pages/AdminDashboard/CategoryManage/CategoryManage";
 
 export const router = createBrowserRouter([
   {
@@ -148,6 +149,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute role="admin">
             <OrderManage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-categories",
+        element: (
+          <PrivateRoute role="admin">
+            <CategoryManage />
           </PrivateRoute>
         ),
       },
