@@ -257,7 +257,10 @@ const ProductCard = ({ product }) => {
               {/* Buy Now */}
               <ProductCardActionButton
                 tooltip_text="Buy Now"
-                on_click_handler={() => directStripePayment(id)}
+                on_click_handler={() => 
+
+                  directStripePayment(id)
+                }
                 bg_color="purple-50"
                 hover_bg_color="purple-200"
                 tooltip_text_color="purple-400"
