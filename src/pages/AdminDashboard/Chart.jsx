@@ -22,7 +22,7 @@ ChartJS.register(
 );
 
 const Chart = ({ dailyRevenue, loading, dateRange, onDateRangeChange }) => {
-  const [selected_option, set_selected_option] = useState("last_7_days");
+  const [selected_option, set_selected_option] = useState("last_30_days");
   const [is_open, set_is_open] = useState(false);
   const select_options = [
     { value: "last_7_days", label: "Last 7 days" },

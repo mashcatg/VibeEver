@@ -35,6 +35,7 @@ const AdminDashboard = () => {
 
     fetchAnalytics();
   }, [axios, dateRange]);
+  console.log(analytics , "analytics");
   const handleDateRangeChange = (start, end) => {
     // Ensure we're working with valid dates
     const startDate = new Date(start);

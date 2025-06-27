@@ -27,6 +27,8 @@ const Stats = ({ summary, loading }) => {
     );
   }
 
+  console.log(summary ,"summary");
+
   const statsData = [
     {
       number: `$${summary?.totalRevenue?.toFixed(2) || '0.00'}`,
