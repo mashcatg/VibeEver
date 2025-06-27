@@ -13,32 +13,41 @@ const ProductDetails = () => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const { id } = useParams();
   const axios = useAxios();
-
+const {token} = JSON.parse(localStorage.getItem("auth")) 
+console.log(token , "deatails");
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`/products/${id}`);
+        const response = await axios.get(
+          `/products/${id}`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
         setProduct(response.data);
 
         // Fetch related products from same category
         const relatedResponse = await axios.get(
           `/products?category=${response.data.category._id}&limit=3`
+         
         );
         setRelatedProducts(
           relatedResponse.data.products.filter((p) => p._id !== id)
         );
       } catch (error) {
-        toast.error("Failed to load product details");
+        console.log("Failed to load product details");
       } finally {
         setLoading(false);
       }
     };
 
     fetchProduct();
-  }, [id, axios]);
+  }, [token]);
 
-  if (loading) {
+  if (loading || !product) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>

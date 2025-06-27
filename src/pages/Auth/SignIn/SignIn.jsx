@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import Input from "../../../components/ui/Input";
 import { SubmitButton } from "../../../components/ui/Button";
 import AuthSideImage from "../components/AuthSideImage";
@@ -13,7 +13,7 @@ const SignIn = () => {
   const [error, setError] = useState("");
   const { signIn, googleSignIn } = useAuth();
   const navigate = useNavigate();
-   
+  const location = useLocation();
 
   const handle_submit = async (e) => {
     e.preventDefault();
@@ -34,7 +34,10 @@ const SignIn = () => {
     try {
       const response = await signIn(email, password);
       toast.success("Successfully signed in!");
-      navigate('/'); // or your dashboard route
+      // Get redirect param from URL
+      const params = new URLSearchParams(location.search);
+      const redirect = params.get("redirect");
+      navigate(redirect || '/'); // Go to intended page or home
     } catch (err) {
       const errorMessage = err.message || "Sign in failed";
       setError(errorMessage);

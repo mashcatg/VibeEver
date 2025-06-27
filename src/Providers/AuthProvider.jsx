@@ -109,16 +109,10 @@ export const AuthProvider = ({ children }) => {
 
 
   const googleSignIn = () => {
-
-
-    // Open Google auth in a new window
-
-
-    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
-
-
-  };
-
+  const params = new URLSearchParams(window.location.search);
+  const redirect = params.get("redirect") || "/";
+  window.location.href = `${import.meta.env.VITE_API_URL}/auth/google?redirect=${encodeURIComponent(redirect)}`;
+};
 
 
 

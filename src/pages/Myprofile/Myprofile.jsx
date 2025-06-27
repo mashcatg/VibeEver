@@ -9,16 +9,22 @@ const Myprofile = () => {
   const axios = useAxios();
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await axios.get('/profile');
-        setProfileData(response.data);
-      } catch (error) {
-        toast.error('Failed to load profile');
-      } finally {
-        setLoading(false);
-      }
-    };
+   const fetchProfile = async () => {
+  setLoading(true);
+  try {
+    const { token } = JSON.parse(localStorage.getItem("auth"))
+    const response = await axios.get('/profile', {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+    setProfileData(response.data);
+  } catch (error) {
+    console.log('Failed to load profile', error);
+  } finally {
+    setLoading(false);
+  }
+};
 
     fetchProfile();
   }, [axios]);
