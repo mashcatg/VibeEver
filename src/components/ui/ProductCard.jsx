@@ -169,7 +169,7 @@ const ProductCard = ({ product }) => {
           <div className="text-main-price flex items-start gap-xxs">
             <span className="mt-0.5">$</span>
             <h5 className="text-headline leading-headline font-bold">
-              {price}
+            {Number(price).toFixed(2)}
             </h5>
           </div>
 
@@ -190,7 +190,7 @@ const ProductCard = ({ product }) => {
                 </svg>
               </span>
               <del className="font-semibold text-neutral-caption">
-                ${regular_price}
+             {Number(regular_price).toFixed(2)}
               </del>
             </div>
           </div>

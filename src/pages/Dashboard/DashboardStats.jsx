@@ -6,12 +6,16 @@ const DashboardStats = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const axios = useAxios();
+  const token = JSON.parse(localStorage.getItem("auth"))?.token;
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/profile/get-stats');
+        const response = await axios.get('/profile/get-stats',  {
+            headers: {
+              Authorization: `${token}`,
+            }});
         // console.log(response.data, "stats response");
         setStats(response.data);
         setError(null);
@@ -24,7 +28,7 @@ const DashboardStats = () => {
     };
 
     fetchStats();
-  }, [axios]);
+  }, [axios, token]);
 
   // Extract stats from API response or use defaults
   const stat = stats?.stats || {

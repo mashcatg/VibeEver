@@ -121,6 +121,7 @@ const ActionButton = ({ icon, text, className, onClick }) => {
 };
 
 const PrimaryInfo = ({ product }) => {
+  console.log(product);
   // const {} = useCart()
   const { addToCart , directStripePayment} = useCart();
   
@@ -173,7 +174,7 @@ const PrimaryInfo = ({ product }) => {
           <StatCard 
             icon={versionIcon} 
             title="Version" 
-            value={product.downloads[0]?.version || "No version"} 
+            value={product.version || "10"} 
           />
           <StatCard 
             icon={calenderIcon} 
@@ -222,18 +223,31 @@ const PrimaryInfo = ({ product }) => {
       <div>
         <h5 className="font-bold text-headline leading-headline mb-2.5">Files Included</h5>
         <ul className="pl-3 flex flex-col gap-2.5 text-xl leading-body list-disc list-inside">
-          <li>HTML, CSS, and JS files</li>
-          <li>jQuery, PHP</li>
-          <li>MySQL Database ...</li>
+        
+        {
+          product?.files.map((file ,idx)=>{
+            return (
+              <li key={idx} className="flex items-center gap-2">
+                 
+                {file}
+              </li>
+            )
+          })
+        }
+          
         </ul>
       </div>
 
       <div className="pt-10">
         <h5 className="font-bold text-headline leading-headline mb-2.5">Benefits</h5>
         <ul className="pl-3 flex flex-col gap-2.5 text-xl leading-body list-disc list-inside">
-          <li>Benefit 1 is here to list</li>
-          <li>Benefit 2 is in the list </li>
-          <li>Benefit 3 is listed ...</li>
+          {
+            product?.benefits.map((benefit, idx) => (
+              <li key={idx} className="flex items-center gap-2">
+                {benefit}
+              </li>
+            ))
+          }
         </ul>
       </div>
     </div>

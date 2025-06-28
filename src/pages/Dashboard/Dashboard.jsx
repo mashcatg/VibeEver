@@ -13,11 +13,18 @@ const Dashboard = () => {
   const [limit] = useState(6)
   const [page , setPage] =useState(1)
   const [totalPages , setTotalPages ] =useState(1)
+    const token = JSON.parse(localStorage.getItem("auth"))?.token;
+
+    const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchPurchases = async () => {
       try {
-        const { data } = await axios.get(`/orders/purchases?limit=${limit}&page=${page}` );
+        const { data } = await axios.get(`/orders/purchases?limit=${limit}&page=${page}` , {
+            headers: {
+              Authorization: `${token}`,
+            }}) 
 // console.log(data , "dfsdfsdf");
         const formattedProducts = data.purchases.map((purchase) => ({
           id: purchase.product._id,
@@ -32,13 +39,14 @@ const Dashboard = () => {
 
         setProducts(formattedProducts);
         setTotalPages(data.totalPages)
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching purchases:", error?.response?.data || error.message);
       }
     };
 
     fetchPurchases();
-  }, [axios, page , limit ]);
+  }, [axios, page , limit,token ]);
 
   
   // Add pagination handler
@@ -46,8 +54,19 @@ const Dashboard = () => {
     setPage(newPage);
   };
 
+   if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
 
   return (
+
+
+    
     <div>
       <DashboardProfile></DashboardProfile>
 

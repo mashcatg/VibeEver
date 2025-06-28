@@ -15,6 +15,8 @@ const AddProduct = () => {
   const [thumbnailLoading, setThumbnailLoading] = useState(false);
   const [thumbnailUrls, setThumbnailUrls] = useState([]);
   const [thumbnailPreviews, setThumbnailPreviews] = useState([]);
+  const [benefits, setBenefits] = useState([""]);
+  const [files, setFiles] = useState([""]);
   const axios = useAxios();
   const navigate = useNavigate();
 
@@ -99,6 +101,24 @@ const AddProduct = () => {
     setThumbnailPreviews(prev => prev.filter((_, i) => i !== index));
   };
 
+  const handleBenefitChange = (idx, value) => {
+    const updated = [...benefits];
+    updated[idx] = value;
+    setBenefits(updated);
+  };
+
+  const addBenefit = () => setBenefits([...benefits, ""]);
+  const removeBenefit = (idx) => setBenefits(benefits.filter((_, i) => i !== idx));
+
+  const handleFileChange = (idx, value) => {
+    const updated = [...files];
+    updated[idx] = value;
+    setFiles(updated);
+  };
+
+  const addFile = () => setFiles([...files, ""]);
+  const removeFile = (idx) => setFiles(files.filter((_, i) => i !== idx));
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!downloadUrl) {
@@ -128,7 +148,12 @@ const AddProduct = () => {
         endDate: formData.get('discountEnd')
       },
       download_url: downloadUrl,
+      version: formData.get('version'),
+      benefits: benefits.filter(b => b.trim() !== ""),
+      files: files.filter(f => f.trim() !== ""),
     };
+
+    console.log(productData);
 
     try {
       await axios.post('/products', productData);
@@ -186,6 +211,16 @@ const AddProduct = () => {
                     placeholder="0.00"
                   />
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Version</label>
+                <input
+                  type="text"
+                  name="version"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
+                  placeholder="e.g., 1.0.0"
+                />
               </div>
             </div>
 
@@ -388,6 +423,46 @@ const AddProduct = () => {
                 />
               </div>
             </div>
+          </div>
+
+          {/* Benefits Field (Dynamic Array) */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Benefits</label>
+            {benefits.map((benefit, idx) => (
+              <div key={idx} className="flex items-center mb-2">
+                <input
+                  type="text"
+                  value={benefit}
+                  onChange={e => handleBenefitChange(idx, e.target.value)}
+                  className="flex-1 px-4 py-2 rounded-lg border border-gray-300 mr-2"
+                  placeholder={`Benefit ${idx + 1}`}
+                />
+                {benefits.length > 1 && (
+                  <button type="button" onClick={() => removeBenefit(idx)} className="text-red-500">Remove</button>
+                )}
+              </div>
+            ))}
+            <button type="button" onClick={addBenefit} className="text-primary mt-1">+ Add Benefit</button>
+          </div>
+
+          {/* Files Field (Dynamic Array) */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Files</label>
+            {files.map((file, idx) => (
+              <div key={idx} className="flex items-center mb-2">
+                <input
+                  type="text"
+                  value={file}
+                  onChange={e => handleFileChange(idx, e.target.value)}
+                  className="flex-1 px-4 py-2 rounded-lg border border-gray-300 mr-2"
+                  placeholder={`File ${idx + 1} ( name)`}
+                />
+                {files.length > 1 && (
+                  <button type="button" onClick={() => removeFile(idx)} className="text-red-500">Remove</button>
+                )}
+              </div>
+            ))}
+            <button type="button" onClick={addFile} className="text-primary mt-1">+ Add File</button>
           </div>
 
           <div className="border-t pt-8">

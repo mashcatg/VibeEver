@@ -8,15 +8,20 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
   const axios = useAxios();
+  const token = JSON.parse(localStorage.getItem("auth"))?.token;
+  console.log(token);
 
   // Fetch cart on mount
   useEffect(() => {
     fetchCart();
-  }, []);
+  }, [token]);
 
   const fetchCart = async () => {
+    // setLoading(false);
     try {
-      const response = await axios.get("/cart");
+      const response = await axios.get("/cart", {
+        headers: { Authorization: `${token}` },
+      });
       setCart(response.data);
     } catch (error) {
       console.error("Error fetching cart:", error);
@@ -26,9 +31,16 @@ export const CartProvider = ({ children }) => {
   };
 
   const addToCart = async (productId, quantity = 1) => {
+    setLoading(true)
     try {
-      const response = await axios.post("/cart/add", { productId, quantity });
+      const response = await axios.post(
+        "/cart/add",
+        { productId, quantity },
+        { headers: { Authorization:`${token}` } }
+      );
       setCart(response.data);
+      setLoading(false)
+
       toast.success("Added to cart successfully");
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to add to cart");
@@ -37,7 +49,10 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = async (productId) => {
     try {
-      const response = await axios.delete(`/cart/remove/${productId}`);
+      const response = await axios.delete(
+        `/cart/remove/${productId}`,
+        { headers: { Authorization: `${token}` } }
+      );
       setCart(response.data);
       toast.success("Removed from cart");
     } catch (error) {
@@ -49,10 +64,11 @@ export const CartProvider = ({ children }) => {
 
   const updateQuantity = async (productId, quantity) => {
     try {
-      const response = await axios.put("/cart/update-quantity", {
-        productId,
-        quantity,
-      });
+      const response = await axios.put(
+        "/cart/update-quantity",
+        { productId, quantity },
+        { headers: { Authorization: `${token}` } }
+      );
       setCart(response.data);
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to update quantity");
@@ -61,7 +77,11 @@ export const CartProvider = ({ children }) => {
 
   const applyCoupon = async (code) => {
     try {
-      const response = await axios.post("/cart/apply-coupon", { code });
+      const response = await axios.post(
+        "/cart/apply-coupon",
+        { code },
+        { headers: { Authorization: `${token}` } }
+      );
       setCart(response.data);
       toast.success("Coupon applied successfully");
     } catch (error) {
@@ -76,7 +96,11 @@ export const CartProvider = ({ children }) => {
     }
 
     try {
-      const response = await axios.post("/orders/create-checkout-session");
+      const response = await axios.post(
+        "/orders/create-checkout-session",
+        {},
+        { headers: { Authorization: `${token}` } }
+      );
 
       if (response.data.url) {
         window.location.href = response.data.url;
@@ -89,26 +113,23 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  //single stripe payment 
-
-  const directStripePayment = async(productId)=>{
-
+  const directStripePayment = async (productId) => {
     try {
+      const response = await axios.post(
+        "/orders/directStripe",
+        { productId },
+        { headers: { Authorization: `${token}` } }
+      );
 
-      const response = await axios.post("/orders/directStripe" , {productId})
-
-      if(response.data.url){
-        window.location.href=response.data.url
+      if (response.data.url) {
+        window.location.href = response.data.url;
       } else {
         console.error("No URL returned from Stripe API");
       }
-      
     } catch (error) {
       console.log(error);
-      
     }
-
-  }
+  };
 
   return (
     <CartContext.Provider
