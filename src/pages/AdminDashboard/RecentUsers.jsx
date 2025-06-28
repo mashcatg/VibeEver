@@ -11,7 +11,7 @@ const RecentUsers = () => {
   useEffect(() => {
     const fetchRecentUsers = async () => {
       try {
-        const response = await axios.get('/auth/recent-users');
+        const response = await axios.get('/auth/users?limit=6');
         setUsers(response.data.data);
 
         console.log(response.data.data);

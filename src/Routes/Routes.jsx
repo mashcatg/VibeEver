@@ -23,6 +23,9 @@ import GoogleCallback from "../components/GoogleCallback";
 import CheckoutSuccess from "../pages/Checkout/CheckoutSuccess";
 import OrderManage from "../pages/AdminDashboard/OrderManage/OrderManage";
 import CategoryManage from "../pages/AdminDashboard/CategoryManage/CategoryManage";
+import AdminMessages from "../pages/AdminDashboard/message/AdminMessages";
+import CouponManage from "../pages/AdminDashboard/copunManage/CouponManage";
+import UserManage from "../pages/AdminDashboard/users/UserManage";
 
 export const router = createBrowserRouter([
   {
@@ -162,6 +165,30 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "messages",
+        element: (
+          <PrivateRoute role="admin">
+            <AdminMessages />
+          </PrivateRoute>
+        ),
+      },
+      {
+  path: "manage-coupons",
+  element: (
+    <PrivateRoute role="admin super-admin">
+      <CouponManage />
+    </PrivateRoute>
+  ),
+},
+{
+  path: "users",
+  element: (
+    <PrivateRoute role="admin super-admin">
+      <UserManage />
+    </PrivateRoute>
+  ),
+},
     ],
   },
 ]);

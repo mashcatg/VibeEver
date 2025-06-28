@@ -4,6 +4,8 @@ import { ExpandedIconButton } from "../../../components/ui/Button";
 import locationIcon from "../../../assets/icons/location.svg";
 import emailIcon from "../../../assets/icons/email.svg";
 import phoneIcon from "../../../assets/icons/phone.svg";
+import useAxios from "../../../Hooks/useAxios";
+import toast from "react-hot-toast";
 
 const ContactInfo = ({ icon, text, label }) => {
   return (
@@ -32,12 +34,25 @@ const ContactInfo = ({ icon, text, label }) => {
 };
 
 const Contact = () => {
+  const axios = useAxios();
   // form submit handler
-  const submit_handler = (e) => {
+  const submit_handler = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
+    try {
+      const response = await axios.post("/hello", {
+        name: data.contact_name,
+        email: data.contact_email,
+        message: data.contact_message,
+      });
+      toast.success(response.data.message || "We'll get back to you soon");
+      e.target.reset();
+    } catch (err) {
+      toast.error(
+        err.response?.data?.error || "Something went wrong. Please try again."
+      );
+    }
   };
   return (
     <div className="pt-10 pb-20">
