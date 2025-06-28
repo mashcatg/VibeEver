@@ -7,6 +7,7 @@ import Tooltip from "../../components/ui/Tooltip";
 import Select from "../../components/ui/Select";
 import useAxios from "../../Hooks/useAxios";
 import toast, { LoaderIcon } from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import required Swiper modules
@@ -29,6 +30,8 @@ const Products = () => {
   const [maxPrice, setMaxPrice] = useState(120);
   const [selectedTag, setSelectedTag] = useState("");
   const axios = useAxios();
+  const location = useLocation();
+  const navigate = useNavigate();
   
   // Reference to the swiper instance for tags
   const [tagSwiper, setTagSwiper] = useState(null);
@@ -83,7 +86,7 @@ const Products = () => {
         }).toString();
 
         const response = await axios.get(
-          `/products?${queryParams}`,
+          `/products/products-home?${queryParams}`,
           {
             headers: {
               Authorization: `${token}`,
@@ -102,7 +105,13 @@ const Products = () => {
     fetchProducts();
   }, [token, axios, page, limit, searchQuery, selected, selectedTag, minPrice, maxPrice]);
 
- 
+  // Sync search bar with URL param
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const searchParam = params.get("search") || "";
+    setSearchQuery(searchParam);
+    setPage(1); // Optionally reset to first page on new search
+  }, [location.search]);
 
   const handleSelectChange = (value) => {
     set_selected(value);
@@ -164,7 +173,12 @@ const Products = () => {
               } pl-3 pr-1.5 py-1.5 rounded-full transition-all duration-300`}
               onMouseEnter={() => set_is_search_hovered(true)}
               onMouseLeave={() => set_is_search_hovered(false)}
-            >              <input
+              onSubmit={e => {
+                e.preventDefault();
+                navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
+              }}
+            >
+              <input
                 type="text"
                 name="search"
                 value={searchQuery}
@@ -185,6 +199,7 @@ const Products = () => {
                 text_hover_color="text-body"
                 className="border-2 border-neutral-default"
                 isGroupHover={is_search_hovered}
+                type="submit"
               >
                 <svg
                   viewBox="0 0 17 16"
@@ -221,7 +236,10 @@ const Products = () => {
                             ? "bg-primary text-white" 
                             : "bg-neutral-default text-text-body"
                         }`}
-                        onClick={() => setSelectedTag(selectedTag === item ? "" : item)}
+                        onClick={() => {
+                          setSearchQuery(item);
+                          navigate(`/products?search=${encodeURIComponent(item)}`);
+                        }}
                       >
                         <span className="text-xl leading-body">
                           {item}

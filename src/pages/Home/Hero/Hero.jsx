@@ -2,6 +2,7 @@ import hero_bg from "../../../assets/images/hero-bg.png";
 import { CircularButton } from "../../../components/ui/Button";
 import Select from "../../../components/ui/Select";
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const [is_search_hovered, set_is_search_hovered] = useState(false);
@@ -9,7 +10,9 @@ const Hero = () => {
   const [selected, set_selected] = useState("Graphics");
   const [is_select_open, set_is_select_open] = useState(false);
   const [is_more_open, set_is_more_open] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const selectRef = useRef(null);
+  const navigate = useNavigate();
 
   // Options for the select component
   const selectOptions = ["Graphics", "Color", "Toast", "Logos"];
@@ -117,12 +120,12 @@ const Hero = () => {
               name="hero_search"
               id="hero_search"
               placeholder="Search assets & templates..."
-              className={`${
+              className={`$${
                 is_search_hovered ? "placeholder:text-neutral-border" : "placeholder:text-neutral-caption"
-              } outline-0 text-text-body font-semibold placeholder:font-normal pl-2.5 w-full ${is_search_focused ? "sm:w-[25rem]" : "sm:w-[14.6875rem]"}
-              
+              } outline-0 text-text-body font-semibold placeholder:font-normal pl-2.5 w-full ${is_search_focused ? "sm:w-[25rem]" : "sm:w-[14.6875rem]"}              
               transition-all duration-300 ease-in-out placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out`}
-              defaultValue={is_search_focused ? "UI Kit" : ""}
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
               onFocus={() => set_is_search_focused(true)}
               onBlur={() => set_is_search_focused(false)}
             />
@@ -136,6 +139,11 @@ const Hero = () => {
             text_hover_color={is_search_focused ? "" : is_search_hovered ? "neutral-subtitle" : "text-body"}
             className="border-2 border-neutral-default"
             isGroupHover={is_search_hovered}
+            onClick={() => {
+              if (searchValue.trim()) {
+                navigate(`/products?search=${encodeURIComponent(searchValue.trim())}`);
+              }
+            }}
           >
             <svg viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4">
               <path
@@ -147,10 +155,13 @@ const Hero = () => {
         </div>
 
         <div className="max-w-[28.125rem] w-[94%] sm:w-full mx-auto flex items-center justify-center gap-2.5 flex-wrap">
-          {["ui", "template", "theme", "ui kit", "icon pack", "form", "badge", "buttons", "header", "footer"].map((item, index) => (
+          {["ui", "mehedifiz", "theme", "ui kit", "icon pack", "form", "badge", "buttons", "header", "footer"].map((item, index) => (
             <button
               key={index}
               className="flex w-min items-center justify-center rounded-full border-[0.0625rem] border-white px-2 py-1 group hover:bg-white transition-all duration-300 ease-in-out"
+              onClick={() => {
+                setSearchValue(item);
+              }}
             >
               <span className="block w-max uppercase text-white font-semibold text-caption leading-caption group-hover:text-text-body transition-all duration-300 ease-in-out">
                 {item}

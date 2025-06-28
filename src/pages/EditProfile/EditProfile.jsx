@@ -14,15 +14,16 @@ const EditProfile = () => {
   const { updateProfile, loading } = useUpdateProfile();
   const navigate = useNavigate();
   const {user} = useAuth()
-   // Set initial preview image from user data
+  // Set initial preview image from user data
   useEffect(() => {
     if (user?.image) {
       setPreviewImage(user?.image);
     }
   }, [user]);
-
+  
   // console.log(user);
-
+  
+  console.log(user , "user");
 
 
 
@@ -50,6 +51,8 @@ const EditProfile = () => {
       bio: form?.bio?.value,
       image: form?.image_url?.value || previewImage,
     };
+
+    console.log("Update Data:", updateData);
 
     try {
       await updateProfile(updateData);
@@ -80,7 +83,7 @@ const EditProfile = () => {
                 name="full_name"
                 type="text"
                 label="Full name"
-                placeholder="Anisur R."
+                placeholder={user?.fullName}
                 defaultValue={user?.fullName}
               />
 
@@ -89,7 +92,7 @@ const EditProfile = () => {
                 name="username"
                 type="text"
                 label="Username"
-                placeholder="anisur123"
+                placeholder={user?.userName}
               />
 
               {/* email */}
@@ -97,7 +100,7 @@ const EditProfile = () => {
                 name="email"
                 type="email"
                 label="Email address"
-                placeholder="inquiry@VibeEver.com"
+                placeholder={user?.email}
               />
 
               {/* phone number */}
@@ -105,7 +108,7 @@ const EditProfile = () => {
                 name="phone_number"
                 type="tel"
                 label="Phone number"
-                placeholder="+123 456 789"
+                placeholder={user?.phoneNumber}
               />
 
               {/* Image upload and preview section */}
@@ -157,7 +160,7 @@ const EditProfile = () => {
                 name="bio"
                 type="textarea"
                 label="Bio or About"
-                placeholder="Write your message here..."
+                placeholder={user?.bio || "Tell us about yourself..."}
               />
 
               <SubmitButton disabled={loading}>

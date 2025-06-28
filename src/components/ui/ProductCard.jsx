@@ -5,6 +5,7 @@ import LeftRightIconSwap from "../ui/LeftRightIconSwap";
 import { Link, useNavigate } from "react-router-dom";
 import TopBottomIconSwap from "./TopBottomIconSwap";
 import { useCart } from "../../Providers/cartProvider";
+import toast from "react-hot-toast";
 
 const ProductImage = ({ id, product_image, save_handler = () => {} }) => {
   return (
@@ -134,14 +135,27 @@ const ProductCardActionButton = ({
 const ProductCard = ({ product }) => {
   // console.log(product);
   const { addToCart , directStripePayment } = useCart();
-    const handleAddToCart = () => {
-      // console.log("add to cart " , product.id);
+  const navigate = useNavigate();
+  const { id, image, title, tags, price, regular_price, download_link } = product;
+
+  const isLoggedIn = Boolean(JSON.parse(localStorage.getItem("auth"))?.token);
+
+  const handleAddToCart = () => {
+    if (!isLoggedIn) {
+      toast.error("Please login to add to cart.");
+      return;
+    }
     addToCart(product.id);
   };
-  const navigate = useNavigate();
-  const { id, image, title, tags, price, regular_price, download_link } =
-    product;
-    // console.log(id);
+
+  const handleBuyNow = () => {
+    if (!isLoggedIn) {
+      toast.error("Please login to buy this product.");
+      return;
+    }
+    directStripePayment(id);
+  };
+
   return (
     <div>
       {/* product image */}
@@ -241,7 +255,6 @@ const ProductCard = ({ product }) => {
                 tooltip_arrow_position="bottom"
                 icon_color="blue-900"
                 icon_hover_color="blue-700"
-                 
                 icon={
                   <svg
                     viewBox="0 0 12 12"
@@ -257,10 +270,7 @@ const ProductCard = ({ product }) => {
               {/* Buy Now */}
               <ProductCardActionButton
                 tooltip_text="Buy Now"
-                on_click_handler={() => 
-
-                  directStripePayment(id)
-                }
+                on_click_handler={handleBuyNow}
                 bg_color="purple-50"
                 hover_bg_color="purple-200"
                 tooltip_text_color="purple-400"

@@ -152,7 +152,7 @@ const Nav = ({ set_open_cart }) => {
         {/* Cart Button */}
         <CircularButton
           size="3.375rem"
-          indicator={cart?.items?.length}
+          indicator={cart?.items?.length ? cart?.items?.length : null}
           bg_color="neutral-default"
           hover_bg_color="primary"
           text_color="text-body"

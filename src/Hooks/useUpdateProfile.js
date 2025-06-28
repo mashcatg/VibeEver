@@ -10,7 +10,7 @@ const useUpdateProfile = () => {
     try {
       setLoading(true);
       const response = await axios.put('/profile/update-profile', profileData);
-      
+      console.log(response.data , "response.data");
       if (response.data) {
         const currentAuth = JSON.parse(localStorage.getItem('auth')) || {};
         const updatedAuth = {
@@ -19,7 +19,12 @@ const useUpdateProfile = () => {
             id: response?.data?._id,
             fullName: response?.data?.fullName,
             role: response?.data?.role,
-            image: response?.data?.image
+            image: response?.data?.image,
+            userName: response?.data?.userName,
+            email: response?.data?.email,
+            phoneNumber: response?.data?.phoneNumber,
+            bio: response?.data?.bio
+
           }
         };
 
