@@ -8,13 +8,13 @@ import useUpdateProfile from "../../Hooks/useUpdateProfile";
 import { useNavigate } from "react-router-dom";
 import uploadImage from "../../Hooks/useImageUpload";
 import { useAuth } from "../../Providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const EditProfile = () => {
   const [previewImage, setPreviewImage] = useState(demo_preview);
   const { updateProfile, loading } = useUpdateProfile();
   const navigate = useNavigate();
   const {user} = useAuth()
-  // Set initial preview image from user data
   useEffect(() => {
     if (user?.image) {
       setPreviewImage(user?.image);
@@ -43,12 +43,28 @@ const EditProfile = () => {
     e.preventDefault();
     const form = e.target;
 
+    const fullName = form?.full_name?.value?.trim() || user?.fullName;
+    const userName = form?.username?.value?.trim() || user?.userName;
+    const phoneNumber = form?.phone_number?.value?.trim() || user?.phoneNumber;
+    const bio = form?.bio?.value?.trim() || user?.bio;
+
+    if (
+      fullName === user?.fullName &&
+      userName === user?.userName &&
+      phoneNumber === user?.phoneNumber &&
+      bio === user?.bio &&
+      (form?.image_url?.value || previewImage) === user?.image
+    ) {
+      toast.error("No changes detected.");
+      return;
+    }
+
     const updateData = {
-      fullName: form?.full_name?.value,
-      userName: form?.username?.value,
-      email: form?.email?.value,
-      phoneNumber: form?.phone_number?.value,
-      bio: form?.bio?.value,
+      fullName,
+      userName,
+      email: user?.email,
+      phoneNumber,
+      bio,
       image: form?.image_url?.value || previewImage,
     };
 
@@ -101,6 +117,10 @@ const EditProfile = () => {
                 type="email"
                 label="Email address"
                 placeholder={user?.email}
+                defaultValue={user?.email}
+                readOnly
+                className="bg-neutral-subtle cursor-not-allowed"
+                is_disabled={true}
               />
 
               {/* phone number */}

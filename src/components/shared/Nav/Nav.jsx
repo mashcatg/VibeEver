@@ -129,7 +129,7 @@ const Nav = ({ set_open_cart }) => {
       </ul>
 
       <div className="flex items-center gap-4">
-        <div className="hidden md:block">
+        { user && <div className="hidden md:block">
           <ExpandedIconButton
             text="DASHBOARD"
             icon={
@@ -148,6 +148,8 @@ const Nav = ({ set_open_cart }) => {
             onClick={handleLinkClick}
           />
         </div>
+
+        }
 
         {/* Cart Button */}
         <CircularButton

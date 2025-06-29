@@ -8,11 +8,8 @@ import Select from "../../components/ui/Select";
 import useAxios from "../../Hooks/useAxios";
 import toast, { LoaderIcon } from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import required Swiper modules
 import { Navigation } from "swiper/modules";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -21,41 +18,13 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [is_filter_shown, set_is_filter_shown] = useState(false);
   const [is_search_hovered, set_is_search_hovered] = useState(false);
-  const [selected, set_selected] = useState("");
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [limit] = useState(8);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(120);
-  const [selectedTag, setSelectedTag] = useState("");
+  const [selectOptions, setSelectOptions] = useState([]);
+  const [tagSwiper, setTagSwiper] = useState(null);
   const axios = useAxios();
   const location = useLocation();
   const navigate = useNavigate();
-  
-  // Reference to the swiper instance for tags
-  const [tagSwiper, setTagSwiper] = useState(null);
   const token = JSON.parse(localStorage.getItem("auth"))?.token;
-  // console.log("token token" , token);
 
-  // Options for the select component
-  const [selectOptions , setSelectOptions] = useState([]);
-   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get('/categories');
-        // Extract only the category names into an array
-        const categoryNames = response.data?.categories.map(category => category.name);
-        console.log(categoryNames);
-        setSelectOptions(categoryNames);
-      } catch (error) {
-        toast.error('Failed to load categories');
-      }
-    };
-    fetchCategories();
-  }, [axios]);
-
-  // All available tags
   const tags = [
     "Illustrator",
     "WordPress",
@@ -69,24 +38,43 @@ const Products = () => {
     "Canva",
   ];
 
-  // Fetch products
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("/categories");
+        const categoryNames = response.data?.categories.map((category) => category.name);
+        setSelectOptions(categoryNames);
+      } catch (error) {
+        toast.error("Failed to load categories");
+      }
+    };
+    fetchCategories();
+  }, [axios]);
+
+  const params = new URLSearchParams(location.search);
+  const searchQuery = params.get("search") || "";
+  const selected = params.get("category") || "";
+  const selectedTag = params.get("tag") || "";
+  const minPrice = params.get("minPrice") ? Number(params.get("minPrice")) : 0;
+  const maxPrice = params.get("maxPrice") ? Number(params.get("maxPrice")) : 120;
+  const page = params.get("page") ? Number(params.get("page")) : 1;
+  const limit = 8;
+
+  const [totalPages, setTotalPages] = useState(1);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        // Build query parameters
-        const queryParams = new URLSearchParams({
-          page: page,
-          limit: limit,
-          ...(searchQuery && { search: searchQuery }),
-          ...(selected && { category: selected }),
-          ...(selectedTag && { tag: selectedTag }),
-          ...(minPrice !== 0 && { minPrice: minPrice }),
-          ...(maxPrice !== 120 && { maxPrice: maxPrice })
-        }).toString();
-
+        const queryParams = new URLSearchParams();
+        queryParams.set("page", page);
+        queryParams.set("limit", limit);
+        if (searchQuery) queryParams.set("search", searchQuery);
+        if (selected) queryParams.set("category", selected);
+        if (selectedTag) queryParams.set("tag", selectedTag);
+        if (minPrice !== 0) queryParams.set("minPrice", minPrice);
+        if (maxPrice !== 120) queryParams.set("maxPrice", maxPrice);
         const response = await axios.get(
-          `/products/products-home?${queryParams}`,
+          `/products/products-home?${queryParams.toString()}`,
           {
             headers: {
               Authorization: `${token}`,
@@ -101,29 +89,48 @@ const Products = () => {
         setLoading(false);
       }
     };
-
     fetchProducts();
-  }, [token, axios, page, limit, searchQuery, selected, selectedTag, minPrice, maxPrice]);
+  }, [location.search, token, axios]);
 
-  // Sync search bar with URL param
-  useEffect(() => {
+  const updateParams = (newParams) => {
     const params = new URLSearchParams(location.search);
-    const searchParam = params.get("search") || "";
-    setSearchQuery(searchParam);
-    setPage(1); // Optionally reset to first page on new search
-  }, [location.search]);
-
-  const handleSelectChange = (value) => {
-    set_selected(value);
+    Object.entries(newParams).forEach(([key, value]) => {
+      if (value === undefined || value === null || value === "" || Number.isNaN(value)) {
+        params.delete(key);
+      } else {
+        params.set(key, value);
+      }
+    });
+    if (!("page" in newParams)) params.set("page", 1);
+    navigate(`/products?${params.toString()}`);
   };
 
-  // Add pagination handler
+  // --- UI Handlers ---
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    updateParams({ search: e.target.search.value, page: 1 });
+  };
+  const handleTagClick = (tag) => {
+    updateParams({ search: tag, tag, page: 1 });
+  };
+  const handleCategoryChange = (value) => {
+    updateParams({ category: value, page: 1 });
+  };
+  const handleMinPriceChange = (value) => {
+    updateParams({ minPrice: value, page: 1 });
+  };
+  const handleMaxPriceChange = (value) => {
+    updateParams({ maxPrice: value, page: 1 });
+  };
   const handlePageChange = (newPage) => {
-    setPage(newPage);
+    updateParams({ page: newPage });
   };
 
   return (
-    <div className="pb-10">
+    <div className="pb-10"> 
+ 
+
+
       <FeaturedProducts
         section_head_title={
           <>
@@ -137,9 +144,7 @@ const Products = () => {
           },
         ]}
         section_head_circle_btn_text="Help?"
-        section_head_filter_handler={() =>
-          set_is_filter_shown(!is_filter_shown)
-        }
+        section_head_filter_handler={() => set_is_filter_shown(!is_filter_shown)}
         currentPage={page}
         totalPages={totalPages}
         onPageChange={handlePageChange}
@@ -152,7 +157,7 @@ const Products = () => {
           regular_price: product.price,
           category: product.category?.name,
           isPublished: product.isPublished,
-        }))} 
+        }))}
         loading={loading}
        >
         <div
@@ -173,16 +178,13 @@ const Products = () => {
               } pl-3 pr-1.5 py-1.5 rounded-full transition-all duration-300`}
               onMouseEnter={() => set_is_search_hovered(true)}
               onMouseLeave={() => set_is_search_hovered(false)}
-              onSubmit={e => {
-                e.preventDefault();
-                navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
-              }}
+              onSubmit={handleSearchSubmit}
             >
               <input
                 type="text"
                 name="search"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={e => updateParams({ search: e.target.value, page: 1 })}
                 placeholder="Search assets & templates..."
                 className={`px-2.5 w-full font-semibold text-text-body ${
                   is_search_hovered
@@ -236,10 +238,7 @@ const Products = () => {
                             ? "bg-primary text-white" 
                             : "bg-neutral-default text-text-body"
                         }`}
-                        onClick={() => {
-                          setSearchQuery(item);
-                          navigate(`/products?search=${encodeURIComponent(item)}`);
-                        }}
+                        onClick={() => handleTagClick(item)}
                       >
                         <span className="text-xl leading-body">
                           {item}
@@ -279,7 +278,7 @@ const Products = () => {
                   <input
                     type="number"
                     value={minPrice}
-                    onChange={(e) => setMinPrice(Number(e.target.value))}
+                    onChange={e => handleMinPriceChange(Number(e.target.value))}
                     className="w-20 outline-none border-b border-neutral-default text-center"
                     min="0"
                     max={maxPrice}
@@ -288,7 +287,7 @@ const Products = () => {
                   <input
                     type="number"
                     value={maxPrice}
-                    onChange={(e) => setMaxPrice(Number(e.target.value))}
+                    onChange={e => handleMaxPriceChange(Number(e.target.value))}
                     className="w-20 outline-none border-b border-neutral-default text-center"
                     min={minPrice}
                   />
@@ -298,7 +297,7 @@ const Products = () => {
               <Select
                 options={selectOptions}
                 value={selected}
-                onChange={handleSelectChange}
+                onChange={handleCategoryChange}
                 icon={
                   <svg
                     viewBox="0 0 19 16"
@@ -317,6 +316,15 @@ const Products = () => {
           </div>
         </div>
       </FeaturedProducts>
+      
+      {/* Show a friendly message if no products are found and not loading */}
+      {(!loading && products.length === 0) && (
+        <div className="flex flex-col items-center justify-center py-16 text-center">
+           
+          <h2 className="text-2xl font-bold mb-2 text-neutral-caption">No products found</h2>
+          <p className="text-neutral-body mb-4">Try adjusting your search or filter criteria.</p>
+        </div>
+      )}
 
       {/* lets talk */}
       <SectionHead

@@ -9,7 +9,11 @@ const useUpdateProfile = () => {
   const updateProfile = async (profileData) => {
     try {
       setLoading(true);
-      const response = await axios.put('/profile/update-profile', profileData);
+      const response = await axios.put('/profile/update-profile', profileData , {
+        headers: {
+         Authorization: `${JSON.parse(localStorage.getItem('auth'))?.token}`,
+        },
+      });
       console.log(response.data , "response.data");
       if (response.data) {
         const currentAuth = JSON.parse(localStorage.getItem('auth')) || {};
