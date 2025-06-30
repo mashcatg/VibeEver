@@ -317,7 +317,6 @@ const Products = () => {
         </div>
       </FeaturedProducts>
       
-      {/* Show a friendly message if no products are found and not loading */}
       {(!loading && products.length === 0) && (
         <div className="flex flex-col items-center justify-center py-16 text-center">
            

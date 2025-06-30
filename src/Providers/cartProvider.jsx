@@ -36,7 +36,7 @@ export const CartProvider = ({ children }) => {
       const response = await axios.post(
         "/cart/add",
         { productId, quantity },
-        { headers: { Authorization:`${token}` } }
+        { headers: { Authorization:`${JSON.parse(localStorage.getItem("auth"))?.token}` } }
       );
       setCart(response.data);
       setLoading(false)

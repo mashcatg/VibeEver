@@ -21,9 +21,8 @@ const Home = () => {
       try {
         setLoading(true);
         const response = await axios.get(`/products/products-home?limit=5`);
-        // Transform the products data to include id
         const formattedProducts = response.data.products.map((product) => ({
-          id: product._id, // Map MongoDB _id to id
+          id: product._id,
           title: product.title,
           image: product.thumbnailUrls[0],
           price: product.finalPrice || product.price,
@@ -33,7 +32,7 @@ const Home = () => {
         }));
         setProducts(formattedProducts);
       } catch (error) {
-        toast.error("Failed to load products");
+        console("Failed to load products");
       } finally {
         setLoading(false);
       }
