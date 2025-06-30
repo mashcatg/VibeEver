@@ -3,7 +3,6 @@ import Input from "../../components/ui/Input";
 import { SubmitButton } from "../../components/ui/Button";
 import AuthSideImage from "../Auth/components/AuthSideImage";
 import AuthHeader from "../Auth/components/AuthHeader";
-import demo_preview from "../../assets/images/upload-preview-demo.png";
 import useUpdateProfile from "../../Hooks/useUpdateProfile";
 import { useNavigate } from "react-router-dom";
 import uploadImage from "../../Hooks/useImageUpload";
@@ -11,7 +10,7 @@ import { useAuth } from "../../Providers/AuthProvider";
 import toast from "react-hot-toast";
 
 const EditProfile = () => {
-  const [previewImage, setPreviewImage] = useState(demo_preview);
+  const [previewImage, setPreviewImage] = useState();
   const { updateProfile, loading } = useUpdateProfile();
   const navigate = useNavigate();
   const {user} = useAuth()
