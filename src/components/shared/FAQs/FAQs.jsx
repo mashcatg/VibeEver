@@ -6,13 +6,13 @@ import { motion } from "framer-motion";
 const FaqCard = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <button onClick={() => setIsOpen(!isOpen)} className="rounded-20 p-10 bg-neutral-subtle">
+    <button onClick={() => setIsOpen(!isOpen)} className="rounded-20 p-8 bg-neutral-subtle">
       {/* question */}
       <div className="flex justify-between items-center gap-4">
-        <h4 className="-tracking-150 text-text-body text-left">{question}</h4>
+        <h4 className="text-2xl text-text-body text-left">{question}</h4>
 
         {/* plus - minus icon */}
-        <div className="relative flex-shrink-0 w-6 h-6">
+        <div className="relative flex-shrink-0 w-5 h-5">
           <motion.span
             className="absolute inset-0 w-full h-1 bg-text-body rounded-full"
             style={{ top: "calc(50% - 0.125rem)" }}
@@ -29,8 +29,8 @@ const FaqCard = ({ question, answer }) => {
       </div>
 
       {/* Answer */}
-      <div className={`transition-all duration-300 ease-in-out ${isOpen ? "max-h-[625rem] opacity-100 mt-5" : "max-h-0 opacity-0 overflow-hidden mt-0"}`}>
-        <h6 className="text-xl leading-body text-neutral-subtitle text-left">{answer}</h6>
+      <div className={`transition-all duration-300 ease-in-out ${isOpen ? "max-h-[625rem] opacity-100 mt-3.5" : "max-h-0 opacity-0 overflow-hidden mt-0"}`}>
+        <h6 className="text-lg leading-body text-neutral-subtitle text-left">{answer}</h6>
       </div>
     </button>
   );
