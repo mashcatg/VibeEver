@@ -1,3 +1,4 @@
+import TopBottomIconSwap from "./TopBottomIconSwap";
 import { CircularButton, ExpandedIconButton } from "../../components/ui/Button";
 import VerticalTextSwap from "../../components/ui/VerticalTextSwap";
 import { useState } from "react";
@@ -173,7 +174,7 @@ const Card = ({ title, description }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <div
-      className="pt-10 px-10 pb-14 rounded-20 bg-white text-text-body flex flex-col sm:flex-row items-start gap-5 sm:gap-10"
+      className="top-bottom-icon-swap-container pt-10 px-10 pb-14 rounded-20 bg-white text-text-body flex flex-col sm:flex-row items-start gap-5 sm:gap-10"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -183,17 +184,19 @@ const Card = ({ title, description }) => {
         hover_bg_color="neutral-default"
         text_color="text-body"
         text_hover_color="text-body"
-        className="border-2 border-neutral-default transition-colors duration-300"
+        className="border-2 border-neutral-default transition-colors duration-300 overflow-hidden"
         isGroupHover={isHovered}
       >
-        <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4">
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M3.31366 0.65646L12.3137 0.656459C12.8659 0.65646 13.3137 1.10417 13.3137 1.65646L13.3137 10.6565C13.3137 11.2087 12.8659 11.6565 12.3137 11.6565C11.7614 11.6565 11.3137 11.2087 11.3137 10.6565L11.3137 4.07067L1.70706 13.6773L0.292847 12.2631L9.89945 2.65646L3.31366 2.65646C2.76138 2.65646 2.31366 2.20874 2.31366 1.65646C2.31366 1.10418 2.76138 0.65646 3.31366 0.65646Z"
-            fill="#372F46"
-          />
-        </svg>
+        <TopBottomIconSwap direction="top-right">
+          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M3.31366 0.65646L12.3137 0.656459C12.8659 0.65646 13.3137 1.10417 13.3137 1.65646L13.3137 10.6565C13.3137 11.2087 12.8659 11.6565 12.3137 11.6565C11.7614 11.6565 11.3137 11.2087 11.3137 10.6565L11.3137 4.07067L1.70706 13.6773L0.292847 12.2631L9.89945 2.65646L3.31366 2.65646C2.76138 2.65646 2.31366 2.20874 2.31366 1.65646C2.31366 1.10418 2.76138 0.65646 3.31366 0.65646Z"
+              fill="#372F46"
+            />
+          </svg>
+        </TopBottomIconSwap>
       </CircularButton>
 
       <div className="flex flex-col gap-5">

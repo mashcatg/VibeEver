@@ -36,11 +36,11 @@
   --purple-400: #7d44ee;
   --purple-700: #370d8c;
   --purple-900: #12042f;
-  --green-50: #D0FBE6;
-  --green-200: #A1F7CC;
-  --green-400: #43EF99;
-  --green-700: #0C8D4D;
-  --green-900: #042F1A;
+  --green-50: #d0fbe6;
+  --green-200: #a1f7cc;
+  --green-400: #43ef99;
+  --green-700: #0c8d4d;
+  --green-900: #042f1a;
   --social-linkedin: #006699;
 
   /* font size */
@@ -391,4 +391,29 @@ body {
 }
 .top-bottom-icon-swap-container:hover .top-bottom-icon-swap.bottom span:nth-child(2) {
   top: 50%;
+}
+
+/* top-right */
+.top-bottom-icon-swap.top-right span:nth-child(1) {
+  top: calc(100% + 1.25rem);
+  left: -1.25rem;
+}
+.top-bottom-icon-swap.top-right span:nth-child(2) {
+  top: 50%;
+}
+.top-bottom-icon-swap.top-right:hover span:nth-child(1) {
+  top: 50%;
+  left: 50%;
+}
+.top-bottom-icon-swap.top-right:hover span:nth-child(2) {
+  top: -1.25rem;
+  left: 2rem;
+}
+.top-bottom-icon-swap-container:hover .top-bottom-icon-swap.top-right span:nth-child(1) {
+  top: 50%;
+  left: 50%;
+}
+.top-bottom-icon-swap-container:hover .top-bottom-icon-swap.top-right span:nth-child(2) {
+  top: -1.25rem;
+  left: 2rem;
 }
