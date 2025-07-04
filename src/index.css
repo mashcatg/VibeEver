@@ -319,16 +319,16 @@ body {
   left: 50%;
 }
 .left-right-icon-swap.right span:nth-child(2) {
-  left: -1.25rem;
+  left: -2rem;
 }
 .left-right-icon-swap.right:hover span:nth-child(1) {
-  left: calc(100% + 1.25rem);
+  left: calc(100% + 2rem);
 }
 .left-right-icon-swap.right:hover span:nth-child(2) {
   left: 50%;
 }
 .left-right-icon-swap-container:hover .left-right-icon-swap.right span:nth-child(1) {
-  left: calc(100% + 1.25rem);
+  left: calc(100% + 2rem);
 }
 .left-right-icon-swap-container:hover .left-right-icon-swap.right span:nth-child(2) {
   left: 50%;
