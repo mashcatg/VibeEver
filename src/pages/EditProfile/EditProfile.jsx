@@ -98,7 +98,7 @@ const EditProfile = () => {
                 name="full_name"
                 type="text"
                 label="Full name"
-                placeholder={user?.fullName}
+                placeholder="Full name"
                 defaultValue={user?.fullName}
               />
 
@@ -107,7 +107,8 @@ const EditProfile = () => {
                 name="username"
                 type="text"
                 label="Username"
-                placeholder={user?.userName}
+                placeholder="Username"
+                defaultValue={user?.userName}
               />
 
               {/* email */}
@@ -115,7 +116,7 @@ const EditProfile = () => {
                 name="email"
                 type="email"
                 label="Email address"
-                placeholder={user?.email}
+                placeholder="Email address"
                 defaultValue={user?.email}
                 readOnly
                 className="bg-neutral-subtle cursor-not-allowed"
@@ -127,7 +128,8 @@ const EditProfile = () => {
                 name="phone_number"
                 type="tel"
                 label="Phone number"
-                placeholder={user?.phoneNumber}
+                placeholder="Phone number"
+                defaultValue={user?.phoneNumber}
               />
 
               {/* Image upload and preview section */}
@@ -179,7 +181,8 @@ const EditProfile = () => {
                 name="bio"
                 type="textarea"
                 label="Bio or About"
-                placeholder={user?.bio || "Tell us about yourself..."}
+                placeholder="Tell us about yourself..."
+                defaultValue={user?.bio}
               />
 
               <SubmitButton disabled={loading}>
