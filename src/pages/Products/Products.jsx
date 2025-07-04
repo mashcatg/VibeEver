@@ -235,7 +235,7 @@ const Products = () => {
                     <SwiperSlide key={index}>                      <div 
                         className={`px-5 py-3 w-fit rounded-full cursor-pointer ${
                           selectedTag === item 
-                            ? "bg-primary text-white" 
+                            ? "bg-primary text-white border border-white" 
                             : "bg-neutral-default text-text-body"
                         }`}
                         onClick={() => handleTagClick(item)}
