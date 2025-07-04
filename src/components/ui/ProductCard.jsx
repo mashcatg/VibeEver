@@ -7,6 +7,15 @@ import TopBottomIconSwap from "./TopBottomIconSwap";
 import { useCart } from "../../Providers/cartProvider";
 import toast from "react-hot-toast";
 
+const isProductExistOnCart = (cart, id) => {
+  if (!cart?.items) return false;
+
+  return cart.items.some((item) => {
+    console.log(item?.product?._id === id); // Optional: for debugging
+    return item?.product?._id === id;
+  });
+};
+
 const ProductImage = ({ id, product_image, save_handler = () => {} }) => {
   return (
     <div className="max-h-product-image rounded-2xl overflow-hidden relative">
@@ -134,9 +143,10 @@ const ProductCardActionButton = ({
 
 const ProductCard = ({ product }) => {
   // console.log(product);
-  const { addToCart , directStripePayment } = useCart();
+  const { cart, addToCart, directStripePayment } = useCart();
   const navigate = useNavigate();
-  const { id, image, title, tags, price, regular_price, download_link } = product;
+  const { id, image, title, tags, price, regular_price, download_link } =
+    product;
 
   const isLoggedIn = Boolean(JSON.parse(localStorage.getItem("auth"))?.token);
 
@@ -183,7 +193,7 @@ const ProductCard = ({ product }) => {
           <div className="text-main-price flex items-start gap-xxs">
             <span className="mt-0.5">$</span>
             <h5 className="text-headline leading-headline font-bold">
-            {Number(price).toFixed(2)}
+              {Number(price).toFixed(2)}
             </h5>
           </div>
 
@@ -204,7 +214,7 @@ const ProductCard = ({ product }) => {
                 </svg>
               </span>
               <del className="font-semibold text-neutral-caption">
-             {Number(regular_price).toFixed(2)}
+                {Number(regular_price).toFixed(2)}
               </del>
             </div>
           </div>
@@ -217,7 +227,6 @@ const ProductCard = ({ product }) => {
             <ProductCardActionButton
               tooltip_text="Download"
               on_click_handler={() =>
-
                 // console.log("Download link: " + download_link)
                 window.open(download_link, "_blank")
               }
@@ -247,7 +256,11 @@ const ProductCard = ({ product }) => {
             <>
               {/* Add to Cart */}
               <ProductCardActionButton
-                tooltip_text="Add to Cart"
+                tooltip_text={
+                  isProductExistOnCart(cart, id)
+                    ? "Added to Cart"
+                    : "Add to Cart"
+                }
                 on_click_handler={handleAddToCart}
                 bg_color="blue-50"
                 hover_bg_color="blue-200"
