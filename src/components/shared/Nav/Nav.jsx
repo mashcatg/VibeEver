@@ -79,8 +79,8 @@ const Nav = ({ set_open_cart }) => {
   const nav_links = [
     { name: "Home", path: "/" },
     { name: "Products", path: "/products" },
-    { name: "Assets", path: "/assets" },
-    { name: "Templates", path: "/templates" },
+    { name: "About", path: "/about" },
+    { name: "Contact", path: "/contact" },
   ];
 
   // Animation variants for the mobile sidebar
