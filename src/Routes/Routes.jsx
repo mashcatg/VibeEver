@@ -26,6 +26,7 @@ import CategoryManage from "../pages/AdminDashboard/CategoryManage/CategoryManag
 import AdminMessages from "../pages/AdminDashboard/message/AdminMessages";
 import CouponManage from "../pages/AdminDashboard/copunManage/CouponManage";
 import UserManage from "../pages/AdminDashboard/users/UserManage";
+import Wishlist from "../pages/Wishlist/Wishlist";
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +78,14 @@ export const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <EditProfile />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/wishlist",
+    element: (
+      <PrivateRoute>
+        <Wishlist />
       </PrivateRoute>
     ),
   },

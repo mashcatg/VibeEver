@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import TopBottomIconSwap from "./TopBottomIconSwap";
 import { useCart } from "../../Providers/cartProvider";
 import toast from "react-hot-toast";
+import { useWishlist } from "../../Providers/wishlistProvider";
 
 const isProductExistOnCart = (cart, id) => {
   if (!cart?.items) return false;
@@ -144,6 +145,7 @@ const ProductCardActionButton = ({
 const ProductCard = ({ product }) => {
   // console.log(product);
   const { cart, addToCart, directStripePayment } = useCart();
+  const {toggleWishlist} = useWishlist()
   const navigate = useNavigate();
   const { id, image, title, tags, price, regular_price, download_link } =
     product;
@@ -166,13 +168,22 @@ const ProductCard = ({ product }) => {
     directStripePayment(id);
   };
 
+  const handleWish = ()=>{
+     if (!isLoggedIn) {
+      toast.error("Please login to add wishlist .");
+      return;
+    }
+    toggleWishlist(id);
+  };
+  
+
   return (
     <div>
       {/* product image */}
       <ProductImage
         id={id}
         product_image={image}
-        save_handler={() => console.log("Save " + id)}
+        save_handler={handleWish}
       ></ProductImage>
 
       {/* tags */}
