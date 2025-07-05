@@ -8,16 +8,18 @@ import youtube from "../../../assets/icons/youtube.svg";
 import medium from "../../../assets/icons/medium.svg";
 import behance from "../../../assets/icons/behance.svg";
 import dribbble from "../../../assets/icons/dribbble.svg";
+import tiktok from "../../../assets/icons/tik-tok.png";
 
 const TrustSection = () => {
   const profile_images = Array(16).fill(trusted_people);
 
   const social_links = [
-    { icon: instagram, link: "https://www.instagram.com/" },
-    { icon: facebook, link: "https://www.facebook.com/" },
-    { icon: twitter, link: "https://twitter.com/" },
-    { icon: linkedin, link: "https://www.linkedin.com/" },
-    { icon: youtube, link: "https://www.youtube.com/" },
+    { icon: instagram, link: "https://www.instagram.com/vibeever_com" },
+    { icon: facebook, link: "https://www.facebook.com/vibeever" },
+    { icon: twitter, link: "https://x.com/vibeever" },
+    { icon: linkedin, link: "https://www.linkedin.com/company/vibeever/" },
+    { icon: youtube, link: "https://www.youtube.com/@vibeever" },
+    { icon: tiktok, link: "https://www.tiktok.com/@vibeever_com" },
     { icon: medium, link: "https://medium.com/" },
     { icon: behance, link: "https://www.behance.net/" },
     { icon: dribbble, link: "https://dribbble.com/" },

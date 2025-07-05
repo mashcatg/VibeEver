@@ -26,21 +26,21 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row gap-5 items-center">
             {/* social links */}
             <div className="flex p-2.5 gap-2.5 items-center">
-              <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-all duration-300 ease-in-out">
+              <a href="https://www.linkedin.com/company/vibeever/" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-all duration-300 ease-in-out">
                 <img src={linkedin} alt="LinkedIn" className="w-4 h-4" />
               </a>
               <a
-                href="https://www.instagram.com/"
+                href="https://www.instagram.com/vibeever_com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:scale-110 transition-all duration-300 ease-in-out"
               >
                 <img src={instagram} alt="Instagram" className="w-4 h-4" />
               </a>
-              <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-all duration-300 ease-in-out">
+              <a href="https://www.facebook.com/vibeever" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-all duration-300 ease-in-out">
                 <img src={facebook} alt="Facebook" className="w-4 h-4" />
               </a>
-              <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-all duration-300 ease-in-out">
+              <a href="https://x.com/vibeever" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-all duration-300 ease-in-out">
                 <img src={twitter} alt="Twitter" className="w-4 h-4" />
               </a>
             </div>
