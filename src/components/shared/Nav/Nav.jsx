@@ -20,9 +20,9 @@ const Nav = ({ set_open_cart }) => {
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
 
-  const {cart} = useCart()
+  const { cart } = useCart();
 
-  console.log(user?.image );
+  console.log(user?.image);
 
   // console.log(cart.items.length);
   // Check screen size to determine if mobile view
@@ -129,27 +129,27 @@ const Nav = ({ set_open_cart }) => {
       </ul>
 
       <div className="flex items-center gap-4">
-        { user && <div className="hidden md:block">
-          <ExpandedIconButton
-            text="DASHBOARD"
-            icon={
-              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-4">
-                <path
-                  d="M14.8571 0H1.14286C0.839753 0 0.549062 0.120408 0.334735 0.334735C0.120408 0.549062 0 0.839749 0 1.14285V14.8571C0 15.1602 0.120408 15.4509 0.334735 15.6653C0.549062 15.8796 0.839753 16 1.14286 16H14.8571C15.1602 16 15.4509 15.8796 15.6653 15.6653C15.8796 15.4509 16 15.1602 16 14.8571V1.14285C16 0.839749 15.8796 0.549062 15.6653 0.334735C15.4509 0.120408 15.1602 0 14.8571 0ZM13.7143 2.28571V6.85714H9.14286V2.28571H13.7143ZM6.85714 2.28571V6.85714H2.28571V2.28571H6.85714ZM2.28571 13.7143V9.14283H6.85714V13.7143H2.28571ZM9.14286 13.7143V9.14283H13.7143V13.7143H9.14286Z"
-                  fill="#372F46"
-                />
-              </svg>
-            }
-            size="3rem"
-            buttonBgColor="white"
-            buttonHoverBgColor="primary"
-            buttonTextColor="text-body"
-            buttonTextHoverColor="white"
-            onClick={handleLinkClick}
-          />
-        </div>
-
-        }
+        {user && (
+          <div className="hidden md:block">
+            <ExpandedIconButton
+              text="DASHBOARD"
+              icon={
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-4">
+                  <path
+                    d="M14.8571 0H1.14286C0.839753 0 0.549062 0.120408 0.334735 0.334735C0.120408 0.549062 0 0.839749 0 1.14285V14.8571C0 15.1602 0.120408 15.4509 0.334735 15.6653C0.549062 15.8796 0.839753 16 1.14286 16H14.8571C15.1602 16 15.4509 15.8796 15.6653 15.6653C15.8796 15.4509 16 15.1602 16 14.8571V1.14285C16 0.839749 15.8796 0.549062 15.6653 0.334735C15.4509 0.120408 15.1602 0 14.8571 0ZM13.7143 2.28571V6.85714H9.14286V2.28571H13.7143ZM6.85714 2.28571V6.85714H2.28571V2.28571H6.85714ZM2.28571 13.7143V9.14283H6.85714V13.7143H2.28571ZM9.14286 13.7143V9.14283H13.7143V13.7143H9.14286Z"
+                    fill="#372F46"
+                  />
+                </svg>
+              }
+              size="3rem"
+              buttonBgColor="white"
+              buttonHoverBgColor="primary"
+              buttonTextColor="text-body"
+              buttonTextHoverColor="white"
+              onClick={handleLinkClick}
+            />
+          </div>
+        )}
 
         {/* Cart Button */}
         <CircularButton
@@ -227,6 +227,25 @@ const Nav = ({ set_open_cart }) => {
                         />
                       </svg>
                       <span className="font-medium">My Profile</span>
+                    </Link>
+
+                    <Link
+                      to="/wishlist"
+                      className="group flex items-center gap-3 px-5 py-3 text-sm text-text-body hover:bg-neutral-subtle transition-all duration-200"
+                      onClick={() => setIsUserDropdownOpen(false)}
+                    >
+                      <svg
+                        className="w-4 h-4 text-neutral-caption group-hover:text-primary transition-colors duration-200"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M14.6399 1.41543C12.9094 -0.251611 10.0704 -0.251611 8.34006 1.41543L7.99979 1.7557L7.65952 1.41543C5.92916 -0.251611 3.09022 -0.251611 1.35986 1.41543C-0.453288 3.16562 -0.453288 5.92303 1.35986 7.67322L7.47785 13.6178C7.75642 13.8964 8.23265 13.8964 8.51121 13.6178L14.6292 7.67322C16.4532 5.92303 16.4532 3.16562 14.6399 1.41543ZM13.6065 6.67207L7.99979 12.1138L2.39308 6.67207C1.16834 5.45462 1.16834 3.53671 2.39308 2.32189C3.61783 1.10443 5.5443 1.10443 6.76905 2.32189L7.47785 3.0307C7.75642 3.30199 8.24315 3.30199 8.52172 3.0307L9.22001 2.32189C10.4448 1.10443 12.3712 1.10443 13.596 2.32189C14.8207 3.53671 14.8207 5.45462 13.6065 6.67207Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <span className="font-medium">My Wishlist</span>
                     </Link>
 
                     <div className="border-t border-neutral-default my-2"></div>
