@@ -39,13 +39,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "/products",
-        element: <Products/> ,
+        element: <Products />,
       },
       {
         path: "/products/:id",
-        element: <PrivateRoute>
-           <ProductDetails></ProductDetails>
-        </PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <ProductDetails></ProductDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard",
@@ -60,6 +62,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute role="user">
             <Dashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/wishlist",
+        element: (
+          <PrivateRoute>
+            <Wishlist />
           </PrivateRoute>
         ),
       },
@@ -69,8 +79,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/auth/success",
-        element:  <GoogleCallback/>,
-      }
+        element: <GoogleCallback />,
+      },
     ],
   },
   {
@@ -82,18 +92,9 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/wishlist",
-    element: (
-      <PrivateRoute>
-        <Wishlist />
-      </PrivateRoute>
-    ),
+    path: "/checkout/success",
+    element: <CheckoutSuccess />,
   },
-  
-      {
-        path: "/checkout/success",
-        element:  <CheckoutSuccess/>,
-      },
   {
     path: "/MY-profile",
     element: (
@@ -191,21 +192,21 @@ export const router = createBrowserRouter([
       //   ),
       // },
       {
-  path: "manage-coupons",
-  element: (
-    <PrivateRoute role="admin super-admin">
-      <CouponManage />
-    </PrivateRoute>
-  ),
-},
-{
-  path: "users",
-  element: (
-    <PrivateRoute role="admin super-admin">
-      <UserManage />
-    </PrivateRoute>
-  ),
-},
+        path: "manage-coupons",
+        element: (
+          <PrivateRoute role="admin super-admin">
+            <CouponManage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "users",
+        element: (
+          <PrivateRoute role="admin super-admin">
+            <UserManage />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 ]);

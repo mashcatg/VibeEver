@@ -26,7 +26,7 @@ const FeaturedProducts = ({
     return pages;
   };
 
-  console.log(totalPages);
+  console.log(products);
 
   return (
     <div>
@@ -51,7 +51,7 @@ const FeaturedProducts = ({
 
         {/* Products grid */}
         {!loading && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-20">
             {products.map((product) => (
               <ProductCard key={product.id} product={product}></ProductCard>
             ))}
@@ -66,7 +66,7 @@ const FeaturedProducts = ({
 
         {/* Updated pagination section */}
         {totalPages > 1 && (
-          <div className="py-20 flex flex-wrap justify-center items-center gap-5">
+          <div className="pb-20 flex flex-wrap justify-center items-center gap-5">
             {/* Previous button */}
             <CircularButton
               size="4rem"
