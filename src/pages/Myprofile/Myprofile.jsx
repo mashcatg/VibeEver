@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useAxios from "../../Hooks/useAxios";
-import toast from "react-hot-toast";
 
 const Myprofile = () => {
   const [profileData, setProfileData] = useState(null);

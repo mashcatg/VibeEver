@@ -3,7 +3,7 @@ import { BsCart4 } from "react-icons/bs";
 import { BiCategoryAlt } from "react-icons/bi";
 import logo from "../../../assets/images/logo-white.svg";
 import { Link, NavLink } from "react-router-dom";
-import { CiMail } from "react-icons/ci";
+import { CiDiscount1, CiMail } from "react-icons/ci";
 
 const NavItem = ({ to, icon, label }) => {
   return (
@@ -60,6 +60,11 @@ const DashboardSidebar = ({ open_mobile_sidebar, set_open_mobile_sidebar }) => {
       to: "/admin-dashboard/manage-categories",
       icon: <BiCategoryAlt />,
       label: "MANAGE CATEGORIES",
+    },
+    {
+      to: "/admin-dashboard/manage-coupons",
+      icon: <CiDiscount1 />,
+      label: "CUOPONS",
     },
     {
       to: "/admin-dashboard/orders",

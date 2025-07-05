@@ -89,7 +89,7 @@ export const CartProvider = ({ children }) => {
 
   const handleStripeCartPayment = async () => {
     if (!cart || !cart.items || cart.items.length === 0) {
-      alert("Your cart is empty.");
+      toast.error("Your cart is empty.");
       return;
     }
 
@@ -139,7 +139,8 @@ export const CartProvider = ({ children }) => {
         updateQuantity,
         applyCoupon,
         handleStripeCartPayment,
-        directStripePayment
+        directStripePayment,
+        fetchCart
       }}
     >
       {children}

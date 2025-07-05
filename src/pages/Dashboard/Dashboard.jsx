@@ -5,6 +5,7 @@ import DashboardProfile from "./DashboardProfile";
 import DashboardStats from "./DashboardStats";
 import { useEffect, useState } from "react";
 import useAxios from "../../Hooks/useAxios";
+import { useCart } from "../../Providers/cartProvider";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ const Dashboard = () => {
   const [page , setPage] =useState(1)
   const [totalPages , setTotalPages ] =useState(1)
     const token = JSON.parse(localStorage.getItem("auth"))?.token;
+      const { fetchCart} = useCart();
+    
 
     const [loading, setLoading] = useState(true);
 
@@ -21,6 +24,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchPurchases = async () => {
       try {
+        fetchCart()
         const { data } = await axios.get(`/orders/purchases?limit=${limit}&page=${page}` , {
             headers: {
               Authorization: `${token}`,
@@ -54,13 +58,13 @@ const Dashboard = () => {
     setPage(newPage);
   };
 
-   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
+  //  if (loading) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center"> sdfsdfsdg
+  //       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+  //     </div>
+  //   );
+  // }
 
 
   return (

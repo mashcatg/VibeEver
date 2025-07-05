@@ -55,6 +55,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "/dashboard",
+        element: (
+          <PrivateRoute role="user">
+            <Dashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/verify-email/:token",
         element: <VerifyEmail></VerifyEmail>,
       },

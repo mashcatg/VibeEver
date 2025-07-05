@@ -139,7 +139,7 @@ const EditProfile = () => {
                     src={previewImage}
                     alt="profile preview"
                     className="size-full object-cover rounded-full"
-                    onError={() => setPreviewImage(demo_preview)}
+                    onError={() => setPreviewImage(previewImage)}
                   />
                 </div>
 
