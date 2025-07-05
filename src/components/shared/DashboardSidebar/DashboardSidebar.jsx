@@ -71,11 +71,11 @@ const DashboardSidebar = ({ open_mobile_sidebar, set_open_mobile_sidebar }) => {
       icon: <BsCart4 />,
       label: "ORDERS",
     },
-    {
-      to: "/admin-dashboard/messages",
-      icon: <CiMail/>,
-      label: "MESSAGES",
-    },
+    // {
+    //   to: "/admin-dashboard/messages",
+    //   icon: <CiMail/>,
+    //   label: "MESSAGES",
+    // },
     {
       to: "/reports",
       icon: (
