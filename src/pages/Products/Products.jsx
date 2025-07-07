@@ -113,6 +113,9 @@ const Products = () => {
   const handleTagClick = (tag) => {
     updateParams({ search: tag, tag, page: 1 });
   };
+  const handleTagUnClick = () => {
+    updateParams({ search: "", tag: "", page: 1 });
+  };
   const handleCategoryChange = (value) => {
     updateParams({ category: value, page: 1 });
   };
@@ -238,7 +241,9 @@ const Products = () => {
                             ? "bg-primary text-white border border-white" 
                             : "bg-neutral-default text-text-body"
                         }`}
-                        onClick={() => handleTagClick(item)}
+                        onClick={() =>
+                          selectedTag === item ? handleTagUnClick() : handleTagClick(item)
+                        }
                       >
                         <span className="text-xl leading-body">
                           {item}
