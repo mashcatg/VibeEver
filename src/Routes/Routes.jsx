@@ -81,6 +81,14 @@ export const router = createBrowserRouter([
         path: "/auth/success",
         element: <GoogleCallback />,
       },
+      {
+        path: "/MY-profile",
+        element: (
+          <PrivateRoute>
+            <Myprofile />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
@@ -94,14 +102,6 @@ export const router = createBrowserRouter([
   {
     path: "/checkout/success",
     element: <CheckoutSuccess />,
-  },
-  {
-    path: "/MY-profile",
-    element: (
-      <PrivateRoute>
-        <Myprofile />
-      </PrivateRoute>
-    ),
   },
   {
     path: "/sign-in",
