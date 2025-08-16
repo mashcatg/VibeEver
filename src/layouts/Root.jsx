@@ -12,7 +12,7 @@ const Root = () => {
 
   return (
     <>
-      {(pathname === "/" || pathname === "/products") && <GridOverlay />}
+      {(pathname === "/" || pathname === "/products" || pathname === "/about") && <GridOverlay />}
 
       <div className="relative max-w-primary w-primary mx-auto z-10">
         <Nav set_open_cart={set_open_cart} />

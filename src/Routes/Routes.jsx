@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "../layouts/Root";
 import DashboardLayout from "../layouts/Dashboard";
 import Home from "../pages/Home/Home";
+import PrivacyPolicy from "../pages/PrivacyPolicy/PrivacyPolicy";
+import TermsOfService from "../pages/TermsOfService/TermsOfService";
 import Products from "../pages/Products/Products";
 import ComponentsPage from "../pages/ComponentsPage/ComponentsPage";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
@@ -27,6 +29,7 @@ import AdminMessages from "../pages/AdminDashboard/message/AdminMessages";
 import CouponManage from "../pages/AdminDashboard/copunManage/CouponManage";
 import UserManage from "../pages/AdminDashboard/users/UserManage";
 import Wishlist from "../pages/Wishlist/Wishlist";
+import About from "../pages/About/About";
 
 export const router = createBrowserRouter([
   {
@@ -88,6 +91,18 @@ export const router = createBrowserRouter([
             <Myprofile />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: "/terms-of-service",
+        element: <TermsOfService />,
       },
     ],
   },
