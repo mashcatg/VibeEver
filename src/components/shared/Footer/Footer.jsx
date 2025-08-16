@@ -26,7 +26,12 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row gap-5 items-center">
             {/* social links */}
             <div className="flex p-2.5 gap-2.5 items-center">
-              <a href="https://www.linkedin.com/company/vibeever/" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-all duration-300 ease-in-out">
+              <a
+                href="https://www.linkedin.com/company/vibeever/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:scale-110 transition-all duration-300 ease-in-out"
+              >
                 <img src={linkedin} alt="LinkedIn" className="w-4 h-4" />
               </a>
               <a
@@ -37,7 +42,12 @@ const Footer = () => {
               >
                 <img src={instagram} alt="Instagram" className="w-4 h-4" />
               </a>
-              <a href="https://www.facebook.com/vibeever" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-all duration-300 ease-in-out">
+              <a
+                href="https://www.facebook.com/vibeever"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:scale-110 transition-all duration-300 ease-in-out"
+              >
                 <img src={facebook} alt="Facebook" className="w-4 h-4" />
               </a>
               <a href="https://x.com/vibeever" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-all duration-300 ease-in-out">
@@ -45,7 +55,7 @@ const Footer = () => {
               </a>
             </div>
 
-            <FooterLink to="#">About</FooterLink>
+            <FooterLink to="/about">About</FooterLink>
 
             <FooterLink to="#">Contact</FooterLink>
           </div>
@@ -53,8 +63,8 @@ const Footer = () => {
           <h6 className="text-neutral-50 text-sm hidden md:block">{copyright_text}</h6>
 
           <div className="flex flex-col md:flex-row gap-5 items-center">
-            <FooterLink to="#">Privacy Policy</FooterLink>
-            <FooterLink to="#">Terms of Service</FooterLink>
+            <FooterLink to="/privacy-policy">Privacy Policy</FooterLink>
+            <FooterLink to="/terms-of-service">Terms of Service</FooterLink>
           </div>
 
           <h6 className="text-neutral-50 text-sm md:hidden">{copyright_text}</h6>

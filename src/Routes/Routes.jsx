@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "../layouts/Root";
 import DashboardLayout from "../layouts/Dashboard";
 import Home from "../pages/Home/Home";
+import PrivacyPolicy from "../pages/PrivacyPolicy/PrivacyPolicy";
+import TermsOfService from "../pages/TermsOfService/TermsOfService";
 import Products from "../pages/Products/Products";
 import ComponentsPage from "../pages/ComponentsPage/ComponentsPage";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
@@ -28,7 +30,6 @@ import CouponManage from "../pages/AdminDashboard/copunManage/CouponManage";
 import UserManage from "../pages/AdminDashboard/users/UserManage";
 import Wishlist from "../pages/Wishlist/Wishlist";
 import About from "../pages/About/About";
-import About2 from "../pages/About/About2";
 
 export const router = createBrowserRouter([
   {
@@ -96,8 +97,12 @@ export const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/about2nd",
-        element: <About2 />,
+        path: "/privacy-policy",
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: "/terms-of-service",
+        element: <TermsOfService />,
       },
     ],
   },
