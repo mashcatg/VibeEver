@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import axios from 'axios';
 import useAxios from '../Hooks/useAxios';
 
 export const AuthContext = createContext(null);
@@ -8,16 +7,13 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const axios =useAxios()
+  const axios = useAxios();
+
+  const TOKEN_EXPIRY = 6 * 24 * 60 * 60 * 1000; 
 
   const createUser = async (fullName, email, password) => {
     try {
-      const response = await axios.post('/auth/register', {
-        fullName,
-        email,
-        password
-      });
-      console.log(response);
+      const response = await axios.post('/auth/register', { fullName, email, password });
       return response.data;
     } catch (error) {
       throw error.response.data;
@@ -26,13 +22,13 @@ export const AuthProvider = ({ children }) => {
 
   const signIn = async (email, password) => {
     try {
-      const response = await axios.post('/auth/login', {
-        email,
-        password
-      });
-      
+      const response = await axios.post('/auth/login', { email, password });
       const { token, user } = response.data;
-      localStorage.setItem('auth', JSON.stringify({ token, user }));
+
+      // Save login time
+      const loginTime = Date.now();
+      localStorage.setItem('auth', JSON.stringify({ token, user, loginTime }));
+
       setUser(user);
       return response.data;
     } catch (error) {
@@ -44,136 +40,60 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('auth');
     setUser(null);
   };
-  useEffect(() => {
- 
 
+  const checkAuth = () => {
+    const auth = localStorage.getItem('auth');
+    if (auth) {
+      try {
+        const parsed = JSON.parse(auth);
 
-    const checkAuth = () => {
-
-
-      const auth = localStorage.getItem('auth');
-
-
-      if (auth) {
-
-
-        try {
-
-
-          const parsed = JSON.parse(auth);
-
-
-          if (parsed.token && parsed.user) {
-
-
-            setUser(parsed.user);
-
-
-          } else {
-
-
-            localStorage.removeItem('auth');
-
-
-          }
-
-
-        } catch (error) {
-
-
-          localStorage.removeItem('auth');
-
-
+        
+        if (parsed.loginTime && Date.now() - parsed.loginTime > TOKEN_EXPIRY) {
+          
+          logOut();
+          return;
         }
 
-
+        if (parsed.token && parsed.user) {
+          setUser(parsed.user);
+        } else {
+          logOut();
+        }
+      } catch (error) {
+        logOut();
       }
-
-
-      setLoading(false);
-
-
-    };
-
-
-
-
-
-    checkAuth();
-
-
-  }, []); // Run only once on mount
-
-
-
-
-
-  const googleSignIn = () => {
-  const params = new URLSearchParams(window.location.search);
-  const redirect = params.get("redirect") || "/";
-  window.location.href = `${import.meta.env.VITE_API_URL}/auth/google?redirect=${encodeURIComponent(redirect)}`;
-};
-
-
-
-
-  // Add function to handle the callback
-
-
-  const handleGoogleCallback = async (token) => {
-
-
-    try {
-
-
-      const decodedToken = decodeURIComponent(token);
-
-
-      const payload = JSON.parse(atob(decodedToken.split('.')[1]));
-
-
-      
-
-
-      // Store auth data
-
-
-      const authData = { token: decodedToken, user: payload };
-
-
-      localStorage.setItem('auth', JSON.stringify(authData));
-
-
-      setUser(payload);
-
-
-      
-
-
-      return authData;
-
-
-    } catch (error) {
-
-
-      localStorage.removeItem('auth');
-
-
-      throw new Error('Failed to process Google authentication');
-
-    }
-
-
-  };
-
-
-  useEffect(() => {
-    const auth = JSON.parse(localStorage.getItem('auth'));
-    if (auth) {
-      setUser(auth.user);
     }
     setLoading(false);
+  };
+
+  useEffect(() => {
+    checkAuth();
   }, []);
+
+  const googleSignIn = () => {
+    const params = new URLSearchParams(window.location.search);
+    const redirect = params.get("redirect") || "/";
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google?redirect=${encodeURIComponent(redirect)}`;
+  };
+
+  const handleGoogleCallback = async (token) => {
+    try {
+      const decodedToken = decodeURIComponent(token);
+      const payload = JSON.parse(atob(decodedToken.split('.')[1]));
+
+      // Store auth data with login time
+      const loginTime = Date.now();
+      const authData = { token: decodedToken, user: payload, loginTime };
+
+      localStorage.setItem('auth', JSON.stringify(authData));
+      setUser(payload);
+
+      return authData;
+    } catch (error) {
+      logOut();
+      throw new Error('Failed to process Google authentication');
+    }
+  };
 
   const authInfo = {
     user,
@@ -182,7 +102,7 @@ export const AuthProvider = ({ children }) => {
     signIn,
     logOut,
     googleSignIn,
-    handleGoogleCallback
+    handleGoogleCallback,
   };
 
   return (
@@ -191,7 +111,6 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
 
 export const useAuth = () => {
   const auth = useContext(AuthContext);
