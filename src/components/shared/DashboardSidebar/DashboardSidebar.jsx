@@ -77,7 +77,7 @@ const DashboardSidebar = ({ open_mobile_sidebar, set_open_mobile_sidebar }) => {
     //   label: "MESSAGES",
     // },
     {
-      to: "/reports",
+      to: "/admin-dashboard/reports",
       icon: (
         <svg className="size-4" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <path

@@ -183,14 +183,14 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path: "messages",
-      //   element: (
-      //     <PrivateRoute role="admin">
-      //       <AdminMessages />
-      //     </PrivateRoute>
-      //   ),
-      // },
+      {
+        path: "reports",
+        element: (
+          <PrivateRoute role="admin">
+            <AdminMessages />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "manage-coupons",
         element: (
