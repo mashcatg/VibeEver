@@ -170,40 +170,26 @@ const ValuesSection = () => {
       icon: Heart,
       title: "Customer-Centric",
       description: "Every decision we make puts our customers first, ensuring exceptional experiences and outcomes.",
-      color: "primary",
     },
     {
       icon: Lightbulb,
       title: "Innovation",
       description: "We constantly push boundaries, embracing new technologies and design trends to stay ahead.",
-      color: "blue",
     },
     {
       icon: Award,
       title: "Excellence",
       description: "We maintain the highest standards in everything we create, from design to customer service.",
-      color: "purple",
     },
     {
       icon: Users,
       title: "Collaboration",
       description: "We believe in the power of community and work together to achieve extraordinary results.",
-      color: "green",
     },
   ];
 
-  const getColorClass = (color, type) => {
-    const colorMap = {
-      primary: { bg: "bg-primary/10", text: "text-primary" },
-      blue: { bg: "bg-blue-500/10", text: "text-blue-600" },
-      purple: { bg: "bg-purple-500/10", text: "text-purple-600" },
-      green: { bg: "bg-green-500/10", text: "text-green-600" },
-    };
-    return colorMap[color][type];
-  };
-
   return (
-    <div id="values-section" className="mb-20 bg-neutral-subtle overflow-hidden rounded-4xl">
+    <div id="values-section" className="mb-20 bg-neutral-default overflow-hidden rounded-4xl">
       <div className="relative overflow-hidden">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-purple-50 to-blue-50"></div>
@@ -231,7 +217,7 @@ const ValuesSection = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-4xl md:text-6xl font-bold text-text-body mb-6 leading-snug"
+              className="text-4xl md:text-8xl font-bold text-black mb-6 leading-snug md:leading-21 uppercase "
             >
               Crafting Digital
               <span className="text-primary block sm:inline sm:ml-4">Experiences</span>
@@ -257,10 +243,10 @@ const ValuesSection = () => {
                 key={index}
                 variants={itemVariant}
                 whileHover={{ y: -4 }}
-                className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-neutral-default/50"
+                className="bg-white rounded-20 p-6 transition-all duration-300 border border-neutral-default/50"
               >
-                <div className={`w-12 h-12 ${getColorClass(value.color, "bg")} rounded-xl flex items-center justify-center mb-4`}>
-                  <value.icon className={`w-6 h-6 ${getColorClass(value.color, "text")}`} />
+                <div className={`w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4`}>
+                  <value.icon className={`w-6 h-6 text-primary`} />
                 </div>
                 <h3 className="text-headline leading-headline font-semibold text-text-body mb-2">{value.title}</h3>
                 <p className="text-caption leading-caption text-neutral-subtitle">{value.description}</p>
@@ -326,7 +312,7 @@ const WhyChooseUsSection = () => {
 
         <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {/* Premium Quality - Light Background */}
-          <motion.div variants={itemVariant} whileHover={{ y: -4 }} className="bg-neutral-subtle rounded-2xl p-8 transition-all duration-300  group">
+          <motion.div variants={itemVariant} whileHover={{ y: -4 }} className="bg-neutral-subtle rounded-5xl p-8 transition-all duration-300  group">
             <div className="w-14 h-14 border border-neutral-caption rounded-full flex items-center justify-center mb-5 transition-transform duration-300">
               <Award className="w-7 h-7 text-neutral-caption" />
             </div>
@@ -338,7 +324,7 @@ const WhyChooseUsSection = () => {
           </motion.div>
 
           {/* Extensive Collection - Light Background */}
-          <motion.div variants={itemVariant} whileHover={{ y: -4 }} className="bg-neutral-subtle rounded-2xl p-8 transition-all duration-300 group">
+          <motion.div variants={itemVariant} whileHover={{ y: -4 }} className="bg-neutral-subtle rounded-5xl p-8 transition-all duration-300 group">
             <div className="w-14 h-14 border border-neutral-caption rounded-full flex items-center justify-center mb-5 transition-transform duration-300">
               <Target className="w-7 h-7 text-neutral-caption" />
             </div>
@@ -353,7 +339,7 @@ const WhyChooseUsSection = () => {
           <motion.div
             variants={itemVariant}
             whileHover={{ y: -4 }}
-            className="bg-primary rounded-2xl p-8 text-white shadow-lg hover:shadow-xl transition-all duration-300 sm:col-span-2 md:col-span-1 md:row-span-2 group relative overflow-hidden flex flex-col justify-between"
+            className="bg-primary rounded-5xl p-8 text-white shadow-lg hover:shadow-xl transition-all duration-300 sm:col-span-2 md:col-span-1 md:row-span-2 group relative overflow-hidden flex flex-col justify-between"
           >
             {/* Background decoration */}
             <div className="absolute top-4 right-4 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
@@ -399,7 +385,7 @@ const WhyChooseUsSection = () => {
           <motion.div
             variants={itemVariant}
             whileHover={{ y: -4 }}
-            className="bg-neutral-subtle rounded-2xl p-8 transition-all duration-300  group sm:col-span-2 md:col-span-2"
+            className="bg-neutral-subtle rounded-5xl p-8 transition-all duration-300  group sm:col-span-2 md:col-span-2"
           >
             <div className="flex flex-col md:flex-row items-start gap-8">
               <div className="flex-shrink-0">
