@@ -1,5 +1,5 @@
 import { FaXTwitter } from "react-icons/fa6";
-import trusted_people from "../../../assets/images/trusted_people.png";
+import trusted_people from "../../../assets/images/trusted_people.jpg";
 import instagram from "../../../assets/icons/instagram.svg";
 import facebook from "../../../assets/icons/facebook.svg";
 import twitter from "../../../assets/icons/twitter.svg";
@@ -33,7 +33,7 @@ const TrustSection = () => {
 
       <div className="w-fit mx-auto flex -space-x-4 flex-wrap justify-center items-center pt-3 pb-6 md:py-8 px-4 md:px-0">
         {profile_images.map((image, index) => (
-          <img key={index} src={image} alt="trusted_people" className="w-16 h-16 rounded-full border-4 border-white" />
+          <img key={index} src={image} alt="trusted_people" className="w-16 h-16 object-cover rounded-full border-4 border-white" />
         ))}
       </div>
 
