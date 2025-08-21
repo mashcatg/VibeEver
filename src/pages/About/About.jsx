@@ -449,7 +449,7 @@ const About = () => {
     <>
       <div className="min-h-screen">
         {/* Main Content with consistent spacing */}
-        <div className="max-w-primary mx-auto">
+        <div>
           {/* Hero Stats Section using SectionHead */}
           <StatsSection />
 
