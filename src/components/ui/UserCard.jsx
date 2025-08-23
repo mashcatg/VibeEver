@@ -6,7 +6,7 @@ const UserCard = ({ className , name , mail , image}) => {
         <img src={image} alt="User" className="w-full h-full object-cover rounded-full" />
       </div>
 
-      <div>
+      <div className="text-left">
         <h6 className="text-caption leading-caption font-semibold">{name}</h6>
         <p className="text-footnote leading-footnote text-neutral-subtitle">{mail}</p>
       </div>

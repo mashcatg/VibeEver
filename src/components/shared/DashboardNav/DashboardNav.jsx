@@ -2,14 +2,15 @@ import { useState, useRef } from "react";
 import { CircularButton } from "../../ui/Button";
 import UserCard from "../../ui/UserCard";
 import { useAuth } from "../../../Providers/AuthProvider";
+import UserDropdown from "../../ui/UserDropdown";
 
 const DashboardNav = ({ open_mobile_sidebar, set_open_mobile_sidebar }) => {
   const search_ref = useRef(null);
   const [is_search_hovered, set_is_search_hovered] = useState(false);
   const [is_search_focused, set_is_search_focused] = useState(false);
 
-  const {user}= useAuth()
- console.log(user);
+  const { user } = useAuth();
+  console.log(user);
   return (
     <div className="flex items-center justify-between gap-6 mb-10">
       {/* Mobile menu toggle button */}
@@ -65,7 +66,10 @@ const DashboardNav = ({ open_mobile_sidebar, set_open_mobile_sidebar }) => {
       </div>
 
       <div>
-        <UserCard className="bg-neutral-subtle" name={user?.fullName} image={user?.image} mail={user?.email} />
+        {/* User Dropdown */}
+        <UserDropdown dropdownPosition="left-0" avatarSize="3rem">
+          <UserCard className="bg-neutral-subtle" name={user?.fullName} image={user?.image} mail={user?.email} />
+        </UserDropdown>
       </div>
     </div>
   );
