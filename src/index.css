@@ -6,7 +6,7 @@
 :root {
   /* General */
   --primary-max-width: 1920px;
-  --primary-width: 94.44%; 
+  --primary-width: 96%; 
   --product-image-height: 18.75rem; /* 300px */
 
   /* width */
@@ -73,12 +73,6 @@
 
   /* spacing */
   --spacing-1: 0.0625rem; /* 1px */
-}
-
-@media screen and (min-width: 1024px) {
-  :root {
-    --primary-width: 86%;
-  }
 }
 
 @layer utilities {
