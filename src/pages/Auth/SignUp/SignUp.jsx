@@ -41,8 +41,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex gap-12 justify-center min-h-dvh md:min-h-screen">
-      <div className="md:w-1/2 flex flex-col justify-center items-end">
+    <div className="flex justify-center min-h-dvh md:min-h-screen">
+      <div className="md:w-1/2 flex flex-col justify-center items-center">
         <div className="w-full md:max-w-144 px-8 py-12">
           <AuthHeader
             title={
