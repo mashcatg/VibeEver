@@ -39,7 +39,6 @@ const DashboardNav = ({ open_mobile_sidebar, set_open_mobile_sidebar }) => {
             onFocus={() => set_is_search_focused(true)}
             onBlur={() => set_is_search_focused(false)}
             autoComplete="off"
-            defaultValue={is_search_focused ? "UI Kit" : ""}
             placeholder="Search assets & templates..."
             className={`px-2.5 w-full font-semibold text-text-body ${
               is_search_hovered ? "placeholder:text-neutral-border" : "placeholder:text-neutral-caption"
