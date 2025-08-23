@@ -6,15 +6,6 @@ import SectionHead from "../../components/ui/SectionHead";
 import { ExpandedIconButton } from "../../components/ui/Button";
 
 // Animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
@@ -241,9 +232,7 @@ const ValuesSection = () => {
             {values.map((value, index) => (
               <motion.div
                 key={index}
-                variants={itemVariant}
-                whileHover={{ y: -4 }}
-                className="bg-white rounded-20 p-6 transition-all duration-300 border border-neutral-default/50"
+                className="bg-white rounded-20 p-6 transition-all duration-300 hover:-translate-y-1 border border-neutral-default/50"
               >
                 <div className={`w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4`}>
                   <value.icon className={`w-6 h-6 text-primary`} />
@@ -312,7 +301,7 @@ const WhyChooseUsSection = () => {
 
         <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {/* Premium Quality - Light Background */}
-          <motion.div variants={itemVariant} whileHover={{ y: -4 }} className="bg-neutral-subtle rounded-5xl p-8 transition-all duration-300  group">
+          <motion.div className="bg-neutral-subtle rounded-5xl p-8 transition-all duration-300 hover:-translate-y-1 group">
             <div className="w-14 h-14 border border-neutral-caption rounded-full flex items-center justify-center mb-5 transition-transform duration-300">
               <Award className="w-7 h-7 text-neutral-caption" />
             </div>
@@ -324,7 +313,7 @@ const WhyChooseUsSection = () => {
           </motion.div>
 
           {/* Extensive Collection - Light Background */}
-          <motion.div variants={itemVariant} whileHover={{ y: -4 }} className="bg-neutral-subtle rounded-5xl p-8 transition-all duration-300 group">
+          <motion.div className="bg-neutral-subtle rounded-5xl p-8 transition-all duration-300 hover:-translate-y-1 group">
             <div className="w-14 h-14 border border-neutral-caption rounded-full flex items-center justify-center mb-5 transition-transform duration-300">
               <Target className="w-7 h-7 text-neutral-caption" />
             </div>
@@ -383,9 +372,7 @@ const WhyChooseUsSection = () => {
 
           {/* Designer Support - Spanning 2 columns */}
           <motion.div
-            variants={itemVariant}
-            whileHover={{ y: -4 }}
-            className="bg-neutral-subtle rounded-5xl p-8 transition-all duration-300  group sm:col-span-2 md:col-span-2"
+            className="bg-neutral-subtle rounded-5xl p-8 transition-all duration-300 hover:-translate-y-1 group sm:col-span-2 md:col-span-2"
           >
             <div className="flex flex-col md:flex-row items-start gap-8">
               <div className="flex-shrink-0">
