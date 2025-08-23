@@ -3,32 +3,44 @@ import ProductCard from "../../components/ui/ProductCard";
 import useAxios from "../../Hooks/useAxios";
 
 const TrendingProducts = () => {
-  const [products , setProducts] = useState([])
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const axios= useAxios()
+  const axios = useAxios();
 
-   useEffect(() => {
-      const fetchProducts = async () => {
-        try {
-          setLoading(true);
-          const response = await axios.get(`/products?limit=5`);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`/products?limit=5`);
 
-          console.log("response.data.products" , response.data.products);
-          setProducts(response.data.products);
-        } catch (error) {
-          console.log('Failed to load products');
-        } finally {
-          setLoading(false);
-        }
-      };
-      
-      fetchProducts();
-    }, [axios]);
+        const products = response.data.products.map((product) => ({
+          id: product._id,
+          title: product.title,
+          image: product.thumbnailUrls[0],
+          price: product.finalPrice || product.price,
+          regular_price: product.price,
+          category: product.category?.name,
+          tags: product.tags,
+          isPublished: product.isPublished,
+        }));
 
+        console.log("response.data.products", response.data.products);
+        console.log("Formatted Products:", products);
+        setProducts(products);
+      } catch (error) {
+        console.log("Failed to load products");
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchProducts();
+  }, [axios]);
 
-     if (loading) {
+  console.log(products);
+
+  if (loading) {
     return (
       <div className="py-4 px-4 sm:px-8 rounded-xl bg-neutral-subtle">
         <h5 className="text-text-body text-headline leading-headline">Recent Users</h5>
@@ -43,7 +55,6 @@ const TrendingProducts = () => {
     );
   }
 
-
   return (
     <div className="mt-10">
       <h3 className="font-extrabold">
@@ -52,12 +63,8 @@ const TrendingProducts = () => {
 
       <div className="mt-5">
         <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 max-w-[51.25rem]">
-         {
-          products.map((product) => (
-            <ProductCard
-              key={product._id}
-               product={product}
-            />
+          {products.map((product) => (
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
       </div>

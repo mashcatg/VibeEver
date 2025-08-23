@@ -150,6 +150,8 @@ const ProductCard = ({ product }) => {
   const { id, image, title, tags, price, regular_price, download_link } =
     product;
 
+    console.log(regular_price);
+
   const isLoggedIn = Boolean(JSON.parse(localStorage.getItem("auth"))?.token);
 
   const handleAddToCart = () => {
@@ -209,7 +211,7 @@ const ProductCard = ({ product }) => {
           </div>
 
           {/* regular price */}
-          <div className="bg-neutral-default rounded-sm w-fit opacity-0 group-hover:opacity-100 absolute -right-[5.25rem] group-hover:-right-17 top-[50%] translate-y-[-50%] pointer-events-none transition-all duration-600 ease-in-out">
+          <div className="bg-neutral-default rounded-sm w-fit opacity-0 group-hover:opacity-100 absolute -right-[4.25rem] group-hover:-right-13 top-[50%] translate-y-[-50%] pointer-events-none transition-all duration-600 ease-in-out">
             <div className="relative px-1.5">
               <span className="absolute -left-1.5 top-[50%] translate-y-[-50%]">
                 <svg
@@ -225,7 +227,7 @@ const ProductCard = ({ product }) => {
                 </svg>
               </span>
               <del className="font-semibold text-neutral-caption">
-                {Number(regular_price).toFixed(2)}
+                {Number(regular_price)}
               </del>
             </div>
           </div>

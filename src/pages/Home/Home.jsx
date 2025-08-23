@@ -26,7 +26,7 @@ const Home = () => {
           title: product.title,
           image: product.thumbnailUrls[0],
           price: product.finalPrice || product.price,
-          regularPrice: product.price,
+          regular_price: product.price,
           category: product.category?.name,
           tags: product.tags,
         }));
