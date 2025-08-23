@@ -112,7 +112,7 @@ const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_h
             text_color="text-body"
             text_hover_color="white"
             onClick={circuler_btn_handler}
-            className="transition-colors duration-300 mx-auto"
+            className="transition-colors duration-300 mx-auto vertical-text-swap-container"
           >
             <VerticalTextSwap>
               <p className="text-headline leading-headline font-bold group-hover:text-white uppercase">{circle_btn_text}</p>
