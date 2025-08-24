@@ -2,6 +2,7 @@ import SectionHead from "../../ui/SectionHead";
 import { ExpandedIconButton } from "../../ui/Button";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import anisurRahman from "../../../assets/images/anisur-rahman.png"
 
 const FaqCard = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,9 +59,11 @@ const FAQs = ({ faqs }) => {
       <div className="flex flex-col md:flex-row gap-10">
         {/* CEO Info */}
         <div className="min-w-[31.25%] h-fit p-10 rounded-20 border border-neutral-default">
-          <div className="flex gap-2.5 items-center">
+          <div className="flex gap-5 items-center">
             {/* profile image */}
-            <div className="size-24 bg-[#D9D9D9] rounded-full overflow-hidden">{/* <img src="" alt="profile" className="w-full h-full object-cover" /> */}</div>
+            <div className="size-12 bg-[#D9D9D9] rounded-full overflow-hidden">
+              <img src={anisurRahman} alt="profile" className="w-full h-full object-cover" />
+            </div>
 
             {/* name and designation */}
             <div className="flex flex-col">
@@ -89,7 +92,7 @@ const FAQs = ({ faqs }) => {
             buttonHoverBgColor="black"
             buttonTextColor="white"
             buttonTextHoverColor="white"
-            onClick={() => window.open("https://www.linkedin.com/in/anisurrahman/", "_blank")}
+            // onClick={() => window.open("https://www.linkedin.com/in/anisurrahman/", "_blank")}
           ></ExpandedIconButton>
         </div>
 
