@@ -6,10 +6,9 @@ import { useNavigate } from "react-router-dom";
 import useAxios from "../../../Hooks/useAxios";
 import toast from "react-hot-toast";
 
-const Hero = () => {
+const Hero = ({ selected, set_selected }) => {
   const [is_search_hovered, set_is_search_hovered] = useState(false);
   const [is_search_focused, set_is_search_focused] = useState(false);
-  const [selected, set_selected] = useState("");
   const [is_select_open, set_is_select_open] = useState(false);
   const [is_more_open, set_is_more_open] = useState(false);
   const [searchValue, setSearchValue] = useState("");

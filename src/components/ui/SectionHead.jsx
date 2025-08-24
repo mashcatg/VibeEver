@@ -170,13 +170,14 @@ const StatsWithFilter = ({ stats, filter_handler }) => {
   );
 };
 
-const Card = ({ title, description }) => {
+const Card = ({ title, description, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <div
-      className="top-bottom-icon-swap-container pt-10 px-10 pb-14 rounded-20 bg-white text-text-body flex flex-col sm:flex-row items-start gap-5 sm:gap-10"
+      className={`top-bottom-icon-swap-container pt-10 px-10 pb-14 rounded-20 bg-white text-text-body flex flex-col sm:flex-row items-start gap-5 sm:gap-10 ${onClick ? "cursor-pointer" : ""}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick || (() => {})}
     >
       <CircularButton
         size="4rem"
@@ -237,7 +238,7 @@ const SectionHead = ({ title, description, circle_btn_text, circuler_btn_handler
         {cards && (
           <div className="mt-10 md:mt-6 pt-12 border-t border-t-neutral-default grid grid-cols-1 md:grid-cols-2 gap-10">
             {cards.map((card, i) => (
-              <Card key={i} title={card.title} description={card.description}></Card>
+              <Card key={i} title={card.title} description={card.description} onClick={card?.onClick}></Card>
             ))}
           </div>
         )}

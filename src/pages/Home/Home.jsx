@@ -11,6 +11,7 @@ import useAxios from "../../Hooks/useAxios";
 import toast from "react-hot-toast";
 
 const Home = () => {
+  const [selected, set_selected] = useState("");
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -42,7 +43,7 @@ const Home = () => {
   }, [axios]);
   return (
     <div>
-      <Hero></Hero>
+      <Hero selected={selected} set_selected={set_selected}></Hero>
 
       <TrustSection></TrustSection>
 
@@ -73,11 +74,19 @@ const Home = () => {
             title: "GRAPHICS ASSETS",
             description:
               "Sample 2-3 lines of description for the Template will go here in this short paragraph to make it concise.",
+            onClick: () => {
+              set_selected("GRAPHICS ASSETS");
+              window.scrollTo(0, 0);
+            }
           },
           {
             title: "UI Templates",
             description:
               "Sample 2-3 lines of description for the Template will go here in this short paragraph to make it concise.",
+            onClick: () => {
+              set_selected("UI Templates");
+              window.scrollTo(0, 0);
+            }
           },
         ]}
       ></SectionHead>
