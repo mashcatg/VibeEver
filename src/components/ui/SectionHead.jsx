@@ -28,6 +28,7 @@ const DecorativeElements = () => {
       ></div>
 
       <div
+        id="section-head-decorative-element-3"
         className="bg-transparent rounded-5xl absolute z-[1] top-[2.1rem] sm:top-[2.0625rem] rotate-180 translate-x-[-50%] left-[67.7%] sm:left-[60.5%] md:left-[55.6%] pointer-events-none"
         style={{
           boxShadow: "0.8125rem -0.8125rem #5d17ea",
