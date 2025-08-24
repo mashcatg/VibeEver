@@ -8,35 +8,47 @@ import { useNavigate } from "react-router-dom";
 import uploadImage from "../../Hooks/useImageUpload";
 import { useAuth } from "../../Providers/AuthProvider";
 import toast from "react-hot-toast";
+import useAxios from "../../Hooks/useAxios";
 
 const EditProfile = () => {
   const [previewImage, setPreviewImage] = useState();
+  const [profileData, setProfileData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const { updateProfile, loading } = useUpdateProfile();
   const navigate = useNavigate();
-  const {user} = useAuth()
+  const { user } = useAuth();
+  const axios = useAxios();
   useEffect(() => {
     if (user?.image) {
       setPreviewImage(user?.image);
     }
   }, [user]);
-  
-  // console.log(user);
-  
-  console.log(user , "user");
 
+  const fetchProfileData = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axios.get("/profile");
+      setProfileData(response.data.user);
+    } catch (error) {
+      console.error("Error fetching profile data:", error);
+      toast.error("Failed to fetch profile data");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
+    fetchProfileData();
+  }, []);
 
   const handleImageChange = async (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      
       const imageUrl = await uploadImage(file);
       console.log("Image URL:", imageUrl);
       setPreviewImage(imageUrl);
     }
   };
-
- 
 
   const handle_submit = async (e) => {
     e.preventDefault();
@@ -71,12 +83,16 @@ const EditProfile = () => {
 
     try {
       await updateProfile(updateData);
-      navigate("/my-profile");  
+      navigate("/my-profile");
     } catch (error) {
       console.error("Update failed:", error);
     }
   };
   // console.log(user.fullName);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex gap-12 justify-center min-h-dvh md:min-h-screen">
@@ -94,22 +110,10 @@ const EditProfile = () => {
           <form onSubmit={handle_submit} className="mt-8">
             <div className="flex flex-col gap-8">
               {/* full name */}
-              <Input
-                name="full_name"
-                type="text"
-                label="Full name"
-                placeholder="Full name"
-                defaultValue={user?.fullName}
-              />
+              <Input name="full_name" type="text" label="Full name" placeholder="Full name" defaultValue={user?.fullName} />
 
               {/* Username */}
-              <Input
-                name="username"
-                type="text"
-                label="Username"
-                placeholder="Username"
-                defaultValue={user?.userName}
-              />
+              <Input name="username" type="text" label="Username" placeholder="Username" defaultValue={profileData?.userName} />
 
               {/* email */}
               <Input
@@ -124,34 +128,18 @@ const EditProfile = () => {
               />
 
               {/* phone number */}
-              <Input
-                name="phone_number"
-                type="tel"
-                label="Phone number"
-                placeholder="Phone number"
-                defaultValue={user?.phoneNumber}
-              />
+              <Input name="phone_number" type="tel" label="Phone number" placeholder="Phone number" defaultValue={user?.phoneNumber} />
 
               {/* Image upload and preview section */}
               <div className="flex items-center justify-center gap-6 flex-col md:flex-row">
                 <div className="min-w-24 size-24 rounded-full border-2 border-neutral-border overflow-hidden">
-                  <img
-                    src={previewImage}
-                    alt="profile preview"
-                    className="size-full object-cover rounded-full"
-                    onError={() => setPreviewImage(previewImage)}
-                  />
+                  <img src={previewImage} alt="profile preview" className="size-full object-cover rounded-full" onError={() => setPreviewImage(previewImage)} />
                 </div>
 
                 <div className="w-full space-y-4">
                   <div className="relative w-full">
                     <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-8">
-                      <svg
-                        className="size-5"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
+                      <svg className="size-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M7.00109 8.3811C8.3155 8.3811 9.3811 7.31553 9.3811 6.00109C9.3811 4.68666 8.3155 3.62109 7.00109 3.62109C5.68666 3.62109 4.62109 4.68666 4.62109 6.00109C4.62109 7.31553 5.68666 8.3811 7.00109 8.3811Z"
                           fill="#372F46"
@@ -168,26 +156,15 @@ const EditProfile = () => {
                       accept="image/*"
                       onChange={handleImageChange}
                       className="w-full cursor-pointer pl-16 bg-neutral-subtle py-6 px-8 rounded-full border-2 hover:border-4 focus:border-2 border-dashed focus:border-solid outline-0 border-neutral-default focus:border-neutral-border transition-all duration-300"
-                      
                     />
                   </div>
-
-                  
                 </div>
               </div>
 
               {/* bio */}
-              <Input
-                name="bio"
-                type="textarea"
-                label="Bio or About"
-                placeholder="Tell us about yourself..."
-                defaultValue={user?.bio}
-              />
+              <Input name="bio" type="textarea" label="Bio or About" placeholder="Tell us about yourself..." defaultValue={profileData?.bio} />
 
-              <SubmitButton disabled={loading}>
-                {loading ? "UPDATING..." : "UPDATE PROFILE"}
-              </SubmitButton>
+              <SubmitButton disabled={loading}>{loading ? "UPDATING..." : "UPDATE PROFILE"}</SubmitButton>
             </div>
           </form>
         </div>
