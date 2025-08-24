@@ -1,4 +1,5 @@
 import heartIcon from "../../assets/icons/heart.svg";
+import filledHeartIcon from "../../assets/icons/heart-fill.svg";
 import { CircularButton } from "../ui/Button";
 import Tooltip from "../ui/Tooltip";
 import LeftRightIconSwap from "../ui/LeftRightIconSwap";
@@ -17,7 +18,7 @@ const isProductExistOnCart = (cart, id) => {
   });
 };
 
-const ProductImage = ({ id, product_image, save_handler = () => {} }) => {
+const ProductImage = ({ id, product_image, save_handler = () => {}, isInWishlist }) => {
   return (
     <div className="max-h-product-image rounded-2xl overflow-hidden relative">
       {/* decorative elements */}
@@ -63,7 +64,7 @@ const ProductImage = ({ id, product_image, save_handler = () => {} }) => {
             />
 
             <img
-              src={heartIcon}
+              src={isInWishlist ? filledHeartIcon : heartIcon}
               alt="Heart Icon"
               className="group-hover:scale-110 transition-all duration-300"
             />
@@ -145,7 +146,7 @@ const ProductCardActionButton = ({
 const ProductCard = ({ product }) => {
   // console.log(product);
   const { cart, addToCart, directStripePayment } = useCart();
-  const {toggleWishlist} = useWishlist()
+  const {toggleWishlist, isInWishlist} = useWishlist()
   const navigate = useNavigate();
   const { id, image, title, tags, price, regular_price, download_link } =
     product;
@@ -186,6 +187,7 @@ const ProductCard = ({ product }) => {
         id={id}
         product_image={image}
         save_handler={handleWish}
+        isInWishlist={isInWishlist(id)}
       ></ProductImage>
 
       {/* tags */}
