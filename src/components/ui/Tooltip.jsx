@@ -26,18 +26,18 @@ const Tooltip = ({ text, bg_color, text_color, arrow_position, className }) => {
 
   // Function to handle bg color
   const getBgColorClass = (color) => {
-    if (color === "blue-50") return "bg-blue-50";
-    if (color === "purple-50") return "bg-purple-50";
-    if (color === "neutral-50") return "bg-neutral-50";
+    if (color === "blue-50") return "bg-[#d0f4fb]";
+    if (color === "purple-50") return "bg-[#ded0fb]";
+    if (color === "neutral-50") return "bg-[#E7E4EC]";
     if (color === "green-50") return "bg-green-50";
     return `bg-${color}`;
   };
 
   // Function to handle text color
   const getTextColorClass = (color) => {
-    if (color === "blue-400") return "text-blue-400";
-    if (color === "purple-400") return "text-purple-400";
-    if (color === "neutral-400") return "text-neutral-400";
+    if (color === "blue-400") return "text-[#109fbc]";
+    if (color === "purple-400") return "text-[#7d44ee]";
+    if (color === "neutral-400") return "text-[#6E5F8C]";
     if (color === "green-400") return "text-green-400";
     return `text-${color}`;
   };
