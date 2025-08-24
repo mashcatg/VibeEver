@@ -53,7 +53,7 @@ const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_h
         {/* Email input with floating label animation */}
         {submit_handler && (
           <form
-            className="relative mt-10 md:mt-6 py-2 pr-2 pl-7 bg-neutral-subtle rounded-full flex justify-between items-center md:max-w-lg border-2 border-neutral-border"
+            className="relative mt-10 md:mt-6 py-2 pr-2 pl-7 rounded-full flex justify-between items-center md:max-w-lg border-2 border-[#aaaaaa]"
             onFocus={() => set_is_search_focused(true)}
             onBlur={() => set_is_search_focused(false)}
             onClick={() => {
@@ -64,9 +64,9 @@ const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_h
           >
             {/* Floating label that animates based on focus state */}
             <p
-              className={`text-xl text-neutral-caption absolute left-7 px-2 transform transition-all duration-400 ease-in-out ${
+              className={`text-xl text-[#b8acd1] absolute left-7 px-2 transform transition-all duration-400 ease-in-out ${
                 is_search_focused ? "-top-1 translate-y-[-50%] ml-4" : "ml-0 top-1/2 translate-y-[-50%]"
-              } before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-full before:h-[43.6%] before:bg-neutral-subtle`}
+              } before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-full before:h-[43.6%] before:bg-primary`}
             >
               <span className="relative">Email address</span>
             </p>
@@ -75,7 +75,7 @@ const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_h
               type="email"
               id="subscribe_email"
               name="subscribe_email"
-              className={`text-xl text-neutral-caption outline-0 bg-transparent w-full transition-opacity duration-400 ease-in-out ${
+              className={`text-xl text-[#d4c7f0] outline-0 bg-transparent w-full transition-opacity duration-400 placeholder:text-neutral-border ease-in-out ${
                 is_search_focused ? "opacity-100" : "opacity-0"
               }`}
               placeholder="inquiry@VibeEver.com"
@@ -85,9 +85,9 @@ const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_h
             <CircularButton
               size="4rem"
               hover_bg_color="neutral-default"
-              text_color="text-body"
+              text_color="neutral-border"
               text_hover_color="neutral-caption"
-              className="border-2 border-neutral-default transition-colors duration-300 active:scale-95"
+              className="border-2 border-neutral-border transition-colors duration-300 active:scale-95"
             >
               <svg viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[1.375rem] h-4">
                 <path

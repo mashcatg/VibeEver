@@ -59,6 +59,7 @@ const CircularButton = ({
     if (color === "purple-700") return "text-purple-700";
     if (color === "purple-900") return "text-purple-900";
     if (color === "neutral-700") return "text-neutral-700";
+    if (color === "neutral-border") return "text-[#b8acd1]";
     if (color === "neutral-900") return "text-neutral-900";
     if (color === "green-700") return "text-green-700";
     if (color === "green-900") return "text-green-900";
