@@ -3,19 +3,44 @@ import { CircularButton } from "../../../components/ui/Button";
 import Select from "../../../components/ui/Select";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useAxios from "../../../Hooks/useAxios";
+import toast from "react-hot-toast";
 
 const Hero = () => {
   const [is_search_hovered, set_is_search_hovered] = useState(false);
   const [is_search_focused, set_is_search_focused] = useState(false);
-  const [selected, set_selected] = useState("Graphics");
+  const [selected, set_selected] = useState("");
   const [is_select_open, set_is_select_open] = useState(false);
   const [is_more_open, set_is_more_open] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const selectRef = useRef(null);
   const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const axios = useAxios();
+
+  const fetchCategories = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get("/categories");
+      setCategories(response.data.categories || []);
+      set_selected(response.data.categories[0]?.name || "SELECT");
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      toast.error("Failed to fetch categories");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  console.log(categories);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   // Options for the select component
-  const selectOptions = ["Graphics", "Color", "Toast", "Logos"];
+  const selectOptions = categories.map((category) => category.name);
 
   // Handler for selection change
   const handleSelectChange = (value) => {
@@ -122,7 +147,9 @@ const Hero = () => {
               placeholder="Search assets & templates..."
               className={`$${
                 is_search_hovered ? "placeholder:text-neutral-border" : "placeholder:text-neutral-caption"
-              } outline-0 text-text-body font-semibold placeholder:font-normal pl-2.5 w-full ${is_search_focused ? "sm:w-[25rem]" : "sm:w-[14.6875rem]"}              
+              } outline-0 text-text-body font-semibold placeholder:font-normal pl-2.5 w-full ${
+                is_search_focused ? "sm:w-[25rem]" : "sm:w-[14.6875rem]"
+              }              
               transition-all duration-300 ease-in-out placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out`}
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
@@ -155,16 +182,16 @@ const Hero = () => {
         </div>
 
         <div className="max-w-[28.125rem] w-[94%] sm:w-full mx-auto flex items-center justify-center gap-2.5 flex-wrap">
-          {["ui", "mehedifiz", "theme", "ui kit", "icon pack", "form", "badge", "buttons", "header", "footer"].map((item, index) => (
+          {categories.slice(0, 9).map((item, index) => (
             <button
               key={index}
               className="flex w-min items-center justify-center rounded-full border-[0.0625rem] border-white px-2 py-1 group hover:bg-white transition-all duration-300 ease-in-out"
               onClick={() => {
-                setSearchValue(item);
+                setSearchValue(item.slug);
               }}
             >
               <span className="block w-max uppercase text-white font-semibold text-caption leading-caption group-hover:text-text-body transition-all duration-300 ease-in-out">
-                {item}
+                {item.name}
               </span>
             </button>
           ))}
@@ -202,7 +229,7 @@ const Hero = () => {
                   />
                 </svg>
               </div>
-              <div className="overflow-hidden rounded-md">
+              <div className="overflow-hidden rounded-md border-[0.0625rem] border-neutral-default">
                 {selectOptions.map(
                   (option, index) =>
                     selected !== option && (
@@ -212,7 +239,7 @@ const Hero = () => {
                           handleSelectChange(option);
                           set_is_more_open(false);
                         }}
-                        className={`uppercase text-caption leading- text-neutral-subtitle font-semibold text-left px-3 py-2 hover:bg-neutral-subtle transition-all duration-300 w-full`}
+                        className={`uppercase text-caption leading- text-neutral-subtitle font-semibold text-left px-3 py-2 hover:bg-neutral-subtle transition-all duration-300 w-max`}
                       >
                         {option}
                       </button>
