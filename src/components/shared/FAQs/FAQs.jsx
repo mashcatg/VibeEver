@@ -2,7 +2,7 @@ import SectionHead from "../../ui/SectionHead";
 import { ExpandedIconButton } from "../../ui/Button";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import anisurRahman from "../../../assets/images/anisur-rahman.png"
+import anisurRahman from "../../../assets/images/anisur-rahman.jpg"
 
 const FaqCard = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
