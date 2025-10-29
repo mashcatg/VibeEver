@@ -5,7 +5,7 @@ import useAxios from '../../Hooks/useAxios';
 const CheckoutSuccess = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const sessionId = searchParams.get('sessionId');
+  const payment_id = searchParams.get('payment_id');
   const axios = useAxios();
   const paymentProcessed = useRef(false);
 
@@ -13,11 +13,11 @@ const CheckoutSuccess = () => {
     let timer;
 
     const processPayment = async () => {
-      if (!sessionId || paymentProcessed.current) return;
+      if (!payment_id || paymentProcessed.current) return;
 
       try {
         paymentProcessed.current = true;
-        await axios.post('/orders/process-payment', { sessionId });
+        await axios.post('/orders/process-payment', {payment_id });
         
         timer = setTimeout(() => {
           navigate('/dashboard');
@@ -33,7 +33,7 @@ const CheckoutSuccess = () => {
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [sessionId, navigate, axios]);
+  }, [payment_id, navigate, axios]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">

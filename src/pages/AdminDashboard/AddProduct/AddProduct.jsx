@@ -141,6 +141,7 @@ const AddProduct = () => {
       tags: formData.get('tags').split(',').map(tag => tag.trim()),
       thumbnailUrls: thumbnailUrls,  // Now sending array of URLs
       isPublished: formData.get('isPublished') === 'true',
+      dodoProductId: formData.get('dodoProductId'),
       discount: {
         type: formData.get('discountType'),
         value: Number(formData.get('discountValue')),
@@ -270,6 +271,17 @@ const AddProduct = () => {
                   className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
                 />
                 <p className="mt-1 text-xs text-gray-500">Separate tags with commas</p>
+              </div>
+              <div>
+              {/* //dodoProductId */}
+                <label className="block text-sm font-medium text-gray-700 mb-1">dodoProductId</label>
+                <input
+                  type="dodoProductId"
+                  name="dodoProductId"
+                  placeholder="dodoProductId"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition duration-200"
+                />
+                
               </div>
             </div>
           </div>
