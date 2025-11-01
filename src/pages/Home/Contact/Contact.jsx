@@ -62,7 +62,7 @@ const Contact = () => {
             LET'S <br /> TALK
           </>
         }
-        circle_btn_text="View All"
+        circle_btn_text="Contact Now"
         stats={[
           {
             count: 1250,
@@ -78,7 +78,7 @@ const Contact = () => {
           <Input name="contact_name" id="contact_name" type="text" label="Your Name" placeholder="Anisur R." is_required />
 
           {/* email */}
-          <Input name="contact_email" id="contact_email" type="email" label="Email address" placeholder="inquiry@VibeEver.com" is_required />
+          <Input name="contact_email" id="contact_email" type="email" label="Email address" placeholder="anisurrahman@gmail.com" is_required />
 
           {/* message */}
           <Input name="contact_message" id="contact_message" type="textarea" label="Type Message" placeholder="Write your message here..." is_required />
@@ -101,13 +101,13 @@ const Contact = () => {
         {/* contact info */}
         <div className="flex flex-col gap-6">
           {/* location */}
-          <ContactInfo icon={locationIcon} label="Location" text="20 Cooper Square, New York, NY 10003, USA" />
+          <ContactInfo icon={locationIcon} label="Location" text="All around the world" />
 
           {/* email */}
           <ContactInfo icon={emailIcon} label="Email" text="support@vibeever.com" />
 
           {/* phone */}
-          <ContactInfo icon={phoneIcon} label="Phone" text="1-287-561-4556" />
+          <ContactInfo icon={phoneIcon} label="Phone" text="+8801726911975" />
         </div>
       </div>
     </div>
