@@ -40,6 +40,7 @@ export const CartProvider = ({ children }) => {
       );
       setCart(response.data);
       setLoading(false)
+      toast.success("Added to cart");
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to add to cart");
     }

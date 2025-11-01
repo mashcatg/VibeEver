@@ -54,7 +54,7 @@ const OrderManage = () => {
                   <div className="text-sm text-gray-900">
                     {order.items.map((item) => (
                       <div key={item._id}>
-                        {item.product.title} (x{item.quantity})
+                        {item?.product?.title} (x{item.quantity})
                       </div>
                     ))}
                   </div>
