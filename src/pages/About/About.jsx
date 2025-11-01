@@ -101,15 +101,13 @@ const OurStory = () => {
           </h2>
           <div className="space-y-4 text-neutral-subtitle leading-relaxed">
             <p>
-              Founded in 2020 by a team of passionate designers and developers, VibeEver began as a simple idea: to bridge the gap between creative vision and
-              digital reality.
+              VibeEver was born from a simple belief that creativity should feel effortless and inspiring.
             </p>
             <p>
-              What started as a small collection of design templates has evolved into a comprehensive platform offering premium digital assets, from stunning UI
-              kits to complete website templates and beyond.
+              We set out to build a space where modern design meets authenticity, blending functionality with a sense of good vibes.
             </p>
             <p>
-              Today, we're proud to serve a global community of creators, helping them bring their ideas to life with professional-grade resources and tools.
+              Every asset we create carries one purpose: to help designers, developers, and dreamers turn ideas into something truly timeless.
             </p>
           </div>
         </div>
@@ -117,9 +115,9 @@ const OurStory = () => {
         <div className="relative">
           <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="relative ml-4 md:ml-8">
             {[
-              { year: 2020, title: "The Beginning", desc: "VibeEver launched with a small collection of UI templates" },
-              { year: 2023, title: "Global Recognition", desc: "Won Design Platform of the Year award" },
-              { year: 2025, title: "Future Vision", desc: "Expanding into AI-powered design solutions" },
+              { year: 2023, title: "The Spark", desc: "The idea of VibeEver came alive with a vision to make creative assets simple, modern, and accessible." },
+              { year: 2024, title: "The Foundation", desc: "We built our brand and launched the first collections of templates, mockups, and design tools." },
+              { year: 2025, title: "The Launch", desc: "VibeEver.com officially went live, sharing high-quality assets and spreading creative energy to the world." },
             ].map((item, index) => (
               <motion.div key={index} variants={itemVariant} className="mb-8 flex">
                 <div className="relative">
