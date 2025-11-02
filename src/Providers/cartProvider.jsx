@@ -1,6 +1,7 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import useAxios from "../Hooks/useAxios";
 import toast from "react-hot-toast";
+import { useAuth } from "./AuthProvider";
 
 const CartContext = createContext();
 
@@ -8,16 +9,28 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
   const axios = useAxios();
-  const token = JSON.parse(localStorage.getItem("auth"))?.token;
-  console.log(token);
+  const { user } = useAuth();
 
-  // Fetch cart on mount
-  useEffect(() => {
-    fetchCart();
-  }, [token]);
+  // Helper function to get token
+  const getToken = () => {
+    const auth = localStorage.getItem("auth");
+    if (auth) {
+      try {
+        return JSON.parse(auth)?.token;
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  };
 
-  const fetchCart = async () => {
-    // setLoading(false);
+  const fetchCart = useCallback(async () => {
+    const token = getToken();
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
     try {
       const response = await axios.get("/cart", {
         headers: { Authorization: `${token}` },
@@ -25,28 +38,52 @@ export const CartProvider = ({ children }) => {
       setCart(response.data);
     } catch (error) {
       console.error("Error fetching cart:", error);
+      setCart(null);
+    } finally {
+      setLoading(false);
+    }
+  }, [axios]);
+
+  // Fetch cart when user logs in, clear when user logs out
+  useEffect(() => {
+    if (user) {
+      // User is logged in, fetch cart
+      fetchCart();
+    } else {
+      // User is logged out, clear cart
+      setCart(null);
+      setLoading(false);
+    }
+  }, [user, fetchCart]);
+
+  const addToCart = async (productId, quantity = 1) => {
+    const token = getToken();
+    if (!token) {
+      toast.error("Please login to add items to cart");
+      return;
+    }
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        "/cart/add",
+        { productId, quantity },
+        { headers: { Authorization: `${token}` } }
+      );
+      setCart(response.data);
+      toast.success("Added to cart");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to add to cart");
     } finally {
       setLoading(false);
     }
   };
 
-  const addToCart = async (productId, quantity = 1) => {
-    setLoading(true)
-    try {
-      const response = await axios.post(
-        "/cart/add",
-        { productId, quantity },
-        { headers: { Authorization:`${JSON.parse(localStorage.getItem("auth"))?.token}` } }
-      );
-      setCart(response.data);
-      setLoading(false)
-      toast.success("Added to cart");
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to add to cart");
-    }
-  };
-
   const removeFromCart = async (productId) => {
+    const token = getToken();
+    if (!token) {
+      toast.error("Please login to manage cart");
+      return;
+    }
     try {
       const response = await axios.delete(
         `/cart/remove/${productId}`,
@@ -62,6 +99,11 @@ export const CartProvider = ({ children }) => {
   };
 
   const updateQuantity = async (productId, quantity) => {
+    const token = getToken();
+    if (!token) {
+      toast.error("Please login to manage cart");
+      return;
+    }
     try {
       const response = await axios.put(
         "/cart/update-quantity",
@@ -75,6 +117,11 @@ export const CartProvider = ({ children }) => {
   };
 
   const applyCoupon = async (code) => {
+    const token = getToken();
+    if (!token) {
+      toast.error("Please login to apply coupon");
+      return;
+    }
     try {
       const response = await axios.post(
         "/cart/apply-coupon",
@@ -91,6 +138,12 @@ export const CartProvider = ({ children }) => {
   const handleStripeCartPayment = async () => {
     if (!cart || !cart.items || cart.items.length === 0) {
       toast.error("Your cart is empty.");
+      return;
+    }
+
+    const token = getToken();
+    if (!token) {
+      toast.error("Please login to proceed with payment");
       return;
     }
 
@@ -113,6 +166,11 @@ export const CartProvider = ({ children }) => {
   };
 
   const directStripePayment = async (productId) => {
+    const token = getToken();
+    if (!token) {
+      toast.error("Please login to proceed with payment");
+      return;
+    }
     try {
       const response = await axios.post(
         "/orders/directStripe",
@@ -141,7 +199,8 @@ export const CartProvider = ({ children }) => {
         applyCoupon,
         handleStripeCartPayment,
         directStripePayment,
-        fetchCart
+        fetchCart,
+        getToken
       }}
     >
       {children}
