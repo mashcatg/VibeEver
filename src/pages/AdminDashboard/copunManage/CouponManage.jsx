@@ -107,7 +107,7 @@ const CouponManage = () => {
           className="border px-2 py-1 rounded"
         >
           <option value="percentage">Percentage</option>
-          <option value="fixed">Fixed</option>
+          <option value="flat">flat</option>
         </select>
         <input
           required
