@@ -16,7 +16,7 @@ const FooterLink = ({ to, children }) => {
 const Footer = () => {
   const copyright_text = "© VibeEver. All rights reserved.";
   return (
-    <footer className="relative bg-neutral-dark py-5 px-10 text-white rounded-t-20">
+    <footer className="relative bg-primary py-5 px-10 text-white rounded-t-20">
       <div className="px-4 pb-4 pt-8">
         <div className="max-w-[9.625rem] mx-auto">
           <img src={logo} alt="Vibe Ever Logo" className="w-full" />

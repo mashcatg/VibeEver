@@ -39,7 +39,7 @@ const Hero = ({ selected, set_selected }) => {
   }, []);
 
   // Options for the select component
-  const selectOptions = categories.map((category) => category.name);
+  const selectOptions = categories.map((category) => category.name).slice(9);
 
   // Handler for selection change
   const handleSelectChange = (value) => {
@@ -65,6 +65,8 @@ const Hero = ({ selected, set_selected }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [is_select_open]);
+
+  console.log(selected);
 
   return (
     <section className="bg-primary rounded-4xl">
@@ -167,7 +169,7 @@ const Hero = ({ selected, set_selected }) => {
             isGroupHover={is_search_hovered}
             onClick={() => {
               if (searchValue.trim()) {
-                navigate(`/products?search=${encodeURIComponent(searchValue.trim())}`);
+                navigate(`/products?search=${encodeURIComponent(searchValue.trim())}${selected ? `&category=${encodeURIComponent(selected)}` : ""}`);
               }
             }}
           >
@@ -186,7 +188,7 @@ const Hero = ({ selected, set_selected }) => {
               key={index}
               className="flex w-min items-center justify-center rounded-full border-[0.0625rem] border-white px-2 py-1 group hover:bg-white transition-all duration-300 ease-in-out"
               onClick={() => {
-                setSearchValue(item.slug);
+                handleSelectChange(item.name);
               }}
             >
               <span className="block w-max uppercase text-white font-semibold text-caption leading-caption group-hover:text-text-body transition-all duration-300 ease-in-out">
@@ -195,58 +197,60 @@ const Hero = ({ selected, set_selected }) => {
             </button>
           ))}
 
-          <div className="relative">
-            <button
-              className="flex w-min items-center justify-center rounded-full border-[0.0625rem] border-white p-1 group hover:bg-white transition-all duration-300 ease-in-out"
-              onClick={() => set_is_more_open(!is_more_open)}
-            >
-              <svg
-                className="w-[1.0625rem] h-4 group-hover:text-text-body transition-all duration-300 ease-in-out"
-                viewBox="0 0 17 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+          {categories.length > 9 && (
+            <div className="relative">
+              <button
+                className="flex w-min items-center justify-center rounded-full border-[0.0625rem] border-white p-1 group hover:bg-white transition-all duration-300 ease-in-out"
+                onClick={() => set_is_more_open(!is_more_open)}
               >
-                <circle cx="3.5" cy="8" r="1.5" fill="currentColor" />
-                <circle cx="8.5" cy="8" r="1.5" fill="currentColor" />
-                <circle cx="13.5" cy="8" r="1.5" fill="currentColor" />
-              </svg>
-            </button>
-
-            <div
-              className={`absolute mt-2 left-1/2 -translate-x-1/2 w-fit bg-white border sm:border-0 border-gray-200 rounded-md flex flex-col gap-0.5 z-10 transition-all duration-300 ease-in-out`}
-              style={{
-                maxHeight: is_more_open ? "625rem" : "0rem",
-                opacity: is_more_open ? 1 : 0,
-                transform: `translateY(${is_more_open ? "0" : "-0.5rem"})`,
-              }}
-            >
-              <div className="relative">
-                <svg viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-2 h-2 absolute -top-1.5 left-1/2 -translate-x-1/2">
-                  <path
-                    d="M2.8006 0.500002C3.1855 -0.166665 4.14775 -0.166666 4.53265 0.500001L7.13073 5C7.51563 5.66667 7.0345 6.5 6.2647 6.5L1.06855 6.5C0.298749 6.5 -0.182377 5.66667 0.202523 5L2.8006 0.500002Z"
-                    fill="#fff"
-                  />
+                <svg
+                  className="w-[1.0625rem] h-4 group-hover:text-text-body transition-all duration-300 ease-in-out"
+                  viewBox="0 0 17 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="3.5" cy="8" r="1.5" fill="currentColor" />
+                  <circle cx="8.5" cy="8" r="1.5" fill="currentColor" />
+                  <circle cx="13.5" cy="8" r="1.5" fill="currentColor" />
                 </svg>
-              </div>
-              <div className="overflow-hidden rounded-md border-[0.0625rem] border-neutral-default">
-                {selectOptions.map(
-                  (option, index) =>
-                    selected !== option && (
-                      <button
-                        key={index}
-                        onClick={() => {
-                          handleSelectChange(option);
-                          set_is_more_open(false);
-                        }}
-                        className={`uppercase text-caption leading- text-neutral-subtitle font-semibold text-left px-3 py-2 hover:bg-neutral-subtle transition-all duration-300 w-max`}
-                      >
-                        {option}
-                      </button>
-                    )
-                )}
+              </button>
+
+              <div
+                className={`absolute mt-2 left-1/2 -translate-x-1/2 w-fit bg-white border sm:border-0 border-gray-200 rounded-md flex flex-col gap-0.5 z-10 transition-all duration-300 ease-in-out`}
+                style={{
+                  maxHeight: is_more_open ? "625rem" : "0rem",
+                  opacity: is_more_open ? 1 : 0,
+                  transform: `translateY(${is_more_open ? "0" : "-0.5rem"})`,
+                }}
+              >
+                <div className="relative">
+                  <svg viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-2 h-2 absolute -top-1.5 left-1/2 -translate-x-1/2">
+                    <path
+                      d="M2.8006 0.500002C3.1855 -0.166665 4.14775 -0.166666 4.53265 0.500001L7.13073 5C7.51563 5.66667 7.0345 6.5 6.2647 6.5L1.06855 6.5C0.298749 6.5 -0.182377 5.66667 0.202523 5L2.8006 0.500002Z"
+                      fill="#fff"
+                    />
+                  </svg>
+                </div>
+                <div className="overflow-hidden rounded-md border-[0.0625rem] border-neutral-default">
+                  {selectOptions.map(
+                    (option, index) =>
+                      selected !== option && (
+                        <button
+                          key={index}
+                          onClick={() => {
+                            handleSelectChange(option);
+                            set_is_more_open(false);
+                          }}
+                          className={`uppercase text-caption leading- text-neutral-subtitle font-semibold text-left px-3 py-2 hover:bg-neutral-subtle transition-all duration-300 w-max`}
+                        >
+                          {option}
+                        </button>
+                      )
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </section>

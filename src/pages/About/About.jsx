@@ -4,6 +4,7 @@ import { motion, useAnimation, useInView } from "framer-motion";
 import { Heart, Target, Eye, Lightbulb, Users, Award, ArrowRight, Sparkles } from "lucide-react";
 import SectionHead from "../../components/ui/SectionHead";
 import { ExpandedIconButton } from "../../components/ui/Button";
+import VideoModal from "../../components/ui/VideoModal";
 
 // Animation variants
 const staggerContainer = {
@@ -62,7 +63,7 @@ const AnimateOnScroll = ({ children, delay = 0, threshold = 0.1 }) => {
 };
 
 // Stats Section
-const StatsSection = () => {
+const StatsSection = ({ onOpenVideo }) => {
   const stats = [
     { count: "10K", text: "Happy Customers" },
     { count: "500", text: "Premium Products" },
@@ -79,12 +80,7 @@ const StatsSection = () => {
         </>
       }
       circle_btn_text="OUR STORY"
-      circuler_btn_handler={() => {
-        document.getElementById("our-story-section").scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }}
+      circuler_btn_handler={onOpenVideo}
       stats={stats}
     />
   );
@@ -230,10 +226,7 @@ const ValuesSection = () => {
         <div className="p-8">
           <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {values.map((value, index) => (
-              <motion.div
-                key={index}
-                className="bg-white rounded-20 p-6 transition-all duration-300 hover:-translate-y-1 border border-neutral-default/50"
-              >
+              <motion.div key={index} className="bg-white rounded-20 p-6 transition-all duration-300 hover:-translate-y-1 border border-neutral-default/50">
                 <div className={`w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4`}>
                   <value.icon className={`w-6 h-6 text-primary`} />
                 </div>
@@ -371,9 +364,7 @@ const WhyChooseUsSection = () => {
           </motion.div>
 
           {/* Designer Support - Spanning 2 columns */}
-          <motion.div
-            className="bg-neutral-subtle rounded-5xl p-8 transition-all duration-300 hover:-translate-y-1 group sm:col-span-2 md:col-span-2"
-          >
+          <motion.div className="bg-neutral-subtle rounded-5xl p-8 transition-all duration-300 hover:-translate-y-1 group sm:col-span-2 md:col-span-2">
             <div className="flex flex-col md:flex-row items-start gap-8">
               <div className="flex-shrink-0">
                 <div className="w-14 h-14 border border-neutral-caption rounded-full flex items-center justify-center mb-6 transition-transform duration-300">
@@ -432,13 +423,16 @@ const JoinVibeSection = () => {
 };
 
 const About = () => {
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const videoUrl = "https://youtu.be/KsHBokHF3v4?si=ilnnwpqSWUk3VkZe";
+
   return (
     <>
       <div className="min-h-screen">
         {/* Main Content with consistent spacing */}
         <div>
           {/* Hero Stats Section using SectionHead */}
-          <StatsSection />
+          <StatsSection onOpenVideo={() => setIsVideoModalOpen(true)} />
 
           {/* Our Story Section */}
           <OurStory />
@@ -456,6 +450,9 @@ const About = () => {
           <JoinVibeSection />
         </div>
       </div>
+
+      {/* Video Modal */}
+      <VideoModal isOpen={isVideoModalOpen} onClose={() => setIsVideoModalOpen(false)} videoUrl={videoUrl} />
     </>
   );
 };

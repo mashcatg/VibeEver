@@ -2,6 +2,7 @@ import TopBottomIconSwap from "./TopBottomIconSwap";
 import { CircularButton, ExpandedIconButton } from "../../components/ui/Button";
 import VerticalTextSwap from "../../components/ui/VerticalTextSwap";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const DecorativeElements = () => {
   return (
@@ -53,7 +54,7 @@ const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_h
         {/* Email input with floating label animation */}
         {submit_handler && (
           <form
-            className="relative mt-10 md:mt-6 py-2 pr-2 pl-7 rounded-full flex justify-between items-center md:max-w-lg border-2 border-[#aaaaaa]"
+            className="relative mt-10 md:mt-6 py-2 pr-2 pl-7 rounded-full flex justify-between items-center md:max-w-lg border-2 border-white"
             onFocus={() => set_is_search_focused(true)}
             onBlur={() => set_is_search_focused(false)}
             onClick={() => {
@@ -64,7 +65,7 @@ const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_h
           >
             {/* Floating label that animates based on focus state */}
             <p
-              className={`text-xl text-[#b8acd1] absolute left-7 px-2 transform transition-all duration-400 ease-in-out ${
+              className={`text-xl text-white absolute left-7 px-2 transform transition-all duration-400 ease-in-out ${
                 is_search_focused ? "-top-1 translate-y-[-50%] ml-4" : "ml-0 top-1/2 translate-y-[-50%]"
               } before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-full before:h-[43.6%] before:bg-primary`}
             >
@@ -75,7 +76,7 @@ const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_h
               type="email"
               id="subscribe_email"
               name="subscribe_email"
-              className={`text-xl text-[#d4c7f0] outline-0 bg-transparent w-full transition-opacity duration-400 placeholder:text-neutral-border ease-in-out ${
+              className={`text-xl text-white outline-0 bg-transparent w-full transition-opacity duration-400 placeholder:text-neutral-border ease-in-out ${
                 is_search_focused ? "opacity-100" : "opacity-0"
               }`}
               placeholder="inquiry@VibeEver.com"
@@ -85,9 +86,9 @@ const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_h
             <CircularButton
               size="4rem"
               hover_bg_color="neutral-default"
-              text_color="neutral-border"
+              text_color="white"
               text_hover_color="neutral-caption"
-              className="border-2 border-neutral-border transition-colors duration-300 active:scale-95"
+              className="border-2 border-white transition-colors duration-300 active:scale-95"
             >
               <svg viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[1.375rem] h-4">
                 <path
@@ -116,7 +117,7 @@ const SectionHeadHeader = ({ title, description, circle_btn_text, circuler_btn_h
             className="transition-colors duration-300 mx-auto vertical-text-swap-container"
           >
             <VerticalTextSwap>
-              <p className="text-headline leading-headline font-bold group-hover:text-white uppercase">{circle_btn_text}</p>
+              <p className="text-headline leading-[1.2] font-bold group-hover:text-white uppercase">{circle_btn_text}</p>
             </VerticalTextSwap>
           </CircularButton>
         )}
@@ -171,38 +172,78 @@ const StatsWithFilter = ({ stats, filter_handler }) => {
   );
 };
 
-const Card = ({ title, description, onClick }) => {
+const Card = ({ img, title, description, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <div
-      className={`top-bottom-icon-swap-container pt-10 px-10 pb-14 rounded-20 bg-white text-text-body flex flex-col sm:flex-row items-start gap-5 sm:gap-10 ${onClick ? "cursor-pointer" : ""}`}
+      className={`top-bottom-icon-swap-container rounded-20 bg-white text-text-body ${onClick ? "cursor-pointer" : ""}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick || (() => {})}
     >
-      <CircularButton
-        size="4rem"
-        bg_color=""
-        hover_bg_color="neutral-default"
-        text_color="text-body"
-        text_hover_color="text-body"
-        className="border-2 border-neutral-default transition-colors duration-300 overflow-hidden"
-        isGroupHover={isHovered}
-      >
-        <TopBottomIconSwap direction="top-right">
-          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4">
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M3.31366 0.65646L12.3137 0.656459C12.8659 0.65646 13.3137 1.10417 13.3137 1.65646L13.3137 10.6565C13.3137 11.2087 12.8659 11.6565 12.3137 11.6565C11.7614 11.6565 11.3137 11.2087 11.3137 10.6565L11.3137 4.07067L1.70706 13.6773L0.292847 12.2631L9.89945 2.65646L3.31366 2.65646C2.76138 2.65646 2.31366 2.20874 2.31366 1.65646C2.31366 1.10418 2.76138 0.65646 3.31366 0.65646Z"
-              fill="#372F46"
-            />
-          </svg>
-        </TopBottomIconSwap>
-      </CircularButton>
+      {img && (
+        <div className="p-1">
+          <div className="max-h-[26.8125rem] 2xl:max-h-[30rem] rounded-2xl overflow-hidden relative">
+            {/* decorative elements */}
+            <div
+              className="size-10 bg-transparent rounded-2xl absolute right-0 top-[1.5625rem] z-[1] pointer-events-none"
+              style={{
+                boxShadow: "0.8125rem -0.8125rem #fff",
+                borderTopLeftRadius: "0.9375rem",
+                borderBottomRightRadius: "0.9375rem",
+              }}
+            ></div>
 
-      <div className="flex flex-col gap-5">
-        <h4 className="font-bold -tracking-125 py-3">{title}</h4>
+            <div
+              className="size-10 bg-transparent rounded-2xl absolute z-[1] top-0 translate-x-[-50%] left-[5.5rem] pointer-events-none"
+              style={{
+                boxShadow: "0.8125rem -0.8125rem #fff",
+                borderTopLeftRadius: "0.9375rem",
+                borderBottomRightRadius: "0.9375rem",
+                clipPath: "polygon(0rem -1rem, 0rem 0rem, 0rem 0rem, 100% 0rem, 250% 100%)",
+              }}
+            ></div>
+
+            <div
+              className="w-full h-full relative"
+              style={{
+                clipPath: "polygon(0 0, 6.25rem 0, 7.8125rem 1.5625rem, 0 1.5625rem, 100% 1.5625rem, 100% 100%, 0 100%)",
+              }}
+            >
+              {/* image */}
+              <div className="w-full h-full block">
+                <img src={img} alt="Image" className="w-full h-full object-cover" />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="pt-10 px-10 pb-14">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 mb-3 sm:mb-6">
+          <CircularButton
+            size="4rem"
+            bg_color=""
+            hover_bg_color="neutral-default"
+            text_color="text-body"
+            text_hover_color="text-body"
+            className="border-2 border-neutral-default transition-colors duration-300 overflow-hidden"
+            isGroupHover={isHovered}
+          >
+            <TopBottomIconSwap direction="top-right">
+              <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M3.31366 0.65646L12.3137 0.656459C12.8659 0.65646 13.3137 1.10417 13.3137 1.65646L13.3137 10.6565C13.3137 11.2087 12.8659 11.6565 12.3137 11.6565C11.7614 11.6565 11.3137 11.2087 11.3137 10.6565L11.3137 4.07067L1.70706 13.6773L0.292847 12.2631L9.89945 2.65646L3.31366 2.65646C2.76138 2.65646 2.31366 2.20874 2.31366 1.65646C2.31366 1.10418 2.76138 0.65646 3.31366 0.65646Z"
+                  fill="#372F46"
+                />
+              </svg>
+            </TopBottomIconSwap>
+          </CircularButton>
+
+          <h4 className="font-bold -tracking-125 py-3">{title}</h4>
+        </div>
 
         <p className="text-2xl text-neutral-subtitle font-medium leading-9">{description}</p>
       </div>
@@ -239,7 +280,7 @@ const SectionHead = ({ title, description, circle_btn_text, circuler_btn_handler
         {cards && (
           <div className="mt-10 md:mt-6 pt-12 border-t border-t-neutral-default grid grid-cols-1 md:grid-cols-2 gap-10">
             {cards.map((card, i) => (
-              <Card key={i} title={card.title} description={card.description} onClick={card?.onClick}></Card>
+              <Card key={i} img={card.img} title={card.title} description={card.description} onClick={card?.onClick}></Card>
             ))}
           </div>
         )}

@@ -156,7 +156,7 @@ const Nav = ({ set_open_cart }) => {
           // User Avatar
           <UserDropdown>
             <div
-              className={`rounded-full border-2 transition-all duration-300 block focus:outline-none overflow-hidden border-neutral-border hover:border-neutral-caption size-13.5 max-w-13.5 max-h-13.5
+              className={`rounded-full transition-all duration-300 block focus:outline-none overflow-hidden size-13.5 max-w-13.5 max-h-13.5
         `}
             >
               <img src={user?.image || "https://cdn-icons-png.flaticon.com/128/3135/3135715.png"} alt="user" className="size-full object-cover" />

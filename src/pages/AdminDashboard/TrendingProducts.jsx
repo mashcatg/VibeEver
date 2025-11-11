@@ -62,7 +62,7 @@ const TrendingProducts = () => {
       </h3>
 
       <div className="mt-5">
-        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 max-w-[51.25rem]">
+        <div className="grid gap-5 grid-cols-1 md:grid-cols-3">
           {products.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}

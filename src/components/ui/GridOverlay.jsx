@@ -8,7 +8,7 @@ const GridOverlay = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      className="absolute top-0 left-0 w-full h-[2000px] pointer-events-none"
+      className="absolute top-0 left-0 w-full h-full pointer-events-none"
     ></div>
   );
 };

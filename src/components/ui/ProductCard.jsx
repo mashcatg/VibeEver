@@ -20,7 +20,7 @@ const isProductExistOnCart = (cart, id) => {
 
 const ProductImage = ({ id, product_image, save_handler = () => {}, isInWishlist }) => {
   return (
-    <div className="max-h-product-image rounded-2xl overflow-hidden relative">
+    <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative">
       {/* decorative elements */}
       <div
         className="size-10 bg-transparent rounded-2xl absolute right-0 top-[1.5625rem] z-[1] pointer-events-none"
@@ -81,6 +81,33 @@ const Tags = ({ tags }) => {
           {index < tags.length - 1 && <span className="mr-1">,</span>}
         </span>
       ))}
+    </div>
+  );
+};
+
+const MainPrice = ({ price, className }) => {
+  return (
+    <div className={`text-main-price flex items-start gap-xxs ${className}`}>
+      <span className="mt-0.5">$</span>
+      <h5 className="text-headline leading-headline font-bold">{Number(price).toFixed(2)}</h5>
+    </div>
+  );
+};
+
+const RegularPrice = ({ price }) => {
+  return (
+    <div className="bg-neutral-default rounded-sm w-fit opacity-0 group-hover:opacity-100 absolute left-4 group-hover:left-0 top-[50%] translate-y-[-50%] pointer-events-none transition-all duration-600 ease-in-out">
+      <div className="relative px-1.5">
+        <span className="absolute -left-1.5 top-[50%] translate-y-[-50%]">
+          <svg className="w-2 h-2" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0.500001 4.86603C-0.166666 4.48113 -0.166667 3.51887 0.5 3.13397L5 0.535898C5.66667 0.150998 6.5 0.632122 6.5 1.40192L6.5 6.59807C6.5 7.36788 5.66667 7.849 5 7.4641L0.500001 4.86603Z"
+              className="fill-neutral-default"
+            />
+          </svg>
+        </span>
+        <del className="font-semibold text-neutral-caption">{Number(price)}</del>
+      </div>
     </div>
   );
 };
@@ -174,7 +201,7 @@ const ProductCard = ({ product }) => {
 
         {/* title */}
         <Link to={`/products/${id}`} className="block">
-          <h5 className="text-headline leading-headline text-black font-bold">{title}</h5>
+          <h5 className="text-headline leading-headline text-black font-bold truncate">{title}</h5>
         </Link>
 
         {/* card footer */}
@@ -182,23 +209,17 @@ const ProductCard = ({ product }) => {
           {/* price */}
           <div className="flex items-center gap-3 relative w-fit h-fit group">
             {/* main price */}
-            <div className="text-main-price flex items-start gap-xxs">
-              <span className="mt-0.5">$</span>
-              <h5 className="text-headline leading-headline font-bold">{Number(price).toFixed(2)}</h5>
-            </div>
+            <MainPrice price={price} />
 
-            {/* regular price */}
-            <div className="bg-neutral-default rounded-sm w-fit opacity-0 group-hover:opacity-100 absolute -right-[4.25rem] group-hover:-right-13 top-[50%] translate-y-[-50%] pointer-events-none transition-all duration-600 ease-in-out">
-              <div className="relative px-1.5">
-                <span className="absolute -left-1.5 top-[50%] translate-y-[-50%]">
-                  <svg className="w-2 h-2" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M0.500001 4.86603C-0.166666 4.48113 -0.166667 3.51887 0.5 3.13397L5 0.535898C5.66667 0.150998 6.5 0.632122 6.5 1.40192L6.5 6.59807C6.5 7.36788 5.66667 7.849 5 7.4641L0.500001 4.86603Z"
-                      className="fill-neutral-default"
-                    />
-                  </svg>
-                </span>
-                <del className="font-semibold text-neutral-caption">{Number(regular_price)}</del>
+            <div className="relative -top-5">
+              <div className="absolute">
+                {/* --------------------- */}
+                {/* mockup for main price - this helps maintain layout when regular price appears and avoids overflow issue */}
+                <MainPrice price={regular_price} className="opacity-0 pointer-events-none" />
+                {/* --------------------- */}
+
+                {/* regular price */}
+                <RegularPrice price={regular_price} />
               </div>
             </div>
           </div>

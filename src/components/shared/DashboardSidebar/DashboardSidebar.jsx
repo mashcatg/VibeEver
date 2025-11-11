@@ -111,7 +111,7 @@ const DashboardSidebar = ({ open_mobile_sidebar, set_open_mobile_sidebar }) => {
   return (
     <>
       {/* Desktop Sidebar - Same as before */}
-      <div id="dashboard_sidebar" className="fixed left-0 w-[19.44%] flex-col justify-between min-h-screen hidden md:flex">
+      <div id="dashboard_sidebar" className="fixed left-0 w-[16%] flex-col justify-between min-h-screen hidden md:flex">
         <div>
           <Link to="/" className="block p-6">
             <img src={logo} alt="Vibe Ever Logo" className="max-w-38.5 w-full" />

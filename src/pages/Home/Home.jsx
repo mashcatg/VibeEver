@@ -71,6 +71,7 @@ const Home = () => {
         ]}
         cards={[
           {
+            img: productImage,
             title: "GRAPHICS ASSETS",
             description:
               "Sample 2-3 lines of description for the Template will go here in this short paragraph to make it concise.",
@@ -80,6 +81,7 @@ const Home = () => {
             }
           },
           {
+            img: productImage,
             title: "UI Templates",
             description:
               "Sample 2-3 lines of description for the Template will go here in this short paragraph to make it concise.",

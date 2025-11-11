@@ -62,6 +62,10 @@ const Contact = () => {
             LET'S <br /> TALK
           </>
         }
+        submit_handler={(e) => {
+          e.preventDefault();
+          console.log("Form data", e.target.subscribe_email.value);
+        }}
         circle_btn_text="View All"
         stats={[
           {

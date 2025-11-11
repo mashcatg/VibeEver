@@ -172,7 +172,7 @@ const AdminMessages = () => {
                       </td>
                       <td className="px-4 py-3">
                         <a
-                          href="https://mail.google.com/mail/u/0/#inbox"
+                          href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(msg.email)}&su=${encodeURIComponent(`Re: Your message from ${msg.name}`)}&body=${encodeURIComponent(`Hi ${msg.name},\n\nThank you for contacting us.\n\nRegarding your message:\n"${msg.message}"\n\n`)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-xs"
