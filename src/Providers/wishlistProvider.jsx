@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAxios from "../Hooks/useAxios";
+import { useCart } from "./cartProvider";
 
 const WishlistContext = createContext();
 
@@ -8,7 +9,10 @@ export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(true);
   const axios = useAxios();
-  const token = JSON.parse(localStorage.getItem("auth"))?.token;
+  // const token = JSON.parse(localStorage.getItem("auth"))?.token;
+
+  const { getToken } = useCart();
+  const token = getToken();
 
   useEffect(() => {
     if (token) {

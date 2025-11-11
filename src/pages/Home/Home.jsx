@@ -114,29 +114,30 @@ const Home = () => {
       <FAQs
         faqs={[
           {
-            question: "Here is a demo question to ask by us?",
+            question: "What is Vibeever?",
             answer:
-              "Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question.",
+              "Vibeever is a digital products platform by Anisur Rahman, offering high-quality design, web, and creative resources. You can browse and purchase professional digital assets from templates and mockups to UI kits, code snippets, and design tools.",
           },
           {
-            question: "Here is a demo question to ask by us?",
+            question: "What kind of products are available?",
             answer:
-              "Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question.",
+              "Vibeever offers a wide range of digital items like design templates, mockups, UI kits, icons, fonts, developer assets, social media kits, and other creative tools.",
+          },
+          
+          {
+            question: "Who can use Vibeever?",
+            answer:
+              "Anyone looking for ready-to-use creative resources like designers, developers, marketers, freelancers, or agencies who want to save time and elevate their projects.",
           },
           {
-            question: "Here is a demo question to ask by us?",
+            question: "What happens if I lose my downloaded file?",
             answer:
-              "Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question.",
+              "No problem. You can re-download your purchased items anytime from your account's Dashboard.",
           },
           {
-            question: "Here is a demo question to ask by us?",
+            question: "How can I contact support?",
             answer:
-              "Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question.",
-          },
-          {
-            question: "Here is a demo question to ask by us?",
-            answer:
-              "Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question. Here is the answer of the demo question.",
+              "You can reach out at support@vibeever.com or through the Help section on the site. We usually reply within 24 hours.",
           },
         ]}
       ></FAQs>

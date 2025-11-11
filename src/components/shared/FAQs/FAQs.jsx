@@ -73,7 +73,7 @@ const FAQs = ({ faqs }) => {
           </div>
 
           {/* quote */}
-          <p className="my-5 text-xl leading-body md:max-w-80">“Something that represent to visit your profile to discuss about you.”</p>
+          <p className="my-5 text-xl leading-body md:max-w-80">“Creativity isn’t about having endless tools, it’s about having the right ones that make ideas flow naturally.”</p>
 
           {/* linkedIn */}
           <ExpandedIconButton
@@ -92,7 +92,7 @@ const FAQs = ({ faqs }) => {
             buttonHoverBgColor="black"
             buttonTextColor="white"
             buttonTextHoverColor="white"
-            // onClick={() => window.open("https://www.linkedin.com/in/anisurrahman/", "_blank")}
+            onClick={() => window.open("https://www.linkedin.com/in/anisurrahman/", "_blank")}
           ></ExpandedIconButton>
         </div>
 

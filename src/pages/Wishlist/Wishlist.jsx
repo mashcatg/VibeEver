@@ -2,9 +2,12 @@ import { BsTrash2 } from "react-icons/bs";
 import { useWishlist } from "../../Providers/wishlistProvider";
 import FeaturedProducts from "../../components/shared/FeaturedProducts/FeaturedProducts";
 import ProductCard from "../../components/ui/ProductCard";
+import { useCart } from "../../Providers/cartProvider";
 
 const Wishlist = () => {
   const { wishlist, loading, toggleWishlist } = useWishlist();
+
+  
 
   const formattedProducts = wishlist.map((product) => ({
     id: product._id,
